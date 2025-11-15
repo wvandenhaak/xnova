@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $MoonName, $Chance ) {
 	global $lang;
 
@@ -101,13 +103,13 @@ function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $Moon
 			$QryInsertMoonInPlanet .= "`temp_max` = '". $mintemp ."', ";
 			$QryInsertMoonInPlanet .= "`metal` = '0', ";
 			$QryInsertMoonInPlanet .= "`metal_perhour` = '0', ";
-			$QryInsertMoonInPlanet .= "`metal_max` = '".BASE_STORAGE_SIZE."', ";
+			$QryInsertMoonInPlanet .= "`metal_max` = '". Constants::BASE_STORAGE_SIZE."', ";
 			$QryInsertMoonInPlanet .= "`crystal` = '0', ";
 			$QryInsertMoonInPlanet .= "`crystal_perhour` = '0', ";
-			$QryInsertMoonInPlanet .= "`crystal_max` = '".BASE_STORAGE_SIZE."', ";
+			$QryInsertMoonInPlanet .= "`crystal_max` = '". Constants::BASE_STORAGE_SIZE."', ";
 			$QryInsertMoonInPlanet .= "`deuterium` = '0', ";
 			$QryInsertMoonInPlanet .= "`deuterium_perhour` = '0', ";
-			$QryInsertMoonInPlanet .= "`deuterium_max` = '".BASE_STORAGE_SIZE."';";
+			$QryInsertMoonInPlanet .= "`deuterium_max` = '". Constants::BASE_STORAGE_SIZE."';";
 			doquery( $QryInsertMoonInPlanet , 'planets');
 		}
 	}

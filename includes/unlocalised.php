@@ -29,6 +29,7 @@
  */
 
 use Minifier\TinyMinify;
+use Xmke\Xnova\Common\Constants;
 use Xmke\Xnova\Common\Language;
 
 function MergeUserTechnology($user){
@@ -237,7 +238,7 @@ function parsetemplate($template, $array){
 
 function getTemplate($templateName) {
 
-    $filename = TEMPLATE_DIR . '/' . TEMPLATE_NAME . "/{$templateName}.tpl";
+    $filename = TEMPLATE_DIR . '/' . Constants::TEMPLATE_NAME . "/{$templateName}.tpl";
     $cacheFile = ROOT_PATH . 'cache/' . $templateName . '.tpl.cache';
 
     $fileContent = "";

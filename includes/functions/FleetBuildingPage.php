@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function FleetBuildingPage(&$currentPlanet, &$currentUser)
@@ -108,8 +110,8 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
 
             $maxElements = $shipyard->getMaximumBuildableElementsCount($shipId);
 
-            if (MAX_FLEET_OR_DEFS_PER_ROW > 0 && $maxElements > MAX_FLEET_OR_DEFS_PER_ROW) {
-                $maxElements = MAX_FLEET_OR_DEFS_PER_ROW;
+            if (Constants::MAX_FLEET_OR_DEFS_PER_ROW > 0 && $maxElements > Constants::MAX_FLEET_OR_DEFS_PER_ROW) {
+                $maxElements = Constants::MAX_FLEET_OR_DEFS_PER_ROW;
             }
 
             if ($CanBuildOne) {

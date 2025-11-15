@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('DISABLE_IDENTITY_CHECK', true);
@@ -90,7 +92,7 @@ mot de passe : $randomPass
 A bientôt sur XNova:Legacies
 EOF;
 
-        $version = VERSION;
+        $version = Constants::VERSION;
         $headers =<<<EOF
 From: {$mailData['sender']}
 X-Sender: Legacies/{$version}

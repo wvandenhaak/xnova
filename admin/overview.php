@@ -28,12 +28,14 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false); 
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 		includeLang('admin/interface');
 
 		if (isset($_GET['cmd']) && $_GET['cmd'] == 'sort') {
@@ -48,7 +50,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse                      = $lang;
 		//@Todo fix ce truc là, je sais même pas d'où ça vient
 		$parse['mf']                = "Hauptframe";
-		$parse['adm_ov_data_yourv'] = VERSION;
+		$parse['adm_ov_data_yourv'] = Constants::VERSION;
 
 		$Last15Mins = doquery("SELECT `id`, `user_lastip`, `username`, `galaxy`, `system`, `planet`, `user_agent`, `current_page`, `ally_name`,`email`, `xpraid`, `xpminier`, `urlaubs_modus`, `bana`, `onlinetime` FROM {{table}} WHERE `onlinetime` >= '". (time() - 15 * 60) ."' ORDER BY `". $TypeSort ."` ASC;", 'users');
 		

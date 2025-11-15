@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
@@ -38,7 +40,7 @@ includeLang('admin/interface');
 function XNovaResetUnivers ( $CurrentUser ) {
 	global $lang;
 
-	if (in_array($CurrentUser['authlevel'], array(LEVEL_ADMIN))) {
+	if (in_array($CurrentUser['authlevel'], array(Constants::LEVEL_ADMIN))) {
 
 		// Copier la table users et planets vers des tables de replis !
 		doquery( "RENAME TABLE {{table}} TO {{table}}_s", 'planets');

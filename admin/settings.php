@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
@@ -39,7 +41,7 @@ function DisplayGameSettingsPage ( $CurrentUser ) {
 
 	includeLang('admin/settings');
 
-	if (in_array((int) $CurrentUser['authlevel'], array(LEVEL_ADMIN))) {
+	if (in_array((int) $CurrentUser['authlevel'], array(Constants::LEVEL_ADMIN))) {
 		if ($_POST['opt_save'] == "1") {
 			// Jeu Ouvert ou Ferm� !
 			if (isset($_POST['closed']) && $_POST['closed'] == 'on') {

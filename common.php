@@ -31,6 +31,7 @@
 require realpath(dirname(__FILE__)) . '/vendor/autoload.php';
 
 use Mustache_Engine;
+use Xmke\Xnova\Common\Constants;
 use Xmke\Xnova\Common\Language;
 
 function getmicrotime(){
@@ -52,8 +53,6 @@ define('ROOT_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
 $MustacheEngine = new Mustache_Engine();
 
-define('VERSION', '2021a');
-
 if (0 === filesize(ROOT_PATH . 'config.php')) {
     header('Location: install/');
     die();
@@ -64,11 +63,9 @@ $user          = array();
 $lang          = array();
 $IsUserChecked = false;
 
-define('DEFAULT_SKINPATH', 'skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
-define('TEMPLATE_NAME', 'OpenGame');
+define('GAMEURL', "http://".$_SERVER['HTTP_HOST']."/");
 
-include(ROOT_PATH . 'includes/constants.php');
 include(ROOT_PATH . 'includes/functions.php');
 include(ROOT_PATH . 'includes/unlocalised.php');
 include(ROOT_PATH . 'includes/todofleetcontrol.php');
@@ -86,7 +83,7 @@ if (!defined('DISABLE_IDENTITY_CHECK')) {
     $Result        = CheckTheUser ( $IsUserChecked );
     $IsUserChecked = $Result['state'];
     $user          = $Result['record'];
-} else if (!defined('DISABLE_IDENTITY_CHECK') && $game_config['game_disable'] && $user['authlevel'] == LEVEL_PLAYER) {
+} else if (!defined('DISABLE_IDENTITY_CHECK') && $game_config['game_disable'] && $user['authlevel'] == Constants::LEVEL_PLAYER) {
     message(stripslashes($game_config['close_reason']), $game_config['game_name']);
 }
 

@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function PlanetSizeRandomiser ($Position, $HomeWorld = false) {
 	global $game_config;
 
@@ -71,15 +73,15 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 	if (!$PlanetExist) {
 		$planet                      = PlanetSizeRandomiser ($Position, $HomeWorld);
 		$planet['diameter']          = ($planet['field_max'] ^ (14 / 1.5)) * 75 ;
-		$planet['metal']             = BUILD_METAL;
-		$planet['crystal']           = BUILD_CRISTAL;
-		$planet['deuterium']         = BUILD_DEUTERIUM;
+		$planet['metal']             = Constants::BUILD_METAL;
+		$planet['crystal']           = Constants::BUILD_CRISTAL;
+		$planet['deuterium']         = Constants::BUILD_DEUTERIUM;
 		$planet['metal_perhour']     = $game_config['metal_basic_income'];
 		$planet['crystal_perhour']   = $game_config['crystal_basic_income'];
 		$planet['deuterium_perhour'] = $game_config['deuterium_basic_income'];
-		$planet['metal_max']         = BASE_STORAGE_SIZE;
-		$planet['crystal_max']       = BASE_STORAGE_SIZE;
-		$planet['deuterium_max']     = BASE_STORAGE_SIZE;
+		$planet['metal_max']         = Constants::BASE_STORAGE_SIZE;
+		$planet['crystal_max']       = Constants::BASE_STORAGE_SIZE;
+		$planet['deuterium_max']     = Constants::BASE_STORAGE_SIZE;
 
 		// Posistion  1 -  3: 80% entre  40 et  70 Cases (  55+ / -15 )
 		// Posistion  4 -  6: 80% entre 120 et 310 Cases ( 215+ / -95 )

@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
@@ -35,14 +37,14 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 includeLang('leftmenu');
 
-	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 		$parse                 = $lang;
 		$parse['mf']           = "Hauptframe";
-		$parse['XNovaRelease'] = VERSION;
+		$parse['XNovaRelease'] = Constants::VERSION;
 		$parse['servername']   = $game_config['game_name'];
 
 		//Special admin tools
-		$parse['isAdminLevel'] = $user['authlevel'] == LEVEL_ADMIN;
+		$parse['isAdminLevel'] = $user['authlevel'] == Constants::LEVEL_ADMIN;
 
 		$Page                  = $MustacheEngine->render(gettemplate('admin/left_menu'), $parse);
 		display( $Page, "", false, true);

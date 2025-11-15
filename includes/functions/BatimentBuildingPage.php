@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 	global $lang, $resource, $reslist, $game_config, $_GET, $MustacheEngine;
 
@@ -102,7 +104,7 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 	// On enregistre ce que l'on a eventuellement modifi� dans users
 	BuildingSaveUserRecord ( $CurrentUser );
 
-	if ($Queue['lenght'] < MAX_BUILDING_QUEUE_SIZE) {
+	if ($Queue['lenght'] < Constants::MAX_BUILDING_QUEUE_SIZE) {
 		$CanBuildElement = true;
 	} else {
 		$CanBuildElement = false;

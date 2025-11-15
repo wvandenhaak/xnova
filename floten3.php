@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
@@ -329,15 +331,15 @@ require_once dirname(__FILE__) .'/common.php';
 	// Test de coherance de la destination (voir si elle se trouve dans les limites de l'univers connu
 	$error     = 0;
 	$errorlist = "";
-	if (!$_POST['galaxy'] || !is_numeric($_POST['galaxy']) || $_POST['galaxy'] > MAX_GALAXY_IN_WORLD || $_POST['galaxy'] < 1) {
+	if (!$_POST['galaxy'] || !is_numeric($_POST['galaxy']) || $_POST['galaxy'] > Constants::MAX_GALAXY_IN_WORLD || $_POST['galaxy'] < 1) {
 		$error++;
 		$errorlist .= $lang['fl_limit_galaxy'];
 	}
-	if (!$_POST['system'] || !is_numeric($_POST['system']) || $_POST['system'] > MAX_SYSTEM_IN_GALAXY || $_POST['system'] < 1) {
+	if (!$_POST['system'] || !is_numeric($_POST['system']) || $_POST['system'] > Constants::MAX_SYSTEM_IN_GALAXY || $_POST['system'] < 1) {
 		$error++;
 		$errorlist .= $lang['fl_limit_system'];
 	}
-	if (!$_POST['planet'] || !is_numeric($_POST['planet']) || $_POST['planet'] > MAX_PLANET_IN_SYSTEM+1 || $_POST['planet'] < 1) {
+	if (!$_POST['planet'] || !is_numeric($_POST['planet']) || $_POST['planet'] > Constants::MAX_PLANET_IN_SYSTEM+1 || $_POST['planet'] < 1) {
 		$error++;
 		$errorlist .= $lang['fl_limit_planet'];
 	}

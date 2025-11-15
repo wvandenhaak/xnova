@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function GalaxyRowUser ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ) {
 	global $lang, $user;
 
@@ -85,11 +87,11 @@ function GalaxyRowUser ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, 
 				$Systemtatus7 = "";
 			}
 			$admin = "";
-			if ($GalaxyRowUser['authlevel'] == LEVEL_ADMIN) {
+			if ($GalaxyRowUser['authlevel'] == Constants::LEVEL_ADMIN) {
 				$admin = "<font color=\"red\"><blink>A</blink></font>";
-			} else if ($GalaxyRowUser['authlevel'] == LEVEL_OPERATOR) {
+			} else if ($GalaxyRowUser['authlevel'] == Constants::LEVEL_OPERATOR) {
 				$admin = "<font color=\"lime\"><blink>O</blink></font>";
-			} else if ($GalaxyRowUser['authlevel'] == LEVEL_MODERATOR) {
+			} else if ($GalaxyRowUser['authlevel'] == Constants::LEVEL_MODERATOR) {
 				$admin = "<font color=\"skyblue\"><blink>M</blink></font>";
 			}
 			$Systemtart = isset($User2Points['total_rank']) ? $User2Points['total_rank'] : 1;

@@ -28,12 +28,14 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-	if ($user['authlevel'] == LEVEL_ADMIN) { //Visible uniquement aux administrateurs
+	if ($user['authlevel'] == Constants::LEVEL_ADMIN) { //Visible uniquement aux administrateurs
 
 		die(phpinfo()); //Faisons simple et lisible.
 

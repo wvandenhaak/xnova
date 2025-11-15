@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
@@ -36,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 includeLang('admin/interface');
 $parse = $lang;
 
-	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
+	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN))) {
 
 		// Supprimer les erreurs
 		extract($_GET);

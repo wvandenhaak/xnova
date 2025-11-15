@@ -28,13 +28,15 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 
     includeLang('admin/adminpanel');
 
@@ -117,7 +119,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $player = isset($_GET['player']) ? mysqli_real_escape_string (Database::$dbHandle, $_GET['player']) : '';
                 $level  = isset($_GET['authlvl']) ? mysqli_real_escape_string (Database::$dbHandle, $_GET['authlvl']) : '';
 
-                if ($level >= $user['authlevel'] && $user['authlevel'] != LEVEL_ADMIN) {
+                if ($level >= $user['authlevel'] && $user['authlevel'] != Constants::LEVEL_ADMIN) {
                     AdminMessage('Not enough privilleges to promote user.', $lang['adm_mod_level']);
                     break;
                 }

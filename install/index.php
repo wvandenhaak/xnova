@@ -40,15 +40,13 @@ define('NO_TEMPLATE_CACHE', true);
 
 define('ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 
-define('DEFAULT_SKINPATH', '../skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
-define('TEMPLATE_NAME', 'OpenGame');
+define('GAMEURL', "http://".$_SERVER['HTTP_HOST']."/");
 
 $MustacheEngine = new Mustache_Engine();
 
 include(ROOT_PATH . 'includes/debug.class.php');
 
-include(ROOT_PATH . 'includes/constants.php');
 include(ROOT_PATH . 'includes/functions.php');
 include(ROOT_PATH . 'includes/unlocalised.php');
 include(ROOT_PATH . 'includes/todofleetcontrol.php');

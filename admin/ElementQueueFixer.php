@@ -28,12 +28,14 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 		includeLang('admin/interface');
 
 		$QrySelectPlanet  = "SELECT `id`, `id_owner`, `b_hangar`, `b_hangar_id` ";
@@ -48,7 +50,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			if (count($HangarQueue)) {
 				for ( $Queue = 0; $Queue < count($HangarQueue); $Queue++) {
 					$InQueue = explode (",", $HangarQueue[$Queue]);
-					if ($InQueue[1] > MAX_FLEET_OR_DEFS_PER_ROW) {
+					if ($InQueue[1] > Constants::MAX_FLEET_OR_DEFS_PER_ROW) {
 						$bDelQueue = true;
 					}
 				}

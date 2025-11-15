@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function AddBuildingToQueue ( &$CurrentPlanet, $CurrentUser, $Element, $AddMode = true) {
 	global $lang, $resource;
 
@@ -45,7 +47,7 @@ function AddBuildingToQueue ( &$CurrentPlanet, $CurrentUser, $Element, $AddMode 
 		$BuildMode = 'destroy';
 	}
 	
-	if ( $ActualCount < MAX_BUILDING_QUEUE_SIZE ) {
+	if ( $ActualCount < Constants::MAX_BUILDING_QUEUE_SIZE ) {
 		$QueueID      = $ActualCount + 1;
 	} else {
 		$QueueID      = false;

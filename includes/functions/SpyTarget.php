@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function SpyTarget ( $TargetPlanet, $Mode, $TitleString ) {
 	global $lang, $resource;
 
@@ -67,7 +69,7 @@ function SpyTarget ( $TargetPlanet, $Mode, $TitleString ) {
 	}
 
 	if ($LookAtLoop == true) {
-		$String  = "<table width=\"440\" cellspacing=\"1\"><tr><td class=\"c\" colspan=\"". ((2 * SPY_REPORT_ROW) + (SPY_REPORT_ROW - 1))."\">". $TitleString ."</td></tr>";
+		$String  = "<table width=\"440\" cellspacing=\"1\"><tr><td class=\"c\" colspan=\"". ((2 * Constants::SPY_REPORT_ROW) + (Constants::SPY_REPORT_ROW - 1))."\">". $TitleString ."</td></tr>";
 		$Count       = 0;
 		$CurrentLook = 0;
 		while ($CurrentLook < $Loops) {
@@ -78,12 +80,12 @@ function SpyTarget ( $TargetPlanet, $Mode, $TitleString ) {
 						$String  .= "<tr>";
 					}
 					$String  .= "<td align=left>".$lang['tech'][$Item]."</td><td align=right>".$TargetPlanet[$resource[$Item]]."</td>";
-					if ($row < SPY_REPORT_ROW - 1) {
+					if ($row < Constants::SPY_REPORT_ROW - 1) {
 						$String  .= "<td>&nbsp;</td>";
 					}
 					$Count   += $TargetPlanet[$resource[$Item]];
 					$row++;
-					if ($row == SPY_REPORT_ROW) {
+					if ($row == Constants::SPY_REPORT_ROW) {
 						$String  .= "</tr>";
 						$row      = 0;
 					}
@@ -93,7 +95,7 @@ function SpyTarget ( $TargetPlanet, $Mode, $TitleString ) {
 			while ($row != 0) {
 				$String  .= "<td>&nbsp;</td><td>&nbsp;</td>";
 				$row++;
-				if ($row == SPY_REPORT_ROW) {
+				if ($row == Constants::SPY_REPORT_ROW) {
 					$String  .= "</tr>";
 					$row      = 0;
 				}

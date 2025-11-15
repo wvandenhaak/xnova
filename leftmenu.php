@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('QRYLESS', true);
@@ -43,9 +45,9 @@ function ShowLeftMenu ( $Level , $Template = 'left_menu') {
 	$parse['lm_tx_serv']      = $game_config['resource_multiplier'];
 	$parse['lm_tx_game']      = $game_config['game_speed'] / 2500;
 	$parse['lm_tx_fleet']     = $game_config['fleet_speed'] / 2500;
-	$parse['lm_tx_queue']     = MAX_FLEET_OR_DEFS_PER_ROW;
+	$parse['lm_tx_queue']     = Constants::MAX_FLEET_OR_DEFS_PER_ROW;
 
-	$parse['XNovaRelease']    = VERSION;
+	$parse['XNovaRelease']    = Constants::VERSION;
 	$parse['forum_url']       = $game_config['forum_url'];
 	$parse['mf']              = "Hauptframe";
 	$parse['userIsAdmin'] = $Level > 0;

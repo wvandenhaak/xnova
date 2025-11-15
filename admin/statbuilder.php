@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE'  , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
@@ -37,7 +39,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 include(ROOT_PATH . 'admin/statfunctions.php');
 //Record à battre : Page générée en 7813.151 secondes avec 293525 requêtes.
 
-if (strtolower(substr(PHP_SAPI, 0, 3)) == 'cli' || in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+if (strtolower(substr(PHP_SAPI, 0, 3)) == 'cli' || in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 	includeLang('admin/interface');
 
 	$StatDate   = time();

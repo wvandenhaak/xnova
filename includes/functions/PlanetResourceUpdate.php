@@ -28,20 +28,22 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simul = false ) {
     global $ProdGrid, $resource, $reslist, $game_config;
 
     // Mise a jour de l'espace de stockage
-    $CurrentPlanet['metal_max']     = (floor (BASE_STORAGE_SIZE * pow (1.5, $CurrentPlanet[ $resource[22] ] ))) * (1 + ($CurrentUser['rpg_stockeur'] * 0.5));
-    $CurrentPlanet['crystal_max']   = (floor (BASE_STORAGE_SIZE * pow (1.5, $CurrentPlanet[ $resource[23] ] ))) * (1 + ($CurrentUser['rpg_stockeur'] * 0.5));
-    $CurrentPlanet['deuterium_max'] = (floor (BASE_STORAGE_SIZE * pow (1.5, $CurrentPlanet[ $resource[24] ] ))) * (1 + ($CurrentUser['rpg_stockeur'] * 0.5));
+    $CurrentPlanet['metal_max']     = (floor (Constants::BASE_STORAGE_SIZE * pow (1.5, $CurrentPlanet[ $resource[22] ] ))) * (1 + ($CurrentUser['rpg_stockeur'] * 0.5));
+    $CurrentPlanet['crystal_max']   = (floor (Constants::BASE_STORAGE_SIZE * pow (1.5, $CurrentPlanet[ $resource[23] ] ))) * (1 + ($CurrentUser['rpg_stockeur'] * 0.5));
+    $CurrentPlanet['deuterium_max'] = (floor (Constants::BASE_STORAGE_SIZE * pow (1.5, $CurrentPlanet[ $resource[24] ] ))) * (1 + ($CurrentUser['rpg_stockeur'] * 0.5));
 
     // Calcul de l'espace de stockage (avec les debordements possibles)
-    $MaxMetalStorage                = $CurrentPlanet['metal_max']     * MAX_OVERFLOW;
-    $MaxCristalStorage              = $CurrentPlanet['crystal_max']   * MAX_OVERFLOW;
-    $MaxDeuteriumStorage            = $CurrentPlanet['deuterium_max'] * MAX_OVERFLOW;
+    $MaxMetalStorage                = $CurrentPlanet['metal_max']     * Constants::MAX_OVERFLOW;
+    $MaxCristalStorage              = $CurrentPlanet['crystal_max']   * Constants::MAX_OVERFLOW;
+    $MaxDeuteriumStorage            = $CurrentPlanet['deuterium_max'] * Constants::MAX_OVERFLOW;
 
     // Calcul de production lin�aire des divers types
     //$Caps is set to null to prevent NOTICE errors

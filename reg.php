@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('DISABLE_IDENTITY_CHECK', true);
@@ -53,10 +55,10 @@ function mymail($to, $title, $body, $from = '')
     $from = trim($from);
 
     if (!$from) {
-        $from = ADMINEMAIL;
+        $from = Constants::ADMINEMAIL;
     }
 
-    $rp = ADMINEMAIL;
+    $rp = Constants::ADMINEMAIL;
 
     $head = '';
     $head .= "Content-Type: text/plain \r\n";
@@ -166,8 +168,8 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $newpos_checked = false;
 
         while (!$newpos_checked) {
-            for ($Galaxy = $LastSettedGalaxyPos; $Galaxy <= MAX_GALAXY_IN_WORLD; $Galaxy++) {
-                for ($System = $LastSettedSystemPos; $System <= MAX_SYSTEM_IN_GALAXY; $System++) {
+            for ($Galaxy = $LastSettedGalaxyPos; $Galaxy <= Constants::MAX_GALAXY_IN_WORLD; $Galaxy++) {
+                for ($System = $LastSettedSystemPos; $System <= Constants::MAX_SYSTEM_IN_GALAXY; $System++) {
                     for ($Posit = $LastSettedPlanetPos; $Posit <= 4; $Posit++) {
                         $Planet = round (rand (4, 12));
 
@@ -179,7 +181,7 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
                                 $LastSettedPlanetPos += 1;
                                 break;
                             case 3:
-                                if ($LastSettedSystemPos == MAX_SYSTEM_IN_GALAXY) {
+                                if ($LastSettedSystemPos == Constants::MAX_SYSTEM_IN_GALAXY) {
                                     $LastSettedGalaxyPos += 1;
                                     $LastSettedSystemPos = 1;
                                     $LastSettedPlanetPos = 1;

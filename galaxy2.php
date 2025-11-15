@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('NO_TEMPLATE_CACHE', true);
@@ -40,36 +42,36 @@ $Position_Galaxy = isset($_GET["g"]) ? intval($_GET["g"]) : $planetrow['galaxy']
 $Position_System = isset($_GET["s"]) ? intval($_GET["s"]) : $planetrow['system'];
 
 if (isset($_POST["galaxyLeft"])) {
-    if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 1 || $_POST["galaxy"] > MAX_GALAXY_IN_WORLD) {
+    if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 1 || $_POST["galaxy"] > Constants::MAX_GALAXY_IN_WORLD) {
         $Position_Galaxy = 1;
     } else {
         $Position_Galaxy = intval($_POST["galaxy"]) - 1;
     }
 } elseif (isset($_POST["galaxyRight"])) {
-    if (!isset($_POST["galaxy"]) || $_POST["galaxy"] >= MAX_GALAXY_IN_WORLD) {
-        $Position_Galaxy = MAX_GALAXY_IN_WORLD;
+    if (!isset($_POST["galaxy"]) || $_POST["galaxy"] >= Constants::MAX_GALAXY_IN_WORLD) {
+        $Position_Galaxy = Constants::MAX_GALAXY_IN_WORLD;
     } else {
         $Position_Galaxy = intval($_POST["galaxy"]) + 1;
     }
-} else if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 1 || $_POST["galaxy"] > MAX_GALAXY_IN_WORLD) {
+} else if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 1 || $_POST["galaxy"] > Constants::MAX_GALAXY_IN_WORLD) {
     $Position_Galaxy = 1;
 } else {
     $Position_Galaxy = intval($_POST["galaxy"]);
 }
 
 if (isset($_POST["systemLeft"])) {
-    if (!isset($_POST["system"]) || $_POST["system"] <= 1 || $_POST["system"] > MAX_SYSTEM_IN_GALAXY) {
+    if (!isset($_POST["system"]) || $_POST["system"] <= 1 || $_POST["system"] > Constants::MAX_SYSTEM_IN_GALAXY) {
         $Position_System = 1;
     } else {
         $Position_System = intval($_POST["system"]) - 1;
     }
 } elseif (isset($_POST["systemRight"])) {
-    if (!isset($_POST["system"]) || $_POST["system"] >= MAX_SYSTEM_IN_GALAXY) {
-        $Position_System = MAX_SYSTEM_IN_GALAXY;
+    if (!isset($_POST["system"]) || $_POST["system"] >= Constants::MAX_SYSTEM_IN_GALAXY) {
+        $Position_System = Constants::MAX_SYSTEM_IN_GALAXY;
     } else {
         $Position_System = intval($_POST["system"]) + 1;
     }
-} else if (!isset($_POST["system"]) || $_POST["system"] <= 1 || $_POST["system"] > MAX_SYSTEM_IN_GALAXY) {
+} else if (!isset($_POST["system"]) || $_POST["system"] <= 1 || $_POST["system"] > Constants::MAX_SYSTEM_IN_GALAXY) {
     $Position_System = 1;
 } else {
     $Position_System = intval($_POST["system"]);
@@ -130,7 +132,7 @@ while ($results = mysqli_fetch_assoc($GalaxyViewRows)){
 }
 
 $GalaxyViewData = array();
-for($pos = 0; $pos < MAX_PLANET_IN_SYSTEM; $pos++){
+for($pos = 0; $pos < Constants::MAX_PLANET_IN_SYSTEM; $pos++){
     if(isset($GalaxyPlanetsRows[$pos+1])){
 
         $GalaxyViewData[$pos] = $GalaxyPlanetsRows[$pos+1];
@@ -158,7 +160,7 @@ for($pos = 0; $pos < MAX_PLANET_IN_SYSTEM; $pos++){
 
 
 $parse = $lang;
-$parse['ExpeditionPosition'] = MAX_PLANET_IN_SYSTEM + 1;
+$parse['ExpeditionPosition'] = Constants::MAX_PLANET_IN_SYSTEM + 1;
 
 $parse['leftG'] = $Position_Galaxy - 1;
 $parse['rightG'] = $Position_Galaxy + 1;

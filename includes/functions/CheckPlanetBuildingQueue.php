@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ) {
 	global $lang, $resource;
 
@@ -79,7 +81,7 @@ function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ) {
 				if ($Element == 41) {
 					// Base Lunaire
 					$current += 1;
-					$max     += FIELDS_BY_MOONBASIS_LEVEL;
+					$max     += Constants::FIELDS_BY_MOONBASIS_LEVEL;
 					$CurrentPlanet[$resource[$Element]]++;
 				} elseif ($Element != 0) {
 					if ($ForDestroy == false) {

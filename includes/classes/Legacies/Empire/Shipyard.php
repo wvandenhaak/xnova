@@ -28,6 +28,8 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 /**
  *
  * Enter description here ...
@@ -128,8 +130,8 @@ SQL_EOF;
 
         $qty = $this->_checkMaximumQuantity($shipId, $qty);
 
-        if (MAX_FLEET_OR_DEFS_PER_ROW > 0 && bccomp($qty, MAX_FLEET_OR_DEFS_PER_ROW) > 0) {
-            $qty = MAX_FLEET_OR_DEFS_PER_ROW;
+        if (Constants::MAX_FLEET_OR_DEFS_PER_ROW > 0 && bccomp($qty, Constants::MAX_FLEET_OR_DEFS_PER_ROW) > 0) {
+            $qty = Constants::MAX_FLEET_OR_DEFS_PER_ROW;
         }
 
         $resourcesUsed = $this->_updateResources($shipId, $qty);

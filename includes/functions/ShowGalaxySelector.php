@@ -28,17 +28,19 @@
  *
  */
 
+use Xmke\Xnova\Common\Constants;
+
 function ShowGalaxySelector ( $Galaxy, $System ) {
 	global $lang;
 
-	if ($Galaxy > MAX_GALAXY_IN_WORLD) {
-		$Galaxy = MAX_GALAXY_IN_WORLD;
+	if ($Galaxy > Constants::MAX_GALAXY_IN_WORLD) {
+		$Galaxy = Constants::MAX_GALAXY_IN_WORLD;
 	}
 	if ($Galaxy < 1) {
 		$Galaxy = 1;
 	}
-	if ($System > MAX_SYSTEM_IN_GALAXY) {
-		$System = MAX_SYSTEM_IN_GALAXY;
+	if ($System > Constants::MAX_SYSTEM_IN_GALAXY) {
+		$System = Constants::MAX_SYSTEM_IN_GALAXY;
 	}
 	if ($System < 1) {
 		$System = 1;

@@ -28,12 +28,14 @@
 *
 */
 
+use Xmke\Xnova\Common\Constants;
+
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 	if ($_POST){
 		if(isset($_GET['mode']) && $_GET['mode'] == "change") {
 			if (isset($_POST["tresc"]) && $_POST["tresc"] != '') {
@@ -42,7 +44,7 @@ if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERA
 			if (isset($_POST["temat"]) && $_POST["temat"] != '') {
 				$game_config['temat'] = $_POST['temat'];
 			}
-			if ($user['authlevel'] == LEVEL_ADMIN) {
+			if ($user['authlevel'] == Constants::LEVEL_ADMIN) {
 				$kolor = 'red';
 				$ranga = 'Administrator';
 			} elseif ($user['authlevel'] == LEVEL_OPERATOR) {
