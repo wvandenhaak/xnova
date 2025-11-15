@@ -261,20 +261,16 @@ function getTemplate($templateName) {
 
 /**
  * Gestion de la localisation des chaînes
- *
- * @param string $filename
- * @param string $extension
- * @return void
  */
-function includeLang($filename, $extension = '.mo')
+function includeLang(string $filename): void
 {
     global $lang, $user;
 
     $pathPattern = ROOT_PATH . "language/%s/{$filename}%s";
 
     if (isset($user['lang']) && !empty($user['lang'])) {
-        
-        if ($fp = @fopen($filename = sprintf($pathPattern, $user['lang'], $extension), 'r', true)) {
+
+        if ($fp = @fopen($filename = sprintf($pathPattern, $user['lang'], '.mo'), 'r', true)) {
             fclose($fp);
 
             require_once $filename;
@@ -282,7 +278,6 @@ function includeLang($filename, $extension = '.mo')
         }
     }
     require_once sprintf($pathPattern, Language::DEFAULT_LANGUAGE, '.mo');
-    return;
 }
 
 // ----------------------------------------------------------------------------------------------------------------
