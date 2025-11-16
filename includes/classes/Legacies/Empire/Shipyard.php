@@ -170,7 +170,8 @@ SQL_EOF;
             }
 
             $timeRatio = $elapsedTime / $buildTime;
-            $itemsBuilt = bcmul($timeRatio, $element['qty']);
+            $timeRatioConverted = sprintf('%.20F', $timeRatio); // no scientific notation → "0.00002834467120181406"
+            $itemsBuilt = bcmul($timeRatioConverted, $element['qty']);
 
             $element['updated_at'] = $this->_now();
             $element['qty'] = bcsub($element['qty'], $itemsBuilt);
