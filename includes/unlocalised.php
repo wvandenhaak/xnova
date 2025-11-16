@@ -156,34 +156,38 @@ function GetFleetConsumption ($FleetArray, $SpeedFactor, $MissionDuration, $Miss
 // Mise en forme de chaines pour affichage
 //
 
-// Mise en forme de la durée sous forme xj xxh xxm xxs
-function pretty_time ($seconds) {
-    $day = floor($seconds / (24 * 3600));
-    $hs = floor($seconds / 3600 % 24);
-    $ms = floor($seconds / 60 % 60);
-    $sr = floor($seconds / 1 % 60);
+// Mise en forme de la durée sous forme xd xxh xxm xxs
+function pretty_time(int $seconds): string
+{
+    $day = (int)floor($seconds / 86400);
+    $hs = (int)floor((int)($seconds / 3600) % 24);
+    $ms = (int)floor((int)($seconds / 60) % 60);
+    $sr = (int)floor($seconds % 60);
 
-    if ($hs < 10) { $hh = "0" . $hs; } else { $hh = $hs; }
-    if ($ms < 10) { $mm = "0" . $ms; } else { $mm = $ms; }
-    if ($sr < 10) { $ss = "0" . $sr; } else { $ss = $sr; }
+    $days = '';
+    if ($day > 0) {
+        $days = sprintf('%dd ', $day);
+    }
 
-    $time = '';
-    if ($day != 0) { $time .= $day . 'j '; }
-    if ($hs  != 0) { $time .= $hh . 'h ';  } else { $time .= '00h '; }
-    if ($ms  != 0) { $time .= $mm . 'm ';  } else { $time .= '00m '; }
-    $time .= $ss . 's';
-
-    return $time;
+    return sprintf(
+        '%s%sh %sm %ss',
+        $days,
+        str_pad((string)$hs, 2, '0', STR_PAD_LEFT),
+        str_pad((string)$ms, 2, '0', STR_PAD_LEFT),
+        str_pad((string)$sr, 2, '0', STR_PAD_LEFT)
+    );
 }
 
 // Mise en forme de la durée sous forme xxxmin
-function pretty_time_hour ($seconds) {
-    $min = floor($seconds / 60 % 60);
+function pretty_time_hour(int $seconds): string
+{
+    $minutes = (int)floor((int)($seconds / 60) % 60);
 
-    $time = '';
-    if ($min != 0) { $time .= $min . 'min '; }
+    if ($minutes === 0) {
+        return '';
+    }
 
-    return $time;
+    return sprintf('%smin', $minutes);
 }
 
 // Mise en forme du temps de construction (avec la phrase de description)
