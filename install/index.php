@@ -45,8 +45,6 @@ define('GAMEURL', "http://".$_SERVER['HTTP_HOST']."/");
 
 $MustacheEngine = new Mustache_Engine();
 
-include(ROOT_PATH . 'includes/debug.class.php');
-
 include(ROOT_PATH . 'includes/functions.php');
 include(ROOT_PATH . 'includes/unlocalised.php');
 include(ROOT_PATH . 'includes/todofleetcontrol.php');
