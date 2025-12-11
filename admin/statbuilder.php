@@ -115,7 +115,7 @@ die();*/
 		s.stat_type = 1
 SQL_EOF;
 
-	$GameUsers  = doquery($GameUsers, 'users'); //@todo prefix
+	$GameUsers  = doquery($GameUsers, 'users');
 	$MesurablePlanetsUnits = array_merge($reslist['build'], $reslist['defense'], $reslist['fleet']);
 
 	$PlanetQry = "SELECT id, points, ";

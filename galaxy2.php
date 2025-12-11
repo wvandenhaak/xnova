@@ -77,8 +77,6 @@ if (isset($_POST["systemLeft"])) {
     $Position_System = intval($_POST["system"]);
 }
 
-
-
 $query = <<<SQL_EOF
 SELECT 
     u.`username`,
@@ -118,11 +116,8 @@ WHERE
         AND p.`planet_type` = 1;
 
 SQL_EOF;
-$query = str_replace("{{table_prefix}}", "game_", $query); //@todo
 
 $GalaxyViewRows = doquery($query, '');
-//
-
 
 
 //List of planets in db

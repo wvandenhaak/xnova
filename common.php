@@ -137,10 +137,8 @@ if (!empty($user) && !defined('QRYLESS')) {
     $planetrowQry .= "FROM game_planets ";
     $planetrowQry .= "LEFT JOIN game_galaxy ";
     $planetrowQry .= "ON game_planets.id = game_galaxy.id_planet WHERE game_planets.id = " . $user['current_planet'];
-    $planetrow = doquery($planetrowQry, 'planets', true); //@todo prefix
+    $planetrow = doquery($planetrowQry, 'planets', true);
 
-
-    
     CheckPlanetUsedFields($planetrow);
     
 } else {

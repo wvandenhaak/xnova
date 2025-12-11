@@ -29,41 +29,41 @@
  */
 
 $QryMigrate = array(
-"ALTER TABLE `{{prefix}}fleets` ADD COLUMN `fleet_end_stay` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}fleets` ADD COLUMN `fleet_target_owner` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}fleets` ADD COLUMN `fleet_group` int (11) NOT NULL DEFAULT '0';",
+"ALTER TABLE `game_fleets` ADD COLUMN `fleet_end_stay` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_fleets` ADD COLUMN `fleet_target_owner` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_fleets` ADD COLUMN `fleet_group` int (11) NOT NULL DEFAULT '0';",
 
-"ALTER TABLE `{{prefix}}messages` MODIFY `message_from` varchar(48) character set latin1 default NULL;",
-"ALTER TABLE `{{prefix}}messages` MODIFY `message_subject` varchar(48) character set latin1 default NULL;",
+"ALTER TABLE `game_messages` MODIFY `message_from` varchar(48) character set latin1 default NULL;",
+"ALTER TABLE `game_messages` MODIFY `message_subject` varchar(48) character set latin1 default NULL;",
 
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `mnl_buildlist` INT (11) NOT NULL;",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `expedition_tech` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `mnl_expedition` INT( 11 ) NOT NULL;",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_geologue` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_amiral` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_ingenieur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_technocrate` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_espion` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_constructeur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_scientifique` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_commandant` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_stockeur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_defenseur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_destructeur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_general` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_bunker` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_raideur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_empereur` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `rpg_points` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `lvl_minier` int(11) NOT NULL default '1';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `lvl_raid` int(11) NOT NULL default '1';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `xpraid` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `xpminier` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `banaday` int(11) default NULL;",
-"ALTER TABLE `{{prefix}}users` ADD COLUMN `user_agent` text character set latin1 NOT NULL;",
-"ALTER TABLE `{{prefix}}users` MODIFY `lang` varchar(8) character set latin1 NOT NULL default 'fr';",
+"ALTER TABLE `game_users` ADD COLUMN `mnl_buildlist` INT (11) NOT NULL;",
+"ALTER TABLE `game_users` ADD COLUMN `expedition_tech` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `mnl_expedition` INT( 11 ) NOT NULL;",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_geologue` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_amiral` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_ingenieur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_technocrate` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_espion` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_constructeur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_scientifique` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_commandant` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_stockeur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_defenseur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_destructeur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_general` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_bunker` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_raideur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_empereur` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `rpg_points` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `lvl_minier` int(11) NOT NULL default '1';",
+"ALTER TABLE `game_users` ADD COLUMN `lvl_raid` int(11) NOT NULL default '1';",
+"ALTER TABLE `game_users` ADD COLUMN `xpraid` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `xpminier` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_users` ADD COLUMN `banaday` int(11) default NULL;",
+"ALTER TABLE `game_users` ADD COLUMN `user_agent` text character set latin1 NOT NULL;",
+"ALTER TABLE `game_users` MODIFY `lang` varchar(8) character set latin1 NOT NULL default 'fr';",
 
-"CREATE TABLE `{{prefix}}annonce` (
+"CREATE TABLE `game_annonce` (
 `id` int(11) NOT NULL auto_increment,
 `user` text collate latin1_general_ci NOT NULL,
 `galaxie` int(11) NOT NULL,
@@ -77,10 +77,10 @@ $QryMigrate = array(
 PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci AUTO_INCREMENT=5;",
 
-"ALTER TABLE `{{prefix}}planets` ADD COLUMN `last_jump_time` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}planets` MODIFY `b_building_id` text character set latin1 NOT NULL;",
+"ALTER TABLE `game_planets` ADD COLUMN `last_jump_time` int(11) NOT NULL default '0';",
+"ALTER TABLE `game_planets` MODIFY `b_building_id` text character set latin1 NOT NULL;",
 
-"CREATE TABLE `{{prefix}}statpoints` (
+"CREATE TABLE `game_statpoints` (
 `id_owner` int(11) NOT NULL,
 `id_ally` int(11) NOT NULL,
 `stat_type` int(2) NOT NULL,
@@ -113,7 +113,7 @@ KEY `FLEET` (`fleet_points`),
 KEY `TOTAL` (`total_points`)
 ) ENGINE=MyISAM;",
 
-"INSERT INTO `{{prefix}}config` (`config_name`, `config_value`) VALUES
+"INSERT INTO `game_config` (`config_name`, `config_value`) VALUES
 ('Fleet_Cdr', '30'),
 ('Defs_Cdr', '30'),
 ('game_disable', '0'),
@@ -132,10 +132,10 @@ KEY `TOTAL` (`total_points`)
 ('ExtCopyOwner', ''),
 ('ExtCopyFunct', ''),
 ('ForumBannerFrame', '0');",
-"UPDATE `{{prefix}}config` SET `config_value`='XNova' WHERE `config_name`='COOKIE_NAME';",
-"UPDATE `{{prefix}}config` SET `config_value`='XNova' WHERE `config_name`='game_name';",
+"UPDATE `game_config` SET `config_value`='XNova' WHERE `config_name`='COOKIE_NAME';",
+"UPDATE `game_config` SET `config_value`='XNova' WHERE `config_name`='game_name';",
 
-"CREATE TABLE `{{prefix}}multi` (
+"CREATE TABLE `game_multi` (
 `id` int(11) NOT NULL auto_increment,
 `player` bigint(11) unsigned NOT NULL default '0',
 `sharer` bigint(11) unsigned NOT NULL default '0',

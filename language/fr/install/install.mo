@@ -68,7 +68,6 @@ $lang['ins_tx_done4']     = "Le transfère a été correctement effectué!";
 
 $lang['ins_form_server']  = "Serveur SQL";
 $lang['ins_form_db']      = "Base de donnée";
-$lang['ins_form_prefix']  = "Préfix des tables";
 $lang['ins_form_login']   = "Identifiant";
 $lang['ins_form_pass']    = "Mot-de-passe";
 $lang['ins_form_install'] = "Installer";

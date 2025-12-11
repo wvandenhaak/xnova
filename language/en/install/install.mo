@@ -68,7 +68,6 @@ $lang['ins_tx_done4']     = "The transfer was successfully completed!";
 
 $lang['ins_form_server']  = "SQL Server";
 $lang['ins_form_db']      = "Database";
-$lang['ins_form_prefix']  = "Table prefix";
 $lang['ins_form_login']   = "Username/Identifier";
 $lang['ins_form_pass']    = "Password";
 $lang['ins_form_install'] = "Install";

@@ -85,7 +85,6 @@ switch ($mode) {
             $host   = $_POST['host'];
             $user   = $_POST['user'];
             $pass   = $_POST['passwort'];
-            $prefix = $_POST['prefix'];
             $db     = $_POST['db'];
             
             $connection = mysqli_connect($host, $user, $pass);
@@ -116,11 +115,10 @@ switch ($mode) {
                 'username' => '{$user}',
                 'password' => '{$pass}',
                 'database' => '{$db}'
-                ),
-            'table_prefix' => '{$prefix}',
             )
         )
-    );
+    )
+);
 EOF;
             fwrite($dz, $fileData);
             fclose($dz);
@@ -191,7 +189,6 @@ EOF;
             $db_user   = $config['global']['database']['options']['username'];
             $db_pass   = $config['global']['database']['options']['password'];
             $db_db     = $config['global']['database']['options']['database'];
-            $db_prefix = $config['global']['database']['table_prefix'];
 
             $connection = @mysqli_connect($db_host, $db_user, $db_pass);
                 if (!$connection) {
@@ -283,7 +280,6 @@ EOF;
             $host   = $_POST['host'];
             $user   = $_POST['user'];
             $pass   = $_POST['passwort'];
-            $prefix = $_POST['prefix'];
             $db     = $_POST['db'];
 
             $dblink = mysqli_connect($host, $user, $pass);
@@ -313,17 +309,16 @@ EOF;
                 'username' => '{$user}',
                 'password' => '{$pass}',
                 'database' => '{$db}'
-                ),
-            'table_prefix' => '{$prefix}',
             )
         )
-    );
+    )
+);
 EOF;
             fwrite($dz, $fileData);
             fclose($dz);
 
             foreach ($QryMigrate as $query) {
-                doquery($query, $prefix);
+                doquery($query, '');
             }
 
             $subTpl = gettemplate('install/ins_goto_done');

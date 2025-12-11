@@ -154,21 +154,17 @@ require_once dirname(__FILE__) .'/common.php';
 
 		$query = <<<SQL_EOF
 		SELECT 
-		s.*,
-		u.username,
-		u.id,
-		u.ally_name
-	FROM
-		{{TablePrefix}}statpoints s
-	LEFT JOIN
-	{{TablePrefix}}users u
-	ON s.id_owner = u.id
-	WHERE
-		`stat_type` = '1' AND `stat_code` = '1' 
-	ORDER BY `total_points` DESC
-	LIMIT 0 , 100;
+            s.*,
+            u.username,
+            u.id,
+            u.ally_name
+        FROM game_statpoints s
+        LEFT JOIN game_users u
+            ON s.id_owner = u.id
+        WHERE `stat_type` = '1' AND `stat_code` = '1' 
+        ORDER BY `total_points` DESC
+        LIMIT 0 , 100;
 SQL_EOF;
-		$query = str_replace("{{TablePrefix}}", "game_", $query); //@todo
 		$query = doquery($query, 'statpoints');
 
 		$start++;

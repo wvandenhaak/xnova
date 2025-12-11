@@ -68,7 +68,6 @@ $lang['ins_tx_done4']     = "Il trasferimento � stato fatto correttamente! "
 
 $lang['ins_form_server']  = "Server SQL";
 $lang['ins_form_db']      = "Database";
-$lang['ins_form_prefix']  = "Tabelle prefisso";
 $lang['ins_form_login']   = "Login";
 $lang['ins_form_pass']    = "Password";
 $lang['ins_form_install'] = "Installa";

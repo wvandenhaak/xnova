@@ -13,10 +13,6 @@
     <td><input type="text" name="db" value="" size="20"></td>
   </tr>
   <tr>
-    <td>{{ins_form_prefix}}:</td>
-    <td><input type="text" name="prefix" value="game_" size="20"></td>
-  </tr>
-  <tr>
     <td>{{ins_form_login}}:</td>
     <td><input type="text" name="user" value="" size="20"></td>
   </tr>

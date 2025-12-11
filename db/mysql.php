@@ -52,7 +52,7 @@ function doquery($query, $table, $fetch = false)
         mysqli_select_db(Database::$dbHandle, $config['global']['database']['options']['database'])
             or trigger_error(mysqli_error(Database::$dbHandle)."$query<br />" . PHP_EOL, E_USER_WARNING);
     }
-    $sql = str_replace("{{table}}", "{$config['global']['database']['table_prefix']}{$table}", $query);
+    $sql = str_replace("{{table}}", "game_{$table}", $query);
 
     $SqlQueries++;
     $dbt=debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
