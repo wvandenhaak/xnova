@@ -38,7 +38,7 @@ function ShowGalaxyRows ($Galaxy, $System) {
 		unset($GalaxyRowPlayer);
 		unset($GalaxyRowAlly);
 
-		$GalaxyRow = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."';", 'galaxy', true);
+		$GalaxyRow = doquery("SELECT * FROM game_galaxy WHERE `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."';", null, true);
 
 		$Result .= "\n";
 		$Result .= "<tr>"; // Depart de ligne
@@ -48,7 +48,7 @@ function ShowGalaxyRows ($Galaxy, $System) {
 		if ($GalaxyRow) {
 			// Il existe des choses sur cette ligne de planete
 			if ($GalaxyRow["id_planet"] != 0) {
-				$GalaxyRowPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $GalaxyRow["id_planet"] ."';", 'planets', true);
+				$GalaxyRowPlanet = doquery("SELECT * FROM game_planets WHERE `id` = '". $GalaxyRow["id_planet"] ."';", null, true);
 
 				if ($GalaxyRowPlanet['destruyed'] != 0 AND
 					$GalaxyRowPlanet['id_owner'] != '' AND
@@ -56,18 +56,18 @@ function ShowGalaxyRows ($Galaxy, $System) {
 					CheckAbandonPlanetState ($GalaxyRowPlanet);
 				} else {
 					$planetcount++;
-					$GalaxyRowPlayer = doquery("SELECT * FROM {{table}} WHERE `id` = '". $GalaxyRowPlanet["id_owner"] ."';", 'users', true);
+					$GalaxyRowPlayer = doquery("SELECT * FROM game_users WHERE `id` = '". $GalaxyRowPlanet["id_owner"] ."';", null, true);
 				}
 
 				if ($GalaxyRow["id_luna"] != 0) {
-					$GalaxyRowMoon   = doquery("SELECT * FROM {{table}} WHERE `id` = '". $GalaxyRow["id_luna"] ."';", 'lunas', true);
+					$GalaxyRowMoon   = doquery("SELECT * FROM game_lunas WHERE `id` = '". $GalaxyRow["id_luna"] ."';", null, true);
 					if (isset($GalaxyRowMoon) && isset($GalaxyRowMoon['destruyed']) && $GalaxyRowMoon["destruyed"] != 0) {
 						CheckAbandonMoonState ($GalaxyRowMoon);
 					}
 				}
-				$GalaxyRowPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $GalaxyRow["id_planet"] ."';", 'planets', true);
+				$GalaxyRowPlanet = doquery("SELECT * FROM game_planets WHERE `id` = '". $GalaxyRow["id_planet"] ."';", null, true);
 				if ($GalaxyRowPlanet['id_owner'] <> 0) {
-					$GalaxyRowUser     = doquery("SELECT * FROM {{table}} WHERE `id` = '". $GalaxyRowPlanet['id_owner'] ."';", 'users', true);
+					$GalaxyRowUser     = doquery("SELECT * FROM game_users WHERE `id` = '". $GalaxyRowPlanet['id_owner'] ."';", null, true);
 				} else {
 					$GalaxyRowUser     = array();
 				}

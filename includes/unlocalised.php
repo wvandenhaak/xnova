@@ -33,7 +33,7 @@ use Xmke\Xnova\Common\Constants;
 use Xmke\Xnova\Common\Language;
 
 function MergeUserTechnology($user){
-    $userTechnologies = doquery("SELECT * FROM {{table}} WHERE `uid` = ".$user['id']." LIMIT 1;", "users_tech", true);
+    $userTechnologies = doquery("SELECT * FROM game_users_tech WHERE `uid` = ".$user['id']." LIMIT 1;", null, true);
     if(isset($userTechnologies)){
         $user+= $userTechnologies;
     }
@@ -311,7 +311,7 @@ function BuildPlanetAdressLink ( $CurrentPlanet ) {
 function BuildHostileFleetPlayerLink ( $FleetRow ) {
     global $lang;
 
-    $PlayerName = doquery ("SELECT `username` FROM {{table}} WHERE `id` = '". $FleetRow['fleet_owner']."';", 'users', true);
+    $PlayerName = doquery ("SELECT `username` FROM game_users WHERE `id` = '". $FleetRow['fleet_owner']."';", null, true);
     $Link  = $PlayerName['username']. " ";
     $Link .= "<a href=\"messages.php?mode=write&id=".$FleetRow['fleet_owner']."\">";
     $Link .= "<img src=\"skins/epicblue/img/m.gif\" alt=\"". $lang['ov_message']."\" title=\"". $lang['ov_message']."\" border=\"0\"></a>";

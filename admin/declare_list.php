@@ -49,7 +49,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$PageTPL = gettemplate('admin/declarelist_body');
 		$RowsTPL = gettemplate('admin/declarelist_rows');
 
-		$query   = doquery("SELECT * FROM {{table}} ORDER BY `declarator` DESC", 'declared');
+		$query   = doquery("SELECT * FROM game_declared ORDER BY `declarator` DESC");
 
 		$parse                 = $lang;
 		$parse['adm_ul_table'] = "";

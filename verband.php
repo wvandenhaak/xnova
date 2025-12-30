@@ -41,7 +41,7 @@ require_once dirname(__FILE__) .'/common.php';
 		exit();
 	}
 
-	$query = doquery("SELECT * FROM {{table}} WHERE fleet_id = '" . $fleetid . "'", 'fleets');
+	$query = doquery("SELECT * FROM game_fleets WHERE fleet_id = '" . $fleetid . "'");
 
 	if (mysqli_num_rows($query) != 1) {
 		message('Cette flotte n\'existe pas (ou plus)!', 'Erreur');
@@ -56,20 +56,20 @@ require_once dirname(__FILE__) .'/common.php';
 	if (!isset($_POST['send'])) {
 		SetSelectedPlanet ( $user );
 
-		$planetrow = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
-		$galaxyrow = doquery("SELECT * FROM {{table}} WHERE `id_planet` = '".$planetrow['id']."';", 'galaxy', true);
-		$maxfleet = doquery("SELECT COUNT(fleet_owner) as ilosc FROM {{table}} WHERE fleet_owner='{$user['id']}'", 'fleets', true);
+		$planetrow = doquery("SELECT * FROM game_planets WHERE `id` = '".$user['current_planet']."';", null, true);
+		$galaxyrow = doquery("SELECT * FROM game_galaxy WHERE `id_planet` = '".$planetrow['id']."';", null, true);
+		$maxfleet = doquery("SELECT COUNT(fleet_owner) as ilosc FROM game_fleets WHERE fleet_owner='{$user['id']}'", null, true);
 		$maxfleet_count = $maxfleet["ilosc"];
 
 		CheckPlanetUsedFields($planetrow);
 
-		$fleet = doquery("SELECT * FROM {{table}} WHERE fleet_id = '" . $fleetid . "'", 'fleets', true);
+		$fleet = doquery("SELECT * FROM game_fleets WHERE fleet_id = '" . $fleetid . "'", null, true);
 
 		if (empty($fleet['fleet_group'])) {
 			$rand = mt_rand(100000, 999999999);
 
 		doquery(
-		"INSERT INTO {{table}} SET
+		"INSERT INTO game_aks SET
 		`name` = 'KV" . $rand . "',
 		`teilnehmer` = '" . $user['id'] . "',
 		`flotten` = '" . $fleetid . "',
@@ -78,11 +78,11 @@ require_once dirname(__FILE__) .'/common.php';
 		`system` = '" . $fleet['fleet_start_system'] . "',
 		`planet` = '" . $fleet['fleet_start_planet'] . "',
 		`eingeladen` = '" . $user['id'] . "'
-		",
-		'aks');
+		"
+        );
 
 		$aks = doquery(
-		"SELECT * FROM {{table}} WHERE
+		"SELECT * FROM game_aks WHERE
 		`name` = 'KV" . $rand . "' AND
 		`teilnehmer` = '" . $user['id'] . "' AND
 		`flotten` = '" . $fleetid . "' AND
@@ -91,18 +91,14 @@ require_once dirname(__FILE__) .'/common.php';
 		`system` = '" . $fleet['fleet_start_system'] . "' AND
 		`planet` = '" . $fleet['fleet_start_planet'] . "' AND
 		`eingeladen` = '" . $user['id'] . "'
-		", 'aks', true);
+		", null, true);
 
 		doquery(
-		"UPDATE {{table}} SET
-		fleet_group = '" . $aks['id'] . "'
-		WHERE
-		fleet_id = '" . $fleetid . "'", 'fleets');
+		"UPDATE game_fleets SET fleet_group = '" . $aks['id'] . "' WHERE fleet_id = '" . $fleetid . "'");
 	} else {
 		$aks = doquery(
-		"SELECT * FROM {{table}} WHERE
-		id = '" . $fleet['fleet_group'] . "'"
-		, 'aks');
+		"SELECT * FROM game_aks WHERE
+		id = '" . $fleet['fleet_group'] . "'");
 
 		if (mysqli_num_rows($aks) != 1) {
 			message('AKS nicht gefunden!', 'Fehler');
@@ -169,7 +165,7 @@ require_once dirname(__FILE__) .'/common.php';
 	  Here must show the fleet movings of owner player.
 	*/
 
-	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", 'fleets');
+	$fq = doquery("SELECT * FROM game_fleets WHERE fleet_owner={$user[id]}");
 
 	$i = 0;
 	while ($f = mysqli_fetch_array($fq)) {

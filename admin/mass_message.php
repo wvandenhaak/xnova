@@ -42,9 +42,9 @@ function mass_message_run($parent){
 		}
 		$kolor = 'red';
 		if($game_config['tresc'] !='' and $game_config['temat']){
-			$sq = $parent->db->query("SELECT `id` FROM {{table}}","users");
+			$sq = $parent->db->query("SELECT `id` FROM game_users");
 			while($u = $parent->db->fetch_assoc($sq)){
-				doquery("INSERT INTO {{table}} SET
+				doquery("INSERT INTO game_messages SET
 					`message_owner`='{$u['id']}',
 					`message_sender`='1' ,
 					`message_time`='".time()."',
@@ -52,8 +52,9 @@ function mass_message_run($parent){
 					`message_from`='<font color=\"$kolor\">Administracja</font>',
 					`message_subject`='<font color=\"$kolor\">{$game_config['temat']}</font>',
 					`message_text`='<font color=\"$kolor\"><b>{$game_config['tresc']}</b></font>'
-					","messages");
-				$parent->db->query("UPDATE {{table}} SET new_message=new_message+1 WHERE id='{$u['id']}'",'users');
+					"
+                );
+				$parent->db->query("UPDATE game_users SET new_message=new_message+1 WHERE id='{$u['id']}'");
 			}
 			$parent->smarty->assign("message","<font color=\"lime\">Wys�a�e� wiadomo�� do wszystkich graczy</font>");
 		}

@@ -39,7 +39,7 @@ function ShowOfficierPage ( &$CurrentUser ) {
 
 	// Vérification que le joueur n'a pas un nombre de points négatif
 	if ($CurrentUser['rpg_points'] < 0) {
-		doquery("UPDATE {{table}} SET `rpg_points` = '0' WHERE `id` = '". $CurrentUser['id'] ."';", 'users');
+		doquery("UPDATE game_users SET `rpg_points` = '0' WHERE `id` = '". $CurrentUser['id'] ."';");
 	}
 
 	// Si recrutement d'un officier
@@ -57,19 +57,19 @@ function ShowOfficierPage ( &$CurrentUser ) {
 						$CurrentUser['computer_tech'] += 3;
 					}
 
-					$QryUpdateUser  = "UPDATE {{table}} SET ";
+					$QryUpdateUser  = "UPDATE game_users_tech SET ";
 					$QryUpdateUser .= "`spy_tech` = '". $CurrentUser['spy_tech'] ."', ";
 					$QryUpdateUser .= "`computer_tech` = '". $CurrentUser['computer_tech'] ."' ";
 					$QryUpdateUser .= "WHERE ";
 					$QryUpdateUser .= "`uid` = '". $CurrentUser['id'] ."';";
-					doquery( $QryUpdateUser, 'users_tech' );
+                    doquery($QryUpdateUser);
 
-					$QryUpdateUser  = "UPDATE {{table}} SET ";
+					$QryUpdateUser  = "UPDATE game_users SET ";
 					$QryUpdateUser .= "`rpg_points` = '". $CurrentUser['rpg_points'] ."', ";
 					$QryUpdateUser .= "`".$resource[$Selected]."` = '". $CurrentUser[$resource[$Selected]] ."' ";
 					$QryUpdateUser .= "WHERE ";
 					$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
-					doquery( $QryUpdateUser, 'users' );
+                    doquery($QryUpdateUser);
 					$Message = $lang['OffiRecrute'];
 				} elseif ( $Result == -1 ) {
 					$Message = $lang['Maxlvl'];

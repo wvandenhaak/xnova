@@ -62,8 +62,8 @@ function BuildFleetListRows ( $CurrentPlanet ) {
 //
 function BuildJumpableMoonCombo ( $CurrentUser, $CurrentPlanet ) {
 	global $resource;
-	$QrySelectMoons  = "SELECT * FROM {{table}} WHERE `planet_type` = '3' AND `id_owner` = '". $CurrentUser['id'] ."';";
-	$MoonList        = doquery ( $QrySelectMoons, 'planets');
+	$QrySelectMoons  = "SELECT * FROM game_planets WHERE `planet_type` = '3' AND `id_owner` = '". $CurrentUser['id'] ."';";
+	$MoonList        = doquery ($QrySelectMoons);
 	$Combo           = "";
 	while ( $CurMoon = mysqli_fetch_assoc($MoonList) ) {
 		if ( $CurMoon['id'] != $CurrentPlanet['id'] ) {

@@ -262,9 +262,9 @@ SELECT
   stats.fleet_points AS fleet_points,
   stats.tech_points AS tech_points,
   stats.total_points AS total_points
-FROM {{table}}users AS users
-LEFT JOIN {{table}}statpoints AS stats ON stats.id_owner=users.id
-LEFT JOIN {{table}}planets AS planets ON planets.id_owner=users.id
+FROM game_users AS users
+LEFT JOIN game_statpoints AS stats ON stats.id_owner=users.id
+LEFT JOIN game_planets AS planets ON planets.id_owner=users.id
 WHERE users.id={$id}
 EOF;
 
@@ -274,7 +274,7 @@ $data = array_merge(
         'game_name' => 'XNova:Legacies',
         'date' => date('d M Y')
         ),
-    doquery($sql, '', true)
+    doquery($sql, null, true)
     );
 
 function number_format_custom($number)

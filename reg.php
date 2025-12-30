@@ -123,13 +123,13 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $errors++;
     }
     // Le meilleur moyen de voir si un nom d'utilisateur est pris c'est d'essayer de l'appeler !!
-    $ExistUser = doquery("SELECT `username` FROM {{table}} WHERE `username` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['character']) . "' LIMIT 1;", 'users', true);
+    $ExistUser = doquery("SELECT `username` FROM game_users WHERE `username` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['character']) . "' LIMIT 1;", null, true);
     if ($ExistUser) {
         $errorlist .= $lang['error_userexist'];
         $errors++;
     }
     // Si l'on verifiait que l'adresse email n'existe pas encore ???
-    $ExistMail = doquery("SELECT `email` FROM {{table}} WHERE `email` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['email']) . "' LIMIT 1;", 'users', true);
+    $ExistMail = doquery("SELECT `email` FROM game_users WHERE `email` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['email']) . "' LIMIT 1;", null, true);
     if ($ExistMail) {
         $errorlist .= $lang['error_emailexist'];
         $errors++;
@@ -145,16 +145,17 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
 
         $md5newpass = md5($newpass);
         // Creation de l'utilisateur
-        $QryInsertUser = "INSERT INTO {{table}} SET ";
+        $QryInsertUser = "INSERT INTO game_users SET ";
         $QryInsertUser .= "`username` = '" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($UserName)) . "', ";
         $QryInsertUser .= "`email` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
 		$QryInsertUser .= "`user_lastip` = '" . $_SERVER["REMOTE_ADDR"] . "', ";
         $QryInsertUser .= "`id_planet` = '0', ";
         $QryInsertUser .= "`register_time` = '" . time() . "', ";
         $QryInsertUser .= "`password`='" . $md5newpass . "';";
-        doquery($QryInsertUser, 'users');
+        doquery($QryInsertUser);
+
         // On cherche le numero d'enregistrement de l'utilisateur fraichement cree
-        $NewUser = doquery("SELECT `id` FROM {{table}} WHERE `username` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['character']) . "' LIMIT 1;", 'users', true);
+        $NewUser = doquery("SELECT `id` FROM game_users WHERE `username` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['character']) . "' LIMIT 1;", null, true);
         
         $iduser = $NewUser['id'];
         // Recherche d'une place libre !
@@ -200,7 +201,7 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
             }
 
             $QrySelectGalaxy = "SELECT `id` ";
-            $QrySelectGalaxy .= "FROM {{table}} ";
+            $QrySelectGalaxy .= "FROM game_planets ";
             $QrySelectGalaxy .= "WHERE ";
             $QrySelectGalaxy .= "`planet_type` = '1' AND ";
             $QrySelectGalaxy .= "`galaxy` = '" . $Galaxy . "' AND ";
@@ -208,21 +209,21 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
             $QrySelectGalaxy .= "`planet` = '" . $Planet . "' ";
             $QrySelectGalaxy .= "LIMIT 1;";
 
-            $GalaxyRow = doquery($QrySelectGalaxy, 'planets', true);
+            $GalaxyRow = doquery($QrySelectGalaxy, null, true);
             
             if (!$GalaxyRow) {
                 CreateOnePlanetRecord ($Galaxy, $System, $Planet, $NewUser['id'], $UserPlanet, true);
-                doquery("UPDATE {{table}} SET `config_value` = '" . $LastSettedGalaxyPos . "' WHERE `config_name` = 'LastSettedGalaxyPos';", 'config');
-                doquery("UPDATE {{table}} SET `config_value` = '" . $LastSettedSystemPos . "' WHERE `config_name` = 'LastSettedSystemPos';", 'config');
-                doquery("UPDATE {{table}} SET `config_value` = '" . $LastSettedPlanetPos . "' WHERE `config_name` = 'LastSettedPlanetPos';", 'config');
+                doquery("UPDATE game_config SET `config_value` = '" . $LastSettedGalaxyPos . "' WHERE `config_name` = 'LastSettedGalaxyPos';");
+                doquery("UPDATE game_config SET `config_value` = '" . $LastSettedSystemPos . "' WHERE `config_name` = 'LastSettedSystemPos';");
+                doquery("UPDATE game_config SET `config_value` = '" . $LastSettedPlanetPos . "' WHERE `config_name` = 'LastSettedPlanetPos';");
                 $newpos_checked = true;
             }
         }
         
         // Recherche de la reference de la nouvelle planete (qui est unique normalement !
-        $PlanetID = doquery("SELECT `id` FROM {{table}} WHERE `id_owner` = '" . $NewUser['id'] . "' LIMIT 1;", 'planets', true);
+        $PlanetID = doquery("SELECT `id` FROM game_planets WHERE `id_owner` = '" . $NewUser['id'] . "' LIMIT 1;", null, true);
         // Mise a jour de l'enregistrement utilisateur avec les infos de sa planete mere
-        $QryUpdateUser = "UPDATE {{table}} SET ";
+        $QryUpdateUser = "UPDATE game_users SET ";
         $QryUpdateUser .= "`id_planet` = '" . $PlanetID["id"] . "', ";
         $QryUpdateUser .= "`current_planet` = '" . $PlanetID["id"] . "', ";
         $QryUpdateUser .= "`galaxy` = '" . $Galaxy . "', ";
@@ -231,8 +232,8 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $QryUpdateUser .= "WHERE ";
         $QryUpdateUser .= "`id` = '" . $NewUser['id'] . "' ";
         $QryUpdateUser .= "LIMIT 1;";
-        
-        doquery($QryUpdateUser, 'users');
+        doquery($QryUpdateUser);
+
         // Envois d'un message in-game sympa ^^
         $from = $lang['sender_message_ig'];
         $sender = 1;
@@ -241,7 +242,7 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         SendSimpleMessage($iduser, $sender, time(), 1, $from, $Subject, $message);
 
         // Mise a jour du nombre de joueurs inscripts
-        doquery("UPDATE {{table}} SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount' LIMIT 1;", 'config');
+        doquery("UPDATE game_config SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount' LIMIT 1;");
 
         $Message = $lang['thanksforregistry'];
         if (sendpassemail($_POST['email'], "$newpass")) {

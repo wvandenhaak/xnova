@@ -222,7 +222,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 	// Gestion des raccourcis vers ses propres colonies ou planetes
 	$kolonien      = SortUserPlanets ( $user );
-	$currentplanet = doquery("SELECT * FROM {{table}} WHERE id = '" . $user['current_planet'] . "'", 'planets', true);
+	$currentplanet = doquery("SELECT * FROM game_planets WHERE id = '" . $user['current_planet'] . "'", null, true);
 	if ($kolonien->num_rows > 1) {
 		$i = 0;
 		$w = 0;

@@ -30,7 +30,7 @@
 
   function sendnewpassword($mail){
 
-  	$ExistMail = doquery("SELECT `email` FROM {{table}} WHERE `email` = '". $mail ."' LIMIT 1;", 'users', true);
+  	$ExistMail = doquery("SELECT `email` FROM game_users WHERE `email` = '". $mail ."' LIMIT 1;", null, true);
 
     if (empty($ExistMail['email']))	{
 	   message('L\'adresse n\'existe pas !','Erreur');
@@ -68,11 +68,11 @@
 
     $NewPassSql = md5($NewPass);
 
-    $QryPassChange = "UPDATE {{table}} SET ";
+    $QryPassChange = "UPDATE game_users SET ";
     $QryPassChange .= "`password` ='". $NewPassSql ."' ";
     $QryPassChange .= "WHERE `email`='". $mail ."' LIMIT 1;";
 
-    doquery( $QryPassChange, 'users');
+    doquery($QryPassChange);
 
 
     }
@@ -80,7 +80,3 @@
 
 
 	}
-
-
-
-?>

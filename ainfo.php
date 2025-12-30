@@ -35,11 +35,11 @@ require_once dirname(__FILE__) .'/common.php';
 
 if(!is_numeric($_GET["a"]) || !$_GET["a"] ){ message("Ung&uuml;ltige Allianz-ID","Fehler");}
 
-$allyrow = doquery("SELECT ally_name,ally_tag,ally_description,ally_web,ally_image FROM {{table}} WHERE id=".$_GET["a"],"alliance",true);
+$allyrow = doquery("SELECT ally_name,ally_tag,ally_description,ally_web,ally_image FROM game_alliance WHERE id=".$_GET["a"],null,true);
 
 if(!$allyrow){ message("Alliance non trouv&eacute;e","Erreur");}
 
-$count = doquery("SELECT COUNT(DISTINCT(id)) FROM {{table}} WHERE ally_id=".$_GET["a"].";","users",true);
+$count = doquery("SELECT COUNT(DISTINCT(id)) FROM game_users WHERE ally_id=" . $_GET["a"] . ";", null, true);
 $ally_member_scount = $count[0];
 
 $page .="<table width=519><tr><td class=c colspan=2>Informations sur l'alliance</td></tr>";

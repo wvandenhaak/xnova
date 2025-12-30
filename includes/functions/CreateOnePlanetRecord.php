@@ -61,12 +61,12 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 
 	// Avant tout, on verifie s'il existe deja une planete a cet endroit
 	$QrySelectPlanet  = "SELECT	`id` ";
-	$QrySelectPlanet .= "FROM {{table}} ";
+	$QrySelectPlanet .= "FROM game_planets ";
 	$QrySelectPlanet .= "WHERE ";
 	$QrySelectPlanet .= "`galaxy` = '". $Galaxy ."' AND ";
 	$QrySelectPlanet .= "`system` = '". $System ."' AND ";
 	$QrySelectPlanet .= "`planet` = '". $Position ."';";
-	$PlanetExist = doquery( $QrySelectPlanet, 'planets', true);
+    $PlanetExist = doquery($QrySelectPlanet, null, true);
 
 	// Si $PlanetExist est autre chose que false ... c'est qu'il y a quelque chose l� bas ...
 	// C'est donc aussi que je ne peux pas m'y poser !!
@@ -139,7 +139,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 		$planet['last_update'] = time();
 		$planet['name']        = ($PlanetName == '') ? $lang['sys_colo_defaultname'] : $PlanetName;
 
-		$QryInsertPlanet  = "INSERT INTO {{table}} SET ";
+		$QryInsertPlanet  = "INSERT INTO game_planets SET ";
 		$QryInsertPlanet .= "`name` = '".              $planet['name']              ."', ";
 		$QryInsertPlanet .= "`id_owner` = '".          $planet['id_owner']          ."', ";
 		$QryInsertPlanet .= "`galaxy` = '".            $planet['galaxy']            ."', ";
@@ -162,44 +162,44 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 		$QryInsertPlanet .= "`deuterium` = '".         $planet['deuterium']         ."', ";
 		$QryInsertPlanet .= "`deuterium_perhour` = '". $planet['deuterium_perhour'] ."', ";
 		$QryInsertPlanet .= "`deuterium_max` = '".     $planet['deuterium_max']     ."';";
-		doquery( $QryInsertPlanet, 'planets');
+        doquery($QryInsertPlanet);
 
 		// On recupere l'id de planete nouvellement cr��
 		$QrySelectPlanet  = "SELECT `id` ";
-		$QrySelectPlanet .= "FROM {{table}} ";
+		$QrySelectPlanet .= "FROM game_planets ";
 		$QrySelectPlanet .= "WHERE ";
 		$QrySelectPlanet .= "`galaxy` = '".   $planet['galaxy']   ."' AND ";
 		$QrySelectPlanet .= "`system` = '".   $planet['system']   ."' AND ";
 		$QrySelectPlanet .= "`planet` = '".   $planet['planet']   ."' AND ";
 		$QrySelectPlanet .= "`id_owner` = '". $planet['id_owner'] ."';";
-		$GetPlanetID      = doquery( $QrySelectPlanet , 'planets', true);
+        $GetPlanetID = doquery($QrySelectPlanet, null, true);
 
 		// Testons s'il y a deja eu une planete ici
 		$QrySelectGalaxy  = "SELECT * ";
-		$QrySelectGalaxy .= "FROM {{table}} ";
+		$QrySelectGalaxy .= "FROM game_galaxy ";
 		$QrySelectGalaxy .= "WHERE ";
 		$QrySelectGalaxy .= "`galaxy` = '". $planet['galaxy'] ."' AND ";
 		$QrySelectGalaxy .= "`system` = '". $planet['system'] ."' AND ";
 		$QrySelectGalaxy .= "`planet` = '". $planet['planet'] ."';";
-		$GetGalaxyID      = doquery( $QrySelectGalaxy, 'galaxy', true);
+        $GetGalaxyID = doquery($QrySelectGalaxy, null, true);
 
 		if ($GetGalaxyID) {
 			// Ah ... Ce secteur de ce vaste monde a deja ete occup�
-			$QryUpdateGalaxy  = "UPDATE {{table}} SET ";
+			$QryUpdateGalaxy  = "UPDATE game_galaxy SET ";
 			$QryUpdateGalaxy .= "`id_planet` = '". $GetPlanetID['id'] ."' ";
 			$QryUpdateGalaxy .= "WHERE ";
 			$QryUpdateGalaxy .= "`galaxy` = '". $planet['galaxy'] ."' AND ";
 			$QryUpdateGalaxy .= "`system` = '". $planet['system'] ."' AND ";
 			$QryUpdateGalaxy .= "`planet` = '". $planet['planet'] ."';";
-			doquery( $QryUpdateGalaxy, 'galaxy');
+            doquery($QryUpdateGalaxy);
 		} else {
 			// C'est tout vide ... y a que dalle ... j'm'y pose !!
-			$QryInsertGalaxy  = "INSERT INTO {{table}} SET ";
+			$QryInsertGalaxy  = "INSERT INTO game_galaxy SET ";
 			$QryInsertGalaxy .= "`galaxy` = '". $planet['galaxy'] ."', ";
 			$QryInsertGalaxy .= "`system` = '". $planet['system'] ."', ";
 			$QryInsertGalaxy .= "`planet` = '". $planet['planet'] ."', ";
 			$QryInsertGalaxy .= "`id_planet` = '". $GetPlanetID['id'] ."';";
-			doquery( $QryInsertGalaxy, 'galaxy');
+            doquery($QryInsertGalaxy);
 		}
 
 		$RetValue = true;
@@ -210,5 +210,3 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 
 	return $RetValue;
 }
-
-?>

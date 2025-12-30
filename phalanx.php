@@ -36,7 +36,7 @@ require_once dirname(__FILE__) .'/common.php';
 	includeLang('phalanx');
 
 	$PageTPL     = gettemplate('phalanx_body');
-	$PhalanxMoon = doquery ("SELECT * FROM {{table}} WHERE `id` = '". $user['current_planet'] ."';", 'planets', true);
+	$PhalanxMoon = doquery ("SELECT * FROM game_planets WHERE `id` = '". $user['current_planet'] ."';", null, true);
 
 	if ( $PhalanxMoon['planet_type'] == 3) {
 		$parse                     = $lang;
@@ -47,7 +47,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$parse['phl_pl_name']      = $user['username'];
 
 		if ( $PhalanxMoon['deuterium'] > 10000 ) {
-			doquery ("UPDATE {{table}} SET `deuterium` = `deuterium` - '10000' WHERE `id` = '". $user['current_planet'] ."';", 'planets');
+			doquery ("UPDATE game_planets SET `deuterium` = `deuterium` - '10000' WHERE `id` = '". $user['current_planet'] ."';");
 			$parse['phl_er_deuter'] = "";
 			$DoScan                 = true;
 		} else {
@@ -61,11 +61,11 @@ require_once dirname(__FILE__) .'/common.php';
 			$Planet  = $_GET["planet"];
 			$PlType  = $_GET["planettype"];
 
-			$TargetInfo = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '". $PlType ."';", 'planets', true);
+			$TargetInfo = doquery("SELECT * FROM game_planets WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '". $PlType ."';", null, true);
 			$TargetName = $TargetInfo['name'];
 
 			$QryLookFleets  = "SELECT * ";
-			$QryLookFleets .= "FROM {{table}} ";
+			$QryLookFleets .= "FROM game_fleets ";
 			$QryLookFleets .= "WHERE ( ( ";
 			$QryLookFleets .= "`fleet_start_galaxy` = '". $Galaxy ."' AND ";
 			$QryLookFleets .= "`fleet_start_system` = '". $System ."' AND ";
@@ -79,7 +79,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$QryLookFleets .= ") ) ";
 			$QryLookFleets .= "ORDER BY `fleet_start_time`;";
 
-			$FleetToTarget  = doquery( $QryLookFleets, 'fleets' );
+			$FleetToTarget  = doquery($QryLookFleets);
 
 			if (mysqli_num_rows($FleetToTarget) <> 0 ) {
 				while ($FleetRow = mysqli_fetch_array($FleetToTarget)) {

@@ -49,11 +49,11 @@ if (!empty($_POST)) {
         $username = mysqli_real_escape_string (Database::$dbHandle, $_POST['pseudo']);
         $sql =<<<EOF
 SELECT users.email, users.username
-  FROM {{table}} AS users
+  FROM game_users AS users
   WHERE users.username="{$username}"
   LIMIT 1
 EOF;
-        if (!($result = doquery($sql, 'users', true))) {
+        if (!($result = doquery($sql, null, true))) {
             message("Cet utilisateur n'existe pas", 'Erreur', 'lostpassword.php');
             die();
         }
@@ -62,11 +62,11 @@ EOF;
         $email = mysqli_real_escape_string (Database::$dbHandle, $_POST['email']);
         $sql =<<<EOF
 SELECT users.email, users.username
-  FROM {{table}} AS users
+  FROM game_users AS users
   WHERE users.email="{$email}"
   LIMIT 1
 EOF;
-        if (!($result = doquery($sql, 'users', true))) {
+        if (!($result = doquery($sql, null, true))) {
             message("Cet email n'est utilisé par aucun joueur", 'Erreur', 'lostpassword.php');
             die();
         }
@@ -101,12 +101,12 @@ EOF;
         mail($mailData['recipient'], $mailData['subject'], $message, $headers);
 
         $sql =<<<EOF
-UPDATE {{table}} AS users
+UPDATE game_users AS users
   SET users.password="{$randomPass}"
   WHERE users.username="$username"
 EOF;
 
-        doquery($sql, 'users');
+        doquery($sql);
         message('Mot de passe envoyé ! Veuillez regarder votre boite e-mail ou dans vos spam.', 'Nouveau mot de passe', 'index.php');
         die();
     }

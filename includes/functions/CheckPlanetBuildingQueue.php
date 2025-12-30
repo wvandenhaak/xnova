@@ -111,7 +111,7 @@ function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ) {
 			$CurrentPlanet['field_current'] = $current;
 			$CurrentPlanet['field_max']     = $max;
 
-			$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+			$QryUpdatePlanet  = "UPDATE game_planets SET ";
 			$QryUpdatePlanet .= "`".$resource[$Element]."` = '".$CurrentPlanet[$resource[$Element]]."', ";
 			// Mise a 0 de l'heure de fin de construction ...
 			// Ca va activer la mise en place du batiment suivant de la queue
@@ -121,13 +121,13 @@ function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ) {
 			$QryUpdatePlanet .= "`field_max` = '" . $CurrentPlanet['field_max'] . "' ";
 			$QryUpdatePlanet .= "WHERE ";
 			$QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
-			doquery( $QryUpdatePlanet, 'planets');
+            doquery($QryUpdatePlanet);
 
-			$QryUpdateUser    = "UPDATE {{table}} SET ";
+			$QryUpdateUser    = "UPDATE game_users SET ";
 			$QryUpdateUser   .= "`xpminier` = '".$CurrentUser['xpminier']."' ";
 			$QryUpdateUser   .= "WHERE ";
 			$QryUpdateUser   .= "`id` = '" . $CurrentUser['id'] . "';";
-			doquery( $QryUpdateUser, 'users');
+            doquery($QryUpdateUser);
 
 			$RetValue = true;
 		} else {
@@ -137,17 +137,15 @@ function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ) {
 		$CurrentPlanet['b_building']    = 0;
 		$CurrentPlanet['b_building_id'] = 0;
 
-		$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+		$QryUpdatePlanet  = "UPDATE game_planets SET ";
 		$QryUpdatePlanet .= "`b_building` = '". $CurrentPlanet['b_building'] ."' , ";
 		$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '" . $CurrentPlanet['id'] . "';";
-		doquery( $QryUpdatePlanet, 'planets');
+        doquery($QryUpdatePlanet);
 
 		$RetValue = false;
 	}
 
 	return $RetValue;
 }
-
-?>

@@ -33,10 +33,10 @@ use Xmke\Xnova\Common\Constants;
 function MissionCaseColonisation ( $FleetRow ) {
 	global $lang, $resource;
 
-	$iPlanetCount = doquery ("SELECT count(*) AS PlanetCount FROM {{table}} WHERE `id_owner` = '". $FleetRow['fleet_owner'] ."' AND `planet_type` = '1'", 'planets', true);
+	$iPlanetCount = doquery ("SELECT count(*) AS PlanetCount FROM game_planets WHERE `id_owner` = '". $FleetRow['fleet_owner'] ."' AND `planet_type` = '1'", null, true);
 	if ($FleetRow['fleet_mess'] == 0) {
 		// Déjà, sommes nous a l'aller ??
-		$iGalaxyPlace = doquery ("SELECT count(*) FROM {{table}} WHERE `galaxy` = '". $FleetRow['fleet_end_galaxy']."' AND `system` = '". $FleetRow['fleet_end_system']."' AND `planet` = '". $FleetRow['fleet_end_planet']."';", 'galaxy', true);
+		$iGalaxyPlace = doquery ("SELECT count(*) FROM game_galaxy WHERE `galaxy` = '". $FleetRow['fleet_end_galaxy']."' AND `system` = '". $FleetRow['fleet_end_system']."' AND `planet` = '". $FleetRow['fleet_end_planet']."';", null, true);
 		$TargetAdress = sprintf ($lang['sys_adress_planet'], $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']);
 		if ($iGalaxyPlace[0] == 0) {
 			// Y a personne qui s'y est mis avant que je ne debarque !
@@ -44,7 +44,7 @@ function MissionCaseColonisation ( $FleetRow ) {
 			if ($iPlanetCount[0] >= Constants::MAX_PLAYER_PLANETS) {
 				$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_maxcolo'] . Constants::MAX_PLAYER_PLANETS . $lang['sys_colo_planet'];
 				SendSimpleMessage ( $FleetRow['fleet_owner'], 1, $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
-				doquery("UPDATE {{table}} SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"], 'fleets');
+				doquery("UPDATE game_fleets SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"]);
 			} else {
 				$NewOwnerPlanet = CreateOnePlanetRecord($FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet'], $FleetRow['fleet_owner'], $lang['sys_colo_defaultname'], false);
 				if ( $NewOwnerPlanet == true ) {
@@ -52,7 +52,7 @@ function MissionCaseColonisation ( $FleetRow ) {
 					SendSimpleMessage ( $FleetRow['fleet_owner'], 1, $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 					// Verifier ce que contient fleet_array (et le cas et cheant retirer un element '208'
 					if ($FleetRow['fleet_amount'] == 1) {
-						doquery("DELETE FROM {{table}} WHERE fleet_id=" . $FleetRow["fleet_id"], 'fleets');
+						doquery("DELETE FROM game_fleets WHERE fleet_id=" . $FleetRow["fleet_id"]);
 					} else {
 						$CurrentFleet = explode(";", $FleetRow['fleet_array']);
 						$NewFleet     = "";
@@ -70,17 +70,17 @@ function MissionCaseColonisation ( $FleetRow ) {
 								}
 							}
 						}
-						$QryUpdateFleet  = "UPDATE {{table}} SET ";
+						$QryUpdateFleet  = "UPDATE game_fleets SET ";
 						$QryUpdateFleet .= "`fleet_array` = '". $NewFleet ."', ";
 						$QryUpdateFleet .= "`fleet_amount` = `fleet_amount` - 1, ";
 						$QryUpdateFleet .= "`fleet_mess` = '1' ";
 						$QryUpdateFleet .= "WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';";
-						doquery( $QryUpdateFleet, 'fleets');
+                        doquery($QryUpdateFleet);
 					}
 				} else {
 					$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_badpos'];
 					SendSimpleMessage ( $FleetRow['fleet_owner'], 1, $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
-					doquery("UPDATE {{table}} SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"], 'fleets');
+					doquery("UPDATE game_fleets SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"]);
 				}
 			}
 		} else {
@@ -88,16 +88,14 @@ function MissionCaseColonisation ( $FleetRow ) {
 			$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_notfree'];
 			SendSimpleMessage ( $FleetRow['fleet_owner'], 1, $FleetRow['fleet_end_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 			// Mettre a jour la flotte pour qu'effectivement elle revienne !
-			doquery("UPDATE {{table}} SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"], 'fleets');
+			doquery("UPDATE game_fleets SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"]);
 
 		}
 	} else {
 		if ($FleetRow['fleet_end_time'] <= time()) {
 		// Retour de flotte
 		RestoreFleetToPlanet ( $FleetRow, true );
-		doquery("DELETE FROM {{table}} WHERE fleet_id=" . $FleetRow["fleet_id"], 'fleets');
+		doquery("DELETE FROM game_fleets WHERE fleet_id=" . $FleetRow["fleet_id"]);
 		}
 	}
 }
-
-?>

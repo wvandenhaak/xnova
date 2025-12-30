@@ -37,11 +37,11 @@ function GalaxyRowUser ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, 
 	$Result  = "<th width=150>";
 	if(isset($GalaxyRowPlanet)){
 		if ($GalaxyRowUser && isset($GalaxyRowPlanet["destruyed"]) && $GalaxyRowPlanet["destruyed"] == 0) {
-			$NoobProt      = doquery("SELECT * FROM {{table}} WHERE `config_name` = 'noobprotection';", 'config', true);
-			$NoobTime      = doquery("SELECT * FROM {{table}} WHERE `config_name` = 'noobprotectiontime';", 'config', true);
-			$NoobMulti     = doquery("SELECT * FROM {{table}} WHERE `config_name` = 'noobprotectionmulti';", 'config', true);
-			$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", 'statpoints', true);
-			$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $GalaxyRowUser['id'] ."';", 'statpoints', true);
+			$NoobProt      = doquery("SELECT * FROM game_config WHERE `config_name` = 'noobprotection';", null, true);
+			$NoobTime      = doquery("SELECT * FROM game_config WHERE `config_name` = 'noobprotectiontime';", null, true);
+			$NoobMulti     = doquery("SELECT * FROM game_config WHERE `config_name` = 'noobprotectionmulti';", null, true);
+			$UserPoints    = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", null, true);
+			$User2Points   = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $GalaxyRowUser['id'] ."';", null, true);
 			$CurrentPoints = isset($UserPoints) && isset($UserPoints['total_points']) ? $UserPoints['total_points'] : 0;
 			$RowUserPoints = isset($User2Points) && isset($User2Points['total_points']) ? $User2Points['total_points'] : 0;
 			$CurrentLevel  = $CurrentPoints * $NoobMulti['config_value'];

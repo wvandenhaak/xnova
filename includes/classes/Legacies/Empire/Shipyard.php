@@ -88,7 +88,7 @@ class Legacies_Empire_Shipyard
 
         $this->_currentPlanet['b_hangar_id'] = serialize($this->_queue);
 
-        $sql = "UPDATE {{table}} AS planet SET ";
+        $sql = "UPDATE game_planets AS planet SET ";
 
         $fieldList = array_merge($reslist[Legacies_Empire::TYPE_SHIP], $reslist[Legacies_Empire::TYPE_DEFENSE]);
         foreach ($fieldList as $field) {
@@ -107,7 +107,7 @@ $sql .=<<<SQL_EOF
   WHERE planet.id={$this->_currentPlanet['id']}
   /*save*/
 SQL_EOF;
-        doquery($sql, 'planets'); // FIXME
+        doquery($sql); // FIXME
         //die($this->_currentPlanet['energy_max'] + $this->_currentPlanet["energy_used"]);
         return $this->_currentPlanet;
     }

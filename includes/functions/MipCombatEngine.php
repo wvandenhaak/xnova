@@ -31,8 +31,8 @@
 function MipAttack ($NbreMip, $IDAversaire) {
     global $user;
     $user = MergeUserTechnology($user);
-    $TechnoArme = doquery("SELECT * FROM {{table}} WHERE `id`='" . $user['id'] . "'", "users");
-    $InfoAdversaire = doquery("SELECT * FROM {{table}} WHERE `id`='" . $IDAversaire . "'", "planets", true);
+    $TechnoArme = doquery("SELECT * FROM game_users WHERE `id`='" . $user['id'] . "'");
+    $InfoAdversaire = doquery("SELECT * FROM game_planets WHERE `id`='" . $IDAversaire . "'", null, true);
 
     $PuissanceAttaque = ($NbreMip * 12000) * (1.05 * $TechnoArme['military_tech']);
 
@@ -83,7 +83,7 @@ function MipAttack ($NbreMip, $IDAversaire) {
         }
     }
 
-    $SqlDefenseur = "UPDATE {{table}} SET ";
+    $SqlDefenseur = "UPDATE game_planets SET ";
     $SqlDefenseur .= "`small_laser`='".$DefenseAdversaire[402]."', ";
     $SqlDefenseur .= "`big_laser`='".$DefenseAdversaire[403]."', ";
     $SqlDefenseur .= "`gauss_canyon`='".$DefenseAdversaire[404]."', ";
@@ -93,8 +93,6 @@ function MipAttack ($NbreMip, $IDAversaire) {
     $SqlDefenseur .= "`big_protection_shield`='".$DefenseAdversaire[408]."' ";
     $SqlDefenseur .= " WHERE `id`='".$IDAversaire."'";
 
-    doquery($SqlDefenseur, 'planets');
+    doquery($SqlDefenseur);
 
 }
-
-?>

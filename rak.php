@@ -42,23 +42,22 @@ if (file_exists(ROOT_PATH . "includes/raketenangriff.php")) {
 	die('Fatal error!');
 
 if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
-	$iraks = doquery("SELECT * FROM {{table}} WHERE zeit <= '" . time() . "'", 'iraks');
+	$iraks = doquery("SELECT * FROM game_iraks WHERE zeit <= '" . time() . "'");
 
 	while ($selected_row = mysqli_fetch_array($iraks)) {
 		if ($selected_row['zeit'] != '' && $selected_row['galaxy'] != '' && $selected_row['system'] != '' && $selected_row['planet'] != '' && is_numeric($selected_row['owner']) && is_numeric($selected_row['zielid']) && is_numeric($selected_row['anzahl']) && !empty($selected_row['anzahl'])) {
-			$planetrow = doquery("SELECT * FROM {{table}} WHERE
+			$planetrow = doquery("SELECT * FROM game_planets WHERE
 								galaxy = '" . $selected_row['galaxy'] . "' AND
 								system = '" . $selected_row['system'] . "' AND
-								planet = '" . $selected_row['planet'] . "'", 'planets');
+								planet = '" . $selected_row['planet'] . "'"
+            );
 
-			$select_ziel = doquery("SELECT defence_tech FROM {{table}} WHERE
-								`uid` = '" . $selected_row['zielid'] . "'", 'users_tech');
+			$select_ziel = doquery("SELECT defence_tech FROM game_users_tech WHERE `uid` = '" . $selected_row['zielid'] . "'");
 
-			$select_owner = doquery("SELECT military_tech FROM {{table}} WHERE
-								`uid` = '" . $selected_row['owner'] . "'", 'users_tech');
+			$select_owner = doquery("SELECT military_tech FROM game_users_tech WHERE `uid` = '" . $selected_row['owner'] . "'");
 
 			if (mysqli_num_rows($planetrow) != 1 OR mysqli_num_rows($select_ziel) != 1) {
-				doquery("DELETE FROM {{table}} WHERE id = '" . $selected_row['id'] . "'", 'iraks');
+				doquery("DELETE FROM game_iraks WHERE id = '" . $selected_row['id'] . "'");
 			} else {
 				$verteidiger = mysqli_fetch_array($select_ziel);
 				$angreifer = mysqli_fetch_array($select_owner);
@@ -113,12 +112,12 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 
 					$x = $resource[$ids[9]];
 
-					doquery("UPDATE {{table}} SET " . $x . " = " . $x . "-" . $selected_row['anzahl'] . " WHERE id = " . $planet['id'], 'planets');
+					doquery("UPDATE game_planets SET " . $x . " = " . $x . "-" . $selected_row['anzahl'] . " WHERE id = " . $planet['id']);
 				} else {
 					if ($planet['interceptor_misil'] > 0) {
 						$x = $resource[$ids[9]];
 
-						doquery("UPDATE {{table}} SET " . $x . " = '0' WHERE id = " . $planet['id'], 'planets');
+						doquery("UPDATE game_planets SET " . $x . " = '0' WHERE id = " . $planet['id']);
 
 						$message = $planet['interceptor_misil'] . " missiles Interplanetaire ont &eacute;t&eacute; intercept&eacute;s par vos missiles.<br>";
 					}
@@ -130,15 +129,16 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 
 							$x = $resource[$ids[$id]];
 
-							doquery("UPDATE {{table}} SET " . $x . " = " . $x . "-" . $anzahl . " WHERE id = " . $planet['id'], 'planets');
+							doquery("UPDATE game_planets SET " . $x . " = " . $x . "-" . $anzahl . " WHERE id = " . $planet['id']);
 						}
 					}
 				}
 
-				$planet_ = doquery("SELECT * FROM {{table}} WHERE
+				$planet_ = doquery("SELECT * FROM game_planets WHERE
 								galaxy = '" . $selected_row['galaxy_angreifer'] . "' AND
 								system = '" . $selected_row['system_angreifer'] . "' AND
-								planet = '" . $selected_row['planet_angreifer'] . "'", 'planets');
+								planet = '" . $selected_row['planet_angreifer'] . "'"
+                );
 
 				if (mysqli_num_rows($planet_) == 1) {
 					$array = mysqli_fetch_array($planet_);
@@ -146,10 +146,11 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 					$name = $array['name'];
 				}
 
-				$planet_2 = doquery("SELECT * FROM {{table}} WHERE
+				$planet_2 = doquery("SELECT * FROM game_planets WHERE
 								galaxy = '" . $selected_row['galaxy'] . "' AND
 								system = '" . $selected_row['system'] . "' AND
-								planet = '" . $selected_row['planet'] . "'", 'planets');
+								planet = '" . $selected_row['planet'] . "'"
+                );
 
 				if (mysqli_num_rows($planet_2) == 1) {
 					$array = mysqli_fetch_array($planet_2);
@@ -163,20 +164,21 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 				if (empty($message))
 					$message = "L ennemis ne possedait pas de d&eacute;fenses, rien n a &eacute;t&eacute; d&eacute;truit !";
 
-				doquery("INSERT INTO {{table}} SET
+				doquery("INSERT INTO game_messages SET
 						`message_owner`='" . $selected_row['zielid'] . "',
 						`message_sender`='',
 						`message_time`=UNIX_TIMESTAMP(),
 						`message_type`='0',
 						`message_from`='QG',
 						`message_subject`='Attaque de MIP',
-						`message_text`='" . $message_vorlage . $message . "'" , 'messages');
-				doquery("UPDATE {{table}} SET new_message=new_message+1 WHERE id='" . $selected_row['zielid'] . "'", 'users');
+						`message_text`='" . $message_vorlage . $message . "'"
+                );
+				doquery("UPDATE game_users SET new_message=new_message+1 WHERE id='" . $selected_row['zielid'] . "'");
 
-				doquery("DELETE FROM {{table}} WHERE id = '" . $selected_row['id'] . "'", 'iraks');
+				doquery("DELETE FROM game_iraks WHERE id = '" . $selected_row['id'] . "'");
 			}
 		} else {
-			doquery("DELETE FROM {{table}} WHERE id = '" . $selected_row['id'] . "'", 'iraks');
+			doquery("DELETE FROM game_iraks WHERE id = '" . $selected_row['id'] . "'");
 		}
 	}
 }

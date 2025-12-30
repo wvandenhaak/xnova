@@ -42,7 +42,7 @@ require_once dirname(__FILE__) .'/common.php';
 	// Test d'existance et de proprieté de la planete
 	$YourPlanet = false;
 	$UsedPlanet = false;
-	$select       = doquery("SELECT * FROM {{table}}", "planets");
+	$select       = doquery("SELECT * FROM game_planets");
 
 	while ($row = mysqli_fetch_array($select)) {
 		if ($galaxy     == $row['galaxy'] &&

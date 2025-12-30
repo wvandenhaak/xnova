@@ -49,7 +49,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$reason1        	  	= isset($_POST['reason']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['reason']) : "";
 
 			if($decl1 != "" && $decl1 != "" && $decl1 != "" && $decl1 != ""){
-				$QryDeclare  = "INSERT INTO {{table}} SET ";
+				$QryDeclare  = "INSERT INTO game_declared SET ";
 				$QryDeclare .= "`declarator` = '". $declarator ."', ";
 				$QryDeclare .= "`declarator_name` = '". $declarator_name ."', ";
 				$QryDeclare .= "`declared_1` = '". $decl1 ."', ";
@@ -57,8 +57,8 @@ require_once dirname(__FILE__) .'/common.php';
 				$QryDeclare .= "`declared_3` = '". $decl3 ."', ";
 				$QryDeclare .= "`reason`     = '". $reason1 ."' ";
 	
-				doquery( $QryDeclare, "declared");
-				doquery("UPDATE {{table}} SET multi_validated ='1' WHERE username='{$user['username']}'","users");
+				doquery( $QryDeclare);
+                doquery("UPDATE game_users SET multi_validated ='1' WHERE username='{$user['username']}'");
 	
 				//@todo : translate
 				Message ( "Merci, votre demande a ete prise en compte. Les autres joueurs que vous avez implique doivent egalement et imperativement suivre cette procedure aussi.", "Ajout" );

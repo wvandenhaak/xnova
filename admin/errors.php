@@ -43,13 +43,13 @@ $parse = $lang;
 		// Supprimer les erreurs
 		extract($_GET);
 		if (isset($delete)) {
-			doquery("DELETE FROM {{table}} WHERE `error_id`=$delete", 'errors');
+			doquery("DELETE FROM game_errors WHERE `error_id`=$delete");
 		} elseif ($deleteall == 'yes') {
-			doquery("TRUNCATE TABLE {{table}}", 'errors');
+			doquery("TRUNCATE TABLE game_errors");
 		}
 
 		// Afficher les erreurs
-		$query = doquery("SELECT * FROM {{table}}", 'errors');
+		$query = doquery("SELECT * FROM game_errors");
 		$i = 0;
 		while ($u = mysqli_fetch_array($query)) {
 			$i++;

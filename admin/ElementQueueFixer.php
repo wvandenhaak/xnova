@@ -39,10 +39,11 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		includeLang('admin/interface');
 
 		$QrySelectPlanet  = "SELECT `id`, `id_owner`, `b_hangar`, `b_hangar_id` ";
-		$QrySelectPlanet .= "FROM {{table}} ";
+		$QrySelectPlanet .= "FROM game_planets ";
 		$QrySelectPlanet .= "WHERE ";
 		$QrySelectPlanet .= "`b_hangar_id` != '0';";
-		$AffectedPlanets  = doquery ($QrySelectPlanet, 'planets');
+        $AffectedPlanets = doquery($QrySelectPlanet);
+
 		$DeletedQueues    = 0;
 		while ( $ActualPlanet = mysqli_fetch_assoc($AffectedPlanets) ) {
 			$HangarQueue = explode (";", $ActualPlanet['b_hangar_id']);
@@ -56,13 +57,14 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 				}
 			}
 			if ($bDelQueue) {
-				$QryUpdatePlanet  = "UPDATE {{table}} ";
+				$QryUpdatePlanet  = "UPDATE game_planets ";
 				$QryUpdatePlanet .= "SET ";
 				$QryUpdatePlanet .= "`b_hangar` = '0', ";
 				$QryUpdatePlanet .= "`b_hangar_id` = '0' ";
 				$QryUpdatePlanet .= "WHERE ";
 				$QryUpdatePlanet .= "`id` = '".$ActualPlanet['id']."';";
-				doquery ($QryUpdatePlanet, 'planets');
+                doquery($QryUpdatePlanet);
+
 				$DeletedQueues += 1;
 			}
 		}

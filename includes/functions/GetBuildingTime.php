@@ -52,7 +52,7 @@ function GetBuildingTime ($user, $planet, $Element, $ResearchMode = false) {
 		if       ( $intergal_lab < "1" ) {
 			$lablevel = $planet[$resource['31']];
 		} elseif ( $intergal_lab >= "1" ) {
-			$empire = doquery("SELECT `".$resource['31']."` FROM {{table}} WHERE id_owner='". $user['id'] ."';", 'planets');
+			$empire = doquery("SELECT `".$resource['31']."` FROM game_planets WHERE id_owner='". $user['id'] ."';");
 			$NbLabs = 0;
 			while ($colonie = mysqli_fetch_array($empire)) {
 				$techlevel[$NbLabs] = $colonie[$resource['31']];

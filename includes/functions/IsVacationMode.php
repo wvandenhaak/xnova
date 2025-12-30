@@ -32,7 +32,7 @@
        global $game_config;
 
        if($CurrentUser['urlaubs_modus'] == 1){
-         doquery("UPDATE {{table}} SET
+         doquery("UPDATE game_planets SET
                    metal_perhour = '".$game_config['metal_basic_income']."',
                    crystal_perhour = '".$game_config['crystal_basic_income']."',
                    deuterium_perhour = '".$game_config['deuterium_basic_income']."',
@@ -42,10 +42,9 @@
                    solar_plant_porcent = '0',
                    fusion_plant_porcent = '0',
                    solar_satelit_porcent = '0'
-                 WHERE `id_owner` = '{$CurrentUser['id']}' AND `planet_type` = '1' ", 'planets');
+                 WHERE `id_owner` = '{$CurrentUser['id']}' AND `planet_type` = '1' ");
           
           return true;
        }
        return false;
     }
-    ?>

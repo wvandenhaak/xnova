@@ -52,7 +52,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['mf']                = "Hauptframe";
 		$parse['adm_ov_data_yourv'] = Constants::VERSION;
 
-		$Last15Mins = doquery("SELECT `id`, `user_lastip`, `username`, `galaxy`, `system`, `planet`, `user_agent`, `current_page`, `ally_name`,`email`, `xpraid`, `xpminier`, `urlaubs_modus`, `bana`, `onlinetime` FROM {{table}} WHERE `onlinetime` >= '". (time() - 15 * 60) ."' ORDER BY `". $TypeSort ."` ASC;", 'users');
+		$Last15Mins = doquery("SELECT `id`, `user_lastip`, `username`, `galaxy`, `system`, `planet`, `user_agent`, `current_page`, `ally_name`,`email`, `xpraid`, `xpminier`, `urlaubs_modus`, `bana`, `onlinetime` FROM game_users WHERE `onlinetime` >= '". (time() - 15 * 60) ."' ORDER BY `". $TypeSort ."` ASC;");
 		
 
 		$Count      = 0;
@@ -68,7 +68,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 				}
 			}
 
-			$UserPoints = doquery("SELECT total_points FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $TheUser['id'] . "';", 'statpoints', true);
+			$UserPoints = doquery("SELECT total_points FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $TheUser['id'] . "';", null, true);
 			$Bloc['adm_ov_altpm']        = $lang['adm_ov_altpm'];
 			$Bloc['adm_ov_wrtpm']        = $lang['adm_ov_wrtpm'];
 			$Bloc['adm_ov_data_id']      = $TheUser['id'];

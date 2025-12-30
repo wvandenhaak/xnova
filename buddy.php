@@ -44,31 +44,31 @@ if ( $s == 1 && isset( $_GET['bid'] ) ) {
 	// Effacer une entree de la liste d'amis
 	$bid = isset($_GET['bid']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['bid']) : "";
 
-	$buddy = doquery( "SELECT * FROM {{table}} WHERE `id` = '".$bid."';", 'buddy', true );
+    $buddy = doquery("SELECT * FROM game_buddy WHERE `id` = '" . $bid . "';", null, true);
 	if ( $buddy['owner'] == $user['id'] ) {
 		if ( $buddy['active'] == 0 && $a == 1 ) {
-			doquery( "DELETE FROM {{table}} WHERE `id` = '".$bid."';", 'buddy' );
+            doquery("DELETE FROM game_buddy WHERE `id` = '" . $bid . "';");
 		} elseif ( $buddy['active'] == 1 ) {
-			doquery( "DELETE FROM {{table}} WHERE `id` = '".$bid."';", 'buddy' );
+            doquery("DELETE FROM game_buddy WHERE `id` = '" . $bid . "';");
 		} elseif ( $buddy['active'] == 0 ) {
-			doquery( "UPDATE {{table}} SET `active` = '1' WHERE `id` = '".$bid."';", 'buddy' );
+            doquery("UPDATE game_buddy SET `active` = '1' WHERE `id` = '" . $bid . "';");
 		}
 	} elseif ( $buddy['sender'] == $user['id'] ) {
-		doquery( "DELETE FROM {{table}} WHERE `id` = '".$bid."';", 'buddy' );
+        doquery("DELETE FROM game_buddy WHERE `id` = '" . $bid . "';");
 	}
 } elseif ( isset($_POST['s']) && $_POST["s"] == 3 && $_POST["a"] == 1 && $_POST["e"] == 1 && isset( $_POST["u"] ) ) {
 	// Traitement de l'enregistrement de la demande d'entree dans la liste d'amis
 	$uid = $user["id"];
 	$u = isset($_POST['u']) ? intval($_POST['u']) : 0;
 
-	$buddy = doquery( "SELECT * FROM {{table}} WHERE sender={$uid} AND owner={$u} OR sender={$u} AND owner={$uid}", 'buddy', true );
+	$buddy = doquery( "SELECT * FROM game_buddy WHERE sender={$uid} AND owner={$u} OR sender={$u} AND owner={$uid}", null, true );
 
 	if ( !$buddy ) {
 		if ( strlen( $_POST['text'] ) > 5000 ) {
 			message( "Le texte ne doit pas faire plus de 5000 caract&egrave;res !", "Erreur" );
 		}
 		$text = mysqli_real_escape_string( Database::$dbHandle, strip_tags( $_POST['text'] ) );
-		doquery( "INSERT INTO {{table}} SET sender={$uid}, owner={$u}, active=0, text='{$text}'", 'buddy' );
+        doquery("INSERT INTO game_buddy SET sender={$uid}, owner={$u}, active=0, text='{$text}'");
 		message( $lang['Request_sent'], $lang['Buddy_request'], 'buddy.php' );
 	} else {
 		message( $lang['A_request_exists_already_for_this_user'], $lang['Buddy_request'] );
@@ -79,7 +79,7 @@ $page = "<br>";
 
 if ( $a == 2 && isset( $u ) ) {
 	// Saisie texte de demande d'entree dans la liste d'amis
-	$u = doquery( "SELECT id, username FROM {{table}} WHERE id='$u'", "users", true );
+	$u = doquery( "SELECT id, username FROM game_users WHERE id='$u'", null, true );
 	if ( isset( $u ) && $u["id"] != $user["id"] ) {
 		$page .= "
 		<script src=\"scripts/cntchar.js\" type=\"text/javascript\"></script>
@@ -145,7 +145,7 @@ if ( $a == 1 ) {
 } else {
 	$query = "WHERE active=1 AND sender=" . $user["id"] . " OR active=1 AND owner=" . $user["id"];
 }
-$buddyrow = doquery( "SELECT * FROM {{table}} " . $query, 'buddy' );
+$buddyrow = doquery("SELECT * FROM game_buddy " . $query);
 
 while ( $b = mysqli_fetch_array( $buddyrow ) ) {
 	// para solicitudes
@@ -164,11 +164,11 @@ while ( $b = mysqli_fetch_array( $buddyrow ) ) {
 	$i++;
 	$uid = ( $b["owner"] == $user["id"] ) ? $b["sender"] : $b["owner"];
 	// query del user
-	$u = doquery( "SELECT id,username,galaxy,system,planet,onlinetime,ally_id,ally_name FROM {{table}} WHERE id=" . $uid, "users", true );
-	// $g = doquery("SELECT galaxy, system, planet FROM {{table}} WHERE id_planet=".$u["id_planet"],"galaxy",true);
-	// $a = doquery("SELECT * FROM {{table}} WHERE id=".$uid,"aliance",true);
+	$u = doquery( "SELECT id,username,galaxy,system,planet,onlinetime,ally_id,ally_name FROM game_users WHERE id=" . $uid, null, true );
+	// $g = doquery("SELECT galaxy, system, planet FROM game_galaxy WHERE id_planet=".$u["id_planet"], null, true);
+	// $a = doquery("SELECT * FROM game_aliance WHERE id=".$uid, null, true);
 	if ( $u["ally_id"] != 0 ) { // Alianza
-		// $allyrow = doquery("SELECT id,ally_tag FROM {{table}} WHERE id=".$u["ally_id"],"alliance",true);
+		// $allyrow = doquery("SELECT id,ally_tag FROM game_alliance WHERE id=".$u["ally_id"], null, true);
 		// if($allyrow){
 		$UserAlly .= "<a href=alliance.php?mode=ainfo&a=" . $u["id"] . ">" . $u["ally_name"] . "</a>";
 		// }

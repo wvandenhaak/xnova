@@ -30,7 +30,7 @@
 
 function CheckAbandonMoonState ($lunarow) {
 	if (($lunarow['destruyed'] + 172800) <= time() && $lunarow['destruyed'] != 0) {
-		$query = doquery("DELETE FROM {{table}} WHERE id = '" . $lunarow['id'] . "'", "lunas");
+		$query = doquery("DELETE FROM game_lunas WHERE id = '" . $lunarow['id'] . "'");
 	}
 }
 
@@ -38,10 +38,7 @@ function CheckAbandonMoonState ($lunarow) {
 function CheckAbandonPlanetState (&$planet) {
 	if ($planet['destruyed'] <= time()) {
 		$id = $planet['id'];
-		doquery("DELETE FROM {{table}} WHERE id={$id}", 'planets');
-		doquery("DELETE FROM {{table}} WHERE id_planet={$id}", 'galaxy');
+		doquery("DELETE FROM game_planets WHERE id={$id}");
+		doquery("DELETE FROM game_galaxy WHERE id_planet={$id}");
 	}
 }
-
-
-?>

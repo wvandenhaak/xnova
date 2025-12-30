@@ -42,7 +42,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$PageTPL        = gettemplate('admin/activeplanet_body');
 		$ActiveTime = time() - (15 * 60);
-		$AllActivPlanet = doquery("SELECT `name`, `galaxy`, `system`, `planet`, `points`, `last_update` FROM {{table}} WHERE `last_update` >= ".$ActiveTime." ORDER BY `last_update` ASC", 'planets');
+		$AllActivPlanet = doquery("SELECT `name`, `galaxy`, `system`, `planet`, `points`, `last_update` FROM game_planets WHERE `last_update` >= ".$ActiveTime." ORDER BY `last_update` ASC");
 		$Count          = 0;
 		
 		$parse['online_list'] = "";

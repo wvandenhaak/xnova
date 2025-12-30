@@ -33,26 +33,26 @@
        $DeleteMoon = false;
        if ($planetrow["planet_type"]==1){
        //Selectionne si il y a une lune sur la colonie a supprim�e
-          $QryWithMoon  = "SELECT * FROM {{table}} ";
+          $QryWithMoon  = "SELECT * FROM game_lunas ";
           $QryWithMoon .= "WHERE ";
           $QryWithMoon .= "`destruyed` = '0' AND ";
           $QryWithMoon .= "`galaxy` = '". $planetrow['galaxy'] ."' AND ";
           $QryWithMoon .= "`system` = '". $planetrow['system'] ."' AND ";
           $QryWithMoon .= "`lunapos` = '". $planetrow['planet'] ."' AND ";
           $QryWithMoon .= "`id_owner` = '". $user['id'] ."' ;";
-          $IsMoon = doquery( $QryWithMoon , 'lunas',true);
+          $IsMoon = doquery( $QryWithMoon , null,true);
           if($IsMoon){
           	//Envoi la demande de suppression de la lune associ� a la colonie
                 $DeleteMoon = true; // borrar luna
             }
 
        //Mise en mode destruction d ela colonie
-          $QryUpdatePlanet = "UPDATE {{table}} SET ";
+          $QryUpdatePlanet = "UPDATE game_planets SET ";
           $QryUpdatePlanet .= "`destruyed` = '" . $destruyed . "', ";
           $QryUpdatePlanet .= "`id_owner` = '0' ";
           $QryUpdatePlanet .= "WHERE ";
           $QryUpdatePlanet .= "`id` = '" . $user['current_planet'] . "' LIMIT 1;";
-          doquery($QryUpdatePlanet , 'planets');
+          doquery($QryUpdatePlanet);
 
           //Si on veut supprimer une lune
        }elseif($planetrow["planet_type"]==3){
@@ -60,30 +60,30 @@
        }
 
        if ($DeleteMoon){
-          $QryDeleteMoon = "DELETE FROM {{table}} ";
+          $QryDeleteMoon = "DELETE FROM game_planets ";
           $QryDeleteMoon .= "WHERE ";
           $QryDeleteMoon .= "`galaxy` = '". $planetrow['galaxy'] ."' AND ";
           $QryDeleteMoon .= "`system` = '". $planetrow['system'] ."' AND ";
           $QryDeleteMoon .= "`planet` = '". $planetrow['planet'] ."' AND ";
           $QryDeleteMoon .= "`planet_type` = '3' AND ";
           $QryDeleteMoon .= "`id_owner` = '". $user['id'] ."' ;";
-          doquery($QryDeleteMoon , 'planets');
+          doquery($QryDeleteMoon);
 
-          $Qrydestructionlune  = "DELETE FROM {{table}} ";
+          $Qrydestructionlune  = "DELETE FROM game_lunas ";
           $Qrydestructionlune .= "WHERE ";
           $Qrydestructionlune .= "`galaxy` = '". $planetrow['galaxy'] ."' AND ";
           $Qrydestructionlune .= "`system` = '". $planetrow['system'] ."' AND ";
           $Qrydestructionlune .= "`lunapos` = '". $planetrow['planet'] ."' AND ";
           $Qrydestructionlune .= "`id_owner` = '". $user['id'] ."' ;";
-          doquery( $Qrydestructionlune , 'lunas');
+           doquery($Qrydestructionlune);
 
-          $Qrydestructionlune2  = "UPDATE {{table}} SET ";
+          $Qrydestructionlune2  = "UPDATE game_galaxy SET ";
           $Qrydestructionlune2 .= "`id_luna` = '0' ";
           $Qrydestructionlune2 .= "WHERE ";
           $Qrydestructionlune2 .= "`galaxy` = '". $planetrow['galaxy'] ."' AND ";
           $Qrydestructionlune2 .= "`system` = '". $planetrow['system'] ."' AND ";
           $Qrydestructionlune2 .= "`planet` = '". $planetrow['planet'] ."' ;";
-          doquery( $Qrydestructionlune2 , 'galaxy');
+           doquery($Qrydestructionlune2);
 
        }
 
@@ -91,7 +91,7 @@
 
     function CheckFleets($planetrow){
 
-       $QryFleet = "SELECT * FROM {{table}} WHERE ";
+       $QryFleet = "SELECT * FROM game_fleets WHERE ";
        $QryFleet .= "(`fleet_start_galaxy` = '".$planetrow["galaxy"]."' AND ";
        $QryFleet .= "`fleet_start_system` = '".$planetrow["system"]."' AND ";
        $QryFleet .= "`fleet_start_planet` = '".$planetrow["planet"]."'";
@@ -106,11 +106,9 @@
           $QryFleet .= " AND `fleet_end_type` = '3'";
        }
        $QryFleet .= " AND `fleet_mess` <> 1 ); ";
-       $fleets = doquery($QryFleet, 'fleets',true);
+       $fleets = doquery($QryFleet, null,true);
        if($fleets){
           return true;
        }
        return false;
     }
-
-    ?>

@@ -48,10 +48,10 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$PlanetID  = $_POST['user'];
 			$MoonName  = $_POST['name'];
 
-			$QrySelectPlanet  = "SELECT * FROM {{table}} ";
+			$QrySelectPlanet  = "SELECT * FROM game_planets ";
 			$QrySelectPlanet .= "WHERE ";
 			$QrySelectPlanet .= "`id` = '". $PlanetID ."';";
-			$PlanetSelected = doquery ( $QrySelectPlanet, 'planets', true);
+            $PlanetSelected = doquery($QrySelectPlanet, null, true);
 
 			$Galaxy    = $PlanetSelected['galaxy'];
 			$System    = $PlanetSelected['system'];

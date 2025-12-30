@@ -37,7 +37,7 @@ includeLang('banned');
 
 $parse = $lang;
 
-$query = doquery("SELECT * FROM {{table}} ORDER BY `id`;",'banned');
+$query = doquery("SELECT * FROM game_banned ORDER BY `id`;");
 $i=0;
 //@todo template dynamique Mustache
 $parse['banned'] = "";

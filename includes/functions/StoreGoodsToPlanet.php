@@ -32,7 +32,7 @@ function StoreGoodsToPlanet ( $FleetRow, $Start = false ) {
 	global $resource;
 
 
-	$QryUpdatePlanet   = "UPDATE {{table}} SET ";
+	$QryUpdatePlanet   = "UPDATE game_planets SET ";
 	$QryUpdatePlanet  .= "`metal` = `metal` + '". $FleetRow['fleet_resource_metal'] ."', ";
 	$QryUpdatePlanet  .= "`crystal` = `crystal` + '". $FleetRow['fleet_resource_crystal'] ."', ";
 	$QryUpdatePlanet  .= "`deuterium` = `deuterium` + '". $FleetRow['fleet_resource_deuterium'] ."' ";
@@ -49,8 +49,5 @@ function StoreGoodsToPlanet ( $FleetRow, $Start = false ) {
 		$QryUpdatePlanet  .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."' ";
 	}
 	$QryUpdatePlanet  .= "LIMIT 1;";
-	doquery( $QryUpdatePlanet, 'planets');
-
+    doquery($QryUpdatePlanet);
 }
-
-?>

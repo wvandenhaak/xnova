@@ -261,12 +261,12 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 	$parse['production_level']     = "{$parse['production_level']}%";
 	$parse['production_level_barcolor'] = '#00ff00';
 
-	$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+	$QryUpdatePlanet  = "UPDATE game_planets SET ";
 	$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."' ";
 	$QryUpdatePlanet .= $SubQry;
 	$QryUpdatePlanet .= "WHERE ";
 	$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."';";
-	doquery( $QryUpdatePlanet, 'planets');
+    doquery($QryUpdatePlanet);
 
 	$page = $MustacheEngine->render( $RessBodyTPL, $parse );
 

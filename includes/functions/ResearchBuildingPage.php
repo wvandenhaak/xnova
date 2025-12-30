@@ -88,7 +88,7 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 						break;
 				}
 				if ($UpdateData == true) {
-					$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+					$QryUpdatePlanet  = "UPDATE game_planets SET ";
 					$QryUpdatePlanet .= "`b_tech_id` = '".   $WorkingPlanet['b_tech_id']   ."', ";
 					$QryUpdatePlanet .= "`b_tech` = '".      $WorkingPlanet['b_tech']      ."', ";
 					$QryUpdatePlanet .= "`metal` = '".       $WorkingPlanet['metal']       ."', ";
@@ -96,13 +96,13 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 					$QryUpdatePlanet .= "`deuterium` = '".   $WorkingPlanet['deuterium']   ."' ";
 					$QryUpdatePlanet .= "WHERE ";
 					$QryUpdatePlanet .= "`id` = '".          $WorkingPlanet['id']          ."';";
-					doquery( $QryUpdatePlanet, 'planets');
+                    doquery($QryUpdatePlanet);
 
-					$QryUpdateUser  = "UPDATE {{table}} SET ";
+					$QryUpdateUser  = "UPDATE game_users SET ";
 					$QryUpdateUser .= "`b_tech_planet` = '". $CurrentUser['b_tech_planet'] ."' ";
 					$QryUpdateUser .= "WHERE ";
 					$QryUpdateUser .= "`id` = '".            $CurrentUser['id']            ."';";
-					doquery( $QryUpdateUser, 'users');
+                    doquery($QryUpdateUser);
 				}
 				if ( is_array ($ThePlanet) ) {
 					$ThePlanet     = $WorkingPlanet;

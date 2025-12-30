@@ -105,7 +105,7 @@ function SetNextQueueElementOnTop ( &$CurrentPlanet, $CurrentUser ) {
 		$CurrentPlanet['b_building']    = $BuildEndTime;
 		$CurrentPlanet['b_building_id'] = $NewQueue;
 
-		$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+		$QryUpdatePlanet  = "UPDATE game_planets SET ";
 		$QryUpdatePlanet .= "`metal` = '".         $CurrentPlanet['metal']         ."' , ";
 		$QryUpdatePlanet .= "`crystal` = '".       $CurrentPlanet['crystal']       ."' , ";
 		$QryUpdatePlanet .= "`deuterium` = '".     $CurrentPlanet['deuterium']     ."' , ";
@@ -113,11 +113,9 @@ function SetNextQueueElementOnTop ( &$CurrentPlanet, $CurrentUser ) {
 		$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."' ";
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '" .           $CurrentPlanet['id']            . "';";
-		doquery( $QryUpdatePlanet, 'planets');
+        doquery($QryUpdatePlanet);
 
 	}
 
 	return;
 }
-
-?>

@@ -80,11 +80,11 @@ if(!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > $timeDelay)
               
                 $record = doquery(sprintf(
                     'SELECT IF(COUNT(DISTINCT u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, p.%1$s AS level ' .
-                    'FROM {{table}}users AS u ' .
-                    'LEFT JOIN {{table}}planets AS p ON (u.id=p.id_owner) ' .
-                    'LEFT JOIN {{table}}users_tech AS t ON (u.id=t.uid) ' .
-                    'WHERE p.%1$s=(SELECT MAX(p2.%1$s) FROM {{table}}planets AS p2) AND p.%1$s>0 ' .
-                    'GROUP BY p.%1$s ORDER BY players ASC', $resource[$element]), '', true);
+                    'FROM game_users AS u ' .
+                    'LEFT JOIN game_planets AS p ON (u.id=p.id_owner) ' .
+                    'LEFT JOIN game_users_tech AS t ON (u.id=t.uid) ' .
+                    'WHERE p.%1$s=(SELECT MAX(p2.%1$s) FROM game_planets AS p2) AND p.%1$s>0 ' .
+                    'GROUP BY p.%1$s ORDER BY players ASC', $resource[$element]), null, true);
             }
             else if($element >= 100 && $element < 200)
             {
@@ -99,21 +99,21 @@ if(!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > $timeDelay)
                                 'Plus de 10 joueurs ont ce record') AS players,
                                 t.%1\$s AS level
                         FROM
-                            {{table}}users AS u
+                            game_users AS u
                         LEFT JOIN
-                            {{table}}users_tech AS t ON (u.id = t.uid)
+                            game_users_tech AS t ON (u.id = t.uid)
                         WHERE
                             t.%1\$s = (SELECT 
                                     MAX(t2.%1\$s)
                                 FROM
-                                {{table}}users_tech AS t2)
+                                game_users_tech AS t2)
                                 AND t.%1\$s > 0
                         GROUP BY t.%1\$s
                         ORDER BY players ASC
 SQL;
 
 
-                $record = doquery(sprintf($techRecordQry, $resource[$element]), '', true);
+                $record = doquery(sprintf($techRecordQry, $resource[$element]), null, true);
                     
             }
             else

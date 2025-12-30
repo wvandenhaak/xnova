@@ -99,9 +99,9 @@ if ($_GET['mode'] == 'ainfo') {
 	$lang['Alliance_information'] = "Information Alliance";
 
 	if (isset($_GET['tag'])) {
-		$allyrow = doquery("SELECT * FROM {{table}} WHERE ally_tag='{$tag}'", "alliance", true);
+		$allyrow = doquery("SELECT * FROM game_alliance WHERE ally_tag='{$tag}'", null, true);
 	} elseif (is_numeric($a) && $a != 0) {
-		$allyrow = doquery("SELECT * FROM {{table}} WHERE id='{$a}'", "alliance", true);
+        $allyrow = doquery("SELECT * FROM game_alliance WHERE id='{$a}'", null, true);
 	} else {
       message("Cette alliance n'existe pas !", "Information Alliance (1)");
 	}
@@ -177,27 +177,27 @@ if ($user['ally_id'] == 0) { // Sin alianza
 			$_POST['aname']=addslashes($_POST['aname']);
       $_POST['atag']=addslashes($_POST['atag']);
 
-			$tagquery = doquery("SELECT * FROM {{table}} WHERE ally_tag='{$_POST['atag']}'", 'alliance', true);
+			$tagquery = doquery("SELECT * FROM game_alliance WHERE ally_tag='{$_POST['atag']}'", null, true);
 
 			if ($tagquery) {
 				message(str_replace('%s', $_POST['atag'], $lang['always_exist']), $lang['make_alliance']);
 			}
 
-			doquery("INSERT INTO {{table}} SET
+			doquery("INSERT INTO game_alliance SET
 			`ally_name`='{$_POST['aname']}',
 			`ally_tag`='{$_POST['atag']}' ,
 			`ally_owner`='{$user['id']}',
 			`ally_owner_range`='Leader',
 			`ally_members`='1',
-			`ally_register_time`=" . time() , "alliance");
+			`ally_register_time`=" . time());
 
-			$allyquery = doquery("SELECT * FROM {{table}} WHERE ally_tag='{$_POST['atag']}'", 'alliance', true);
+			$allyquery = doquery("SELECT * FROM game_alliance WHERE ally_tag='{$_POST['atag']}'", null, true);
 
-			doquery("UPDATE {{table}} SET
+			doquery("UPDATE game_users SET
 			`ally_id`='{$allyquery['id']}',
 			`ally_name`='{$allyquery['ally_name']}',
 			`ally_register_time`='" . time() . "'
-			WHERE `id`='{$user['id']}'", "users");
+			WHERE `id`='{$user['id']}'");
 
 			$page = MessageForm(str_replace('%s', $_POST['atag'], $lang['ally_maked']),
 
@@ -217,7 +217,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 
 		if ($_POST) { // esta parte es igual que el buscador de search.php...
 			// searchtext
-			$search = doquery("SELECT * FROM {{table}} WHERE ally_name LIKE '%{$_POST['searchtext']}%' or ally_tag LIKE '%{$_POST['searchtext']}%' LIMIT 30", "alliance");
+			$search = doquery("SELECT * FROM game_alliance WHERE ally_name LIKE '%{$_POST['searchtext']}%' or ally_tag LIKE '%{$_POST['searchtext']}%' LIMIT 30");
 
 			if (mysqli_num_rows($search) != 0) {
 				$template = gettemplate('alliance_searchresult_row');
@@ -243,7 +243,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 			message($lang['it_is_not_posible_to_apply'], $lang['it_is_not_posible_to_apply']);
 		}
 		// pedimos la info de la alianza
-		$allyrow = doquery("SELECT ally_tag,ally_request FROM {{table}} WHERE id='" . intval($_GET['allyid']) . "'", "alliance", true);
+		$allyrow = doquery("SELECT ally_tag,ally_request FROM game_alliance WHERE id='" . intval($_GET['allyid']) . "'", null, true);
 
 		if (!$allyrow) {
 			message($lang['it_is_not_posible_to_apply'], $lang['it_is_not_posible_to_apply']);
@@ -252,7 +252,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 		extract($allyrow);
 
 		if ($_POST['further'] == $lang['Send']) { // esta parte es igual que el buscador de search.php...
-			doquery("UPDATE {{table}} SET `ally_request`='" . intval($allyid) . "', ally_request_text='" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text'])) . "', ally_register_time='" . time() . "' WHERE `id`='" . $user['id'] . "'", "users");
+			doquery("UPDATE game_users SET `ally_request`='" . intval($allyid) . "', ally_request_text='" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text'])) . "', ally_register_time='" . time() . "' WHERE `id`='" . $user['id'] . "'");
 			// mensaje de cuando se envia correctamente el mensaje
 			message($lang['apply_registered'], $lang['your_apply']);
 			// mensaje de cuando falla el envio
@@ -274,11 +274,11 @@ if ($user['ally_id'] == 0) { // Sin alianza
 
 	if ($user['ally_request'] != 0) { // Esperando una respuesta
 		// preguntamos por el ally_tag
-		$allyquery = doquery("SELECT ally_tag FROM {{table}} WHERE id='" . intval($user['ally_request']) . "' ORDER BY `id`", "alliance", true);
+		$allyquery = doquery("SELECT ally_tag FROM game_alliance WHERE id='" . intval($user['ally_request']) . "' ORDER BY `id`", null, true);
 
 		extract($allyquery);
 		if ($_POST['bcancel']) {
-			doquery("UPDATE {{table}} SET `ally_request`=0 WHERE `id`=" . $user['id'], "users");
+			doquery("UPDATE game_users SET `ally_request`=0 WHERE `id`=" . $user['id']);
 
 			$lang['request_text'] = str_replace('%s', $ally_tag, $lang['Canceled_a_request_text']);
 			$lang['button_text'] = $lang['Ok'];
@@ -303,7 +303,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 // Parte de adentro de la alianza
 elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 
-	$ally = doquery("SELECT * FROM {{table}} WHERE id='{$user['ally_id']}'", "alliance", true);
+	$ally = doquery("SELECT * FROM game_alliance WHERE id='{$user['ally_id']}'", null, true);
 
 	$ally_ranks = unserialize($ally['ally_ranks']);
 
@@ -360,7 +360,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		$user_onlinestatus = false;
 
 	if (!$ally) {
-		doquery("UPDATE {{table}} SET `ally_name`='',`ally_id`=0 WHERE `id`='{$user['id']}'", "users");
+		doquery("UPDATE game_users SET `ally_name`='',`ally_id`=0 WHERE `id`='{$user['id']}'");
 		message($lang['ally_notexist'], $lang['your_alliance'], 'alliance.php');
 	}
 
@@ -370,7 +370,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		}
 		// se sale de la alianza
 		if ($_GET['yes'] == 1) {
-			doquery("UPDATE {{table}} SET `ally_id`=0, `ally_name` = '' WHERE `id`='{$user['id']}'", "users");
+			doquery("UPDATE game_users SET `ally_id`=0, `ally_name` = '' WHERE `id`='{$user['id']}'");
 			$lang['Go_out_welldone'] = str_replace("%s", $ally_name, $lang['Go_out_welldone']);
 			$page = MessageForm($lang['Go_out_welldone'], "<br>", $PHP_SELF, $lang['Ok']);
 			// Se quitan los puntos del user en la alianza
@@ -419,9 +419,9 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			} elseif ($sort2 == 2) {
 				$sort .= " ASC;";
 			}
-			$listuser = doquery("SELECT * FROM {{table}} WHERE ally_id='{$user['ally_id']}'{$sort}", 'users');
+			$listuser = doquery("SELECT * FROM game_users WHERE ally_id='{$user['ally_id']}'{$sort}");
 		} else {
-			$listuser = doquery("SELECT * FROM {{table}} WHERE ally_id='{$user['ally_id']}'", 'users');
+			$listuser = doquery("SELECT * FROM game_users WHERE ally_id='{$user['ally_id']}'");
 		}
 		// contamos la cantidad de usuarios.
 		$i = 0;
@@ -429,7 +429,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		$template = gettemplate('alliance_memberslist_row');
 		$page_list = '';
 		while ($u = mysqli_fetch_array($listuser)) {
-			$UserPoints = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $u['id'] . "';", 'statpoints', true);
+			$UserPoints = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $u['id'] . "';", null, true);
 
 			$i++;
 			$u['i'] = $i;
@@ -469,7 +469,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		}
 
 		if ($i != $ally['ally_members']) {
-			doquery("UPDATE {{table}} SET `ally_members`='{$i}' WHERE `id`='{$ally['id']}'", 'alliance');
+			doquery("UPDATE game_alliance SET `ally_members`='{$i}' WHERE `id`='{$ally['id']}'");
 		}
 
 		$parse = $lang;
@@ -499,14 +499,14 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			$_POST['text'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text']));
 
 			if ($_POST['r'] == 0) {
-				$sq = doquery("SELECT id,username FROM {{table}} WHERE ally_id='{$user['ally_id']}'", "users");
+				$sq = doquery("SELECT id,username FROM game_users WHERE ally_id='{$user['ally_id']}'");
 			} else {
-				$sq = doquery("SELECT id,username FROM {{table}} WHERE ally_id='{$user['ally_id']}' AND ally_rank_id='{$_POST['r']}'", "users");
+				$sq = doquery("SELECT id,username FROM game_users WHERE ally_id='{$user['ally_id']}' AND ally_rank_id='{$_POST['r']}'");
 			}
 			// looooooop
 			$list = '';
 			while ($u = mysqli_fetch_array($sq)) {
-				doquery("INSERT INTO {{table}} SET
+				doquery("INSERT INTO game_messages SET
 				`message_owner`='{$u['id']}',
 				`message_sender`='{$user['id']}' ,
 				`message_time`='" . time() . "',
@@ -514,12 +514,12 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				`message_from`='{$ally['ally_tag']}',
 				`message_subject`='{$user['username']}',
 				`message_text`='{$_POST['text']}'
-				", "messages");
+				");
 				$list .= "<br>{$u['username']} ";
 			}
-			// doquery("SELECT id,username FROM {{table}} WHERE ally_id='{$user['ally_id']}' ORDER BY `id`","users");
-			doquery("UPDATE {{table}} SET `new_message`=new_message+1 WHERE ally_id='{$user['ally_id']}' AND ally_rank_id='{$_POST['r']}'", "users");
-			doquery("UPDATE {{table}} SET `mnl_alliance`=mnl_alliance+1 WHERE ally_id='{$user['ally_id']}' AND ally_rank_id='{$_POST['r']}'", "users");
+			// doquery("SELECT id,username FROM game_users WHERE ally_id='{$user['ally_id']}' ORDER BY `id`");
+			doquery("UPDATE game_users SET `new_message`=new_message+1 WHERE ally_id='{$user['ally_id']}' AND ally_rank_id='{$_POST['r']}'");
+			doquery("UPDATE game_users SET `mnl_alliance`=mnl_alliance+1 WHERE ally_id='{$user['ally_id']}' AND ally_rank_id='{$_POST['r']}'");
 			/*
 		  Aca un mensajito diciendo que a quien se mando.
 		*/
@@ -561,7 +561,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 
 			$ranks = serialize($allianz_raenge);
 
-			doquery("UPDATE {{table}} SET `ally_ranks`='" . $ranks . "' WHERE `id`=" . $ally['id'], "alliance");
+			doquery("UPDATE game_alliance SET `ally_ranks`='" . $ranks . "' WHERE `id`=" . $ally['id']);
 
 			$goto = $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
 
@@ -632,11 +632,11 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 
 			$ranks = serialize($ally_ranks_new);
 
-			doquery("UPDATE {{table}} SET `ally_ranks`='" . $ranks . "' WHERE `id`=" . $ally['id'], "alliance");
+            doquery("UPDATE game_alliance SET `ally_ranks`='" . $ranks . "' WHERE `id`=" . $ally['id']);
 
-			$goto = $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
+            $goto = $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
 
-			header("Location: " . $goto);
+            header("Location: " . $goto);
 			exit();
 		}
 		// borrar una entrada
@@ -644,10 +644,10 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			unset($ally_ranks[$d]);
 			$ally['ally_rank'] = serialize($ally_ranks);
 
-			doquery("UPDATE {{table}} SET `ally_ranks`='{$ally['ally_rank']}' WHERE `id`={$ally['id']}", "alliance");
-		}
+            doquery("UPDATE game_alliance SET `ally_ranks`='{$ally['ally_rank']}' WHERE `id`={$ally['id']}");
+        }
 
-		if (count($ally_ranks) == 0 || $ally_ranks == '') { // si no hay rangos
+        if (count($ally_ranks) == 0 || $ally_ranks == '') { // si no hay rangos
 			$list = "<th>{$lang['There_is_not_range']}</th>";
 		} else { // Si hay rangos
 			// cargamos la template de tabla
@@ -732,30 +732,30 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				exit;
 			}
 
-			doquery("UPDATE {{table}} SET
+			doquery("UPDATE game_alliance SET
 			`ally_owner_range`='{$ally['ally_owner_range']}',
 			`ally_image`='{$ally['ally_image']}',
 			`ally_web`='{$ally['ally_web']}',
 			`ally_request_notallow`='{$ally['ally_request_notallow']}'
-			WHERE `id`='{$ally['id']}'", "alliance");
+			WHERE `id`='{$ally['id']}'");
 		} elseif ($_POST['t']) {
 			if ($t == 3) {
 				$ally['ally_request'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text']));
 
-				doquery("UPDATE {{table}} SET
+				doquery("UPDATE game_alliance SET
 				`ally_request`='{$ally['ally_request']}'
-				WHERE `id`='{$ally['id']}'", "alliance");
+				WHERE `id`='{$ally['id']}'");
 			} elseif ($t == 2) {
 				$ally['ally_text'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text']));
-				doquery("UPDATE {{table}} SET
+				doquery("UPDATE game_alliance SET
 				`ally_text`='{$ally['ally_text']}'
-				WHERE `id`='{$ally['id']}'", "alliance");
+				WHERE `id`='{$ally['id']}'");
 			} else {
 				$ally['ally_description'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags(stripslashes($_POST['text'])));
 
-				doquery("UPDATE {{table}} SET
+				doquery("UPDATE game_alliance SET
 				`ally_description`='" . $ally['ally_description'] . "'
-				WHERE `id`='{$ally['id']}'", "alliance");
+				WHERE `id`='{$ally['id']}'");
 			}
 		}
 		/*
@@ -795,9 +795,9 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 
 	if ($mode == 'admin' && $edit == 'give') {
 	if ($_POST["id"]) {
-	  doquery("update {{table}} set `ally_owner`='".$_POST["id"]."' where `id`='".$user['ally_id']."'",'alliance');
+	  doquery("update game_alliance set `ally_owner`='".$_POST["id"]."' where `id`='".$user['ally_id']."'");
 	  } else {
-	$selection=doquery("SELECT * FROM {{table}} where ally_id='".$user['ally_id']."'",'users');
+	$selection=doquery("SELECT * FROM game_users where ally_id='".$user['ally_id']."'");
   $select='';
 while($data=mysqli_fetch_array($selection)){
   $select.='<OPTION VALUE="'.$data['id'].'">'.$data['username'];
@@ -831,16 +831,16 @@ while($data=mysqli_fetch_array($selection)){
 				message($lang['Denied_access'], $lang['Members_list']);
 			}
 
-			$u = doquery("SELECT * FROM {{table}} WHERE id='{$kick}' LIMIT 1", 'users', true);
+			$u = doquery("SELECT * FROM game_users WHERE id='{$kick}' LIMIT 1", null, true);
 			// kickeamos!
 			if ($u['ally_id'] == $ally['id'] && $u['id'] != $ally['ally_owner']) {
-				doquery("UPDATE {{table}} SET `ally_id`='0' ,`ally_name` = '' WHERE `id`='{$u['id']}'", 'users');
+				doquery("UPDATE game_users SET `ally_id`='0' ,`ally_name` = '' WHERE `id`='{$u['id']}'");
 			}
 		} elseif (isset($_POST['newrang'])) {
-			$q = doquery("SELECT * FROM {{table}} WHERE id='{$u}' LIMIT 1", 'users', true);
+			$q = doquery("SELECT * FROM game_users WHERE id='{$u}' LIMIT 1", null, true);
 
 			if ((isset($ally_ranks[$_POST['newrang']-1]) || $_POST['newrang'] == 0) && $q['id'] != $ally['ally_owner']) {
-				doquery("UPDATE {{table}} SET `ally_rank_id`='" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['newrang'])) . "' WHERE `id`='" . intval($id) . "'", 'users');
+				doquery("UPDATE game_users SET `ally_rank_id`='" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['newrang'])) . "' WHERE `id`='" . intval($id) . "'");
 			}
 		}
 		// obtenemos las template row
@@ -866,9 +866,9 @@ while($data=mysqli_fetch_array($selection)){
 			} elseif ($sort2 == 2) {
 				$sort .= " ASC;";
 			}
-			$listuser = doquery("SELECT * FROM {{table}} WHERE ally_id='{$user['ally_id']}'{$sort}", 'users');
+			$listuser = doquery("SELECT * FROM game_users WHERE ally_id='{$user['ally_id']}'{$sort}");
 		} else {
-			$listuser = doquery("SELECT * FROM {{table}} WHERE ally_id={$user['ally_id']}", 'users');
+			$listuser = doquery("SELECT * FROM game_users WHERE ally_id={$user['ally_id']}");
 		}
 		// contamos la cantidad de usuarios.
 		$i = 0;
@@ -877,7 +877,7 @@ while($data=mysqli_fetch_array($selection)){
 		$lang['memberzahl'] = mysqli_num_rows($listuser);
 
 		while ($u = mysqli_fetch_array($listuser)) {
-			$UserPoints = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $u['id'] . "';", 'statpoints', true);
+			$UserPoints = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $u['id'] . "';", null, true);
 			$i++;
 			$u['i'] = $i;
 			// Dias de inactivos
@@ -941,7 +941,7 @@ while($data=mysqli_fetch_array($selection)){
 		}
 
 		if ($i != $ally['ally_members']) {
-			doquery("UPDATE {{table}} SET `ally_members`='{$i}' WHERE `id`='{$ally['id']}'", 'alliance');
+			doquery("UPDATE game_alliance SET `ally_members`='{$i}' WHERE `id`='{$ally['id']}'");
 		}
 
 		$lang['memberslist'] = $page_list;
@@ -962,30 +962,30 @@ while($data=mysqli_fetch_array($selection)){
 		if ($_POST['action'] == "Accepter") {
 			$_POST['text'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text']));
 
-			$u = doquery("SELECT * FROM {{table}} WHERE id=$show", 'users', true);
+			$u = doquery("SELECT * FROM game_users WHERE id=$show", null, true);
 			// agrega los puntos al unirse el user a la alianza
-			doquery("UPDATE {{table}} SET
+			doquery("UPDATE game_alliance SET
 			ally_members=ally_members+1
-			WHERE id='{$ally['id']}'", 'alliance');
+			WHERE id='{$ally['id']}'");
 
-			doquery("UPDATE {{table}} SET
+			doquery("UPDATE game_users SET
 			ally_name='{$ally['ally_name']}',
 			ally_request_text='',
 			ally_request='0',
 			ally_id='{$ally['id']}',
 			new_message=new_message+1,
 			mnl_alliance=mnl_alliance+1
-			WHERE id='{$show}'", 'users');
+			WHERE id='{$show}'");
 			// Se envia un mensaje avizando...
 
-			doquery("INSERT INTO {{table}} SET
+			doquery("INSERT INTO game_messages SET
 			`message_owner`='{$show}',
 			`message_sender`='{$user['id']}' ,
 			`message_time`='" . time() . "',
 			`message_type`='2',
 			`message_from`='{$ally['ally_tag']}',
 			`message_subject`='[" . $ally['ally_name'] . "] vous a acceptee!',
-			`message_text`='Hi!<br>L\'Alliance <b>" . $ally['ally_name'] . "</b> a acceptee votre candidature!<br>Charte:<br>" . $_POST['text'] . "'", "messages");
+			`message_text`='Hi!<br>L\'Alliance <b>" . $ally['ally_name'] . "</b> a acceptee votre candidature!<br>Charte:<br>" . $_POST['text'] . "'");
 
 			header('Location:alliance.php?mode=admin&edit=requests');
 			die();
@@ -993,16 +993,16 @@ while($data=mysqli_fetch_array($selection)){
 		} elseif ($_POST['action'] == "Refuser" && $_POST['action'] != '') {
 			$_POST['text'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['text']));
 
-			doquery("UPDATE {{table}} SET ally_request_text='',ally_request='0',ally_id='0',new_message=new_message+1, mnl_alliance=mnl_alliance+1 WHERE id='{$show}'", 'users');
+			doquery("UPDATE game_users SET ally_request_text='',ally_request='0',ally_id='0',new_message=new_message+1, mnl_alliance=mnl_alliance+1 WHERE id='{$show}'");
 			// Se envia un mensaje avizando...
-			doquery("INSERT INTO {{table}} SET
+			doquery("INSERT INTO game_messages SET
 			`message_owner`='{$show}',
 			`message_sender`='{$user['id']}' ,
 			`message_time`='" . time() . "',
 			`message_type`='2',
 			`message_from`='{$ally['ally_tag']}',
 			`message_subject`='[" . $ally['ally_name'] . "] vous as refuse!',
-			`message_text`='Hi!<br>L\'Alliance <b>" . $ally['ally_name'] . "</b> a refusee votre candidature!<br>Begr&uuml;ndung/Text:<br>" . $_POST['text'] . "'", "messages");
+			`message_text`='Hi!<br>L\'Alliance <b>" . $ally['ally_name'] . "</b> a refusee votre candidature!<br>Begr&uuml;ndung/Text:<br>" . $_POST['text'] . "'");
 
 			header('Location:alliance.php?mode=admin&edit=requests');
 			die();
@@ -1011,7 +1011,7 @@ while($data=mysqli_fetch_array($selection)){
 		$row = gettemplate('alliance_admin_request_row');
 		$i = 0;
 		$parse = $lang;
-		$query = doquery("SELECT id,username,ally_request_text,ally_register_time FROM {{table}} WHERE ally_request='{$ally['id']}'", 'users');
+		$query = doquery("SELECT id,username,ally_request_text,ally_register_time FROM game_users WHERE ally_request='{$ally['id']}'");
 		while ($r = mysqli_fetch_array($query)) {
 			// recolectamos los datos del que se eligio.
 			if (isset($show) && $r['id'] == $show) {
@@ -1059,8 +1059,8 @@ while($data=mysqli_fetch_array($selection)){
 		if ($_POST['newname']) {
 			// Y a le nouveau Nom
 			$ally['ally_name'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['newname']));
-			doquery("UPDATE {{table}} SET `ally_name` = '". $ally['ally_name'] ."' WHERE `id` = '". $user['ally_id'] ."';", 'alliance');
-			doquery("UPDATE {{table}} SET `ally_name` = '". $ally['ally_name'] ."' WHERE `ally_id` = '". $ally['id'] ."';", 'users');
+			doquery("UPDATE game_alliance SET `ally_name` = '". $ally['ally_name'] ."' WHERE `id` = '". $user['ally_id'] ."';");
+			doquery("UPDATE game_users SET `ally_name` = '". $ally['ally_name'] ."' WHERE `ally_id` = '". $ally['id'] ."';");
 		}
 
 		$parse['question']           = str_replace('%s', $ally['ally_name'], $lang['How_you_will_call_the_alliance_in_the_future']);
@@ -1085,7 +1085,7 @@ while($data=mysqli_fetch_array($selection)){
 		if ($_POST['newtag']) {
 			// Y a le nouveau TAG
 			$ally['ally_tag'] = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['newtag']));
-			doquery("UPDATE {{table}} SET `ally_tag` = '". $ally['ally_tag'] ."' WHERE `id` = '". $user['ally_id'] ."';", 'alliance');
+			doquery("UPDATE game_alliance SET `ally_tag` = '". $ally['ally_tag'] ."' WHERE `id` = '". $user['ally_id'] ."';");
 		}
 
 		$parse['question']           = str_replace('%s', $ally['ally_tag'], $lang['How_you_will_call_the_alliance_in_the_future']);
@@ -1108,8 +1108,8 @@ while($data=mysqli_fetch_array($selection)){
 	  Si bien, se tendria que confirmar, no tengo animos para hacerlo mas detallado...
 	  sorry :(
 	*/
-		doquery("UPDATE {{table}} SET `ally_id`='0', `ally_name` = '' WHERE `id`='{$user['id']}'", 'users');
-		doquery("DELETE FROM {{table}} WHERE id='{$ally['id']}'", "alliance");
+		doquery("UPDATE game_users SET `ally_id`='0', `ally_name` = '' WHERE `id`='{$user['id']}'");
+		doquery("DELETE FROM game_alliance WHERE id='{$ally['id']}'");
 		header('Location: alliance.php');
 		exit;
 	}
@@ -1150,7 +1150,7 @@ while($data=mysqli_fetch_array($selection)){
 		}
 		// El link para ver las solicitudes
 		$lang['requests'] = '';
-		$request = doquery("SELECT id FROM {{table}} WHERE ally_request='{$ally['id']}'", 'users');
+		$request = doquery("SELECT id FROM game_users WHERE ally_request='{$ally['id']}'");
 		$request_count = mysqli_num_rows($request);
 		if ($request_count != 0) {
 			if ($ally['ally_owner'] == $user['id'] || $ally_ranks[$user['ally_rank_id']-1]['bewerbungen'] != 0)

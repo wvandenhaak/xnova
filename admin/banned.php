@@ -61,7 +61,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$BanTime          += $secs;
 			$BannedUntil       = $Now + $BanTime;
 
-			$QryInsertBan      = "INSERT INTO {{table}} SET ";
+			$QryInsertBan      = "INSERT INTO game_banned SET ";
 			$QryInsertBan     .= "`who` = \"". $name ."\", ";
 			$QryInsertBan     .= "`theme` = '". $reas ."', ";
 			$QryInsertBan     .= "`who2` = '". $name ."', ";
@@ -69,14 +69,14 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$QryInsertBan     .= "`longer` = '". $BannedUntil ."', ";
 			$QryInsertBan     .= "`author` = '". $admin ."', ";
 			$QryInsertBan     .= "`email` = '". $mail ."';";
-			doquery( $QryInsertBan, 'banned');
+            doquery($QryInsertBan);
 
-			$QryUpdateUser     = "UPDATE {{table}} SET ";
+			$QryUpdateUser     = "UPDATE game_users SET ";
 			$QryUpdateUser    .= "`bana` = '1', ";
 			$QryUpdateUser    .= "`banaday` = '". $BannedUntil ."' ";
 			$QryUpdateUser    .= "WHERE ";
 			$QryUpdateUser    .= "`username` = \"". $name ."\";";
-			doquery( $QryUpdateUser, 'users');
+            doquery($QryUpdateUser);
 
 			$DoneMessage       = $lang['adm_bn_thpl'] ." ". $name ." ". $lang['adm_bn_isbn'];
 			AdminMessage ($DoneMessage, $lang['adm_bn_ttle']);

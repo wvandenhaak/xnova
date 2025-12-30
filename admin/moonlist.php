@@ -38,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		includeLang('overview');
 
 		$parse = $lang;
-		$query = doquery("SELECT `id`,`name`,`galaxy`,`system`,`planet`,`last_update` FROM {{table}} WHERE planet_type='3'", "planets");
+		$query = doquery("SELECT `id`,`name`,`galaxy`,`system`,`planet`,`last_update` FROM game_planets WHERE planet_type='3'");
 		$i = 0;
 		while ($u = mysqli_fetch_array($query)) {
 			$parse['moon'] .= "<tr>"

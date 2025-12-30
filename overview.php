@@ -32,7 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$lunarow = doquery("SELECT id FROM {{table}} WHERE `id_owner` = '" . $planetrow['id_owner'] . "' AND `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "';", 'lunas', true);
+$lunarow = doquery("SELECT id FROM game_lunas WHERE `id_owner` = '" . $planetrow['id_owner'] . "' AND `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "';", null, true);
 
 //CheckPlanetUsedFields ($lunarow);
 
@@ -54,11 +54,11 @@ switch ($mode) {
                 // Deja on met jour la planete qu'on garde en memoire (pour le nom)
                 $planetrow['name'] = $newname;
                 // Ensuite, on enregistre dans la base de données
-                doquery("UPDATE {{table}} SET `name` = '" . $newname . "' WHERE `id` = '" . $user['current_planet'] . "' LIMIT 1;", "planets");
+                doquery("UPDATE game_planets SET `name` = '" . $newname . "' WHERE `id` = '" . $user['current_planet'] . "' LIMIT 1;");
                 // Est ce qu'il sagit d'une lune ??
                 if ($planetrow['planet_type'] == 3) {
                     // Oui ... alors y a plus qu'a changer son nom dans la table des lunes aussi !!!
-                    doquery("UPDATE {{table}} SET `name` = '" . $newname . "' WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "' LIMIT 1;", "lunas");
+                    doquery("UPDATE game_lunas SET `name` = '" . $newname . "' WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "' LIMIT 1;");
                 }
             }
         } elseif ($_POST['action'] == $lang['colony_abandon']) {
@@ -86,11 +86,11 @@ switch ($mode) {
 
                 AbandonColony($user,$planetrow);
 
-                    $QryUpdateUser = "UPDATE {{table}} SET ";
+                    $QryUpdateUser = "UPDATE game_users SET ";
                     $QryUpdateUser .= "`current_planet` = `id_planet` ";
                     $QryUpdateUser .= "WHERE ";
                     $QryUpdateUser .= "`id` = '" . $user['id'] . "' LIMIT 1";
-                    doquery($QryUpdateUser, "users");
+                    doquery($QryUpdateUser);
                     // Tout s'est bien pass� ! La colo a �t� effac�e !!
                     message($lang['deletemessage_ok'] , $lang['colony_abandon'], 'overview.php',3);
 
@@ -142,22 +142,22 @@ switch ($mode) {
             $HaveNewLevelRaid = "";
             if (($LvlUpMinier + $LvlUpRaid) <= 100) {
                 if ($XpMinier >= $XpMinierUp) {
-                    $QryUpdateUser = "UPDATE {{table}} SET ";
+                    $QryUpdateUser = "UPDATE game_users SET ";
                     $QryUpdateUser .= "`lvl_minier` = '" . $LvlUpMinier . "', ";
                     $QryUpdateUser .= "`rpg_points` = `rpg_points` + 1 ";
                     $QryUpdateUser .= "WHERE ";
                     $QryUpdateUser .= "`id` = '" . $user['id'] . "';";
-                    doquery($QryUpdateUser, 'users');
+                    doquery($QryUpdateUser);
                     $HaveNewLevelMineur .= "<tr>";
                     $HaveNewLevelMineur .= "<th colspan=\"4\"><a href=\"officier.php\">" . $lang['Have_new_level_mineur'] . "</a></th>";
                 }
                 if ($XPRaid >= $XpRaidUp) {
-                    $QryUpdateUser = "UPDATE {{table}} SET ";
+                    $QryUpdateUser = "UPDATE game_users SET ";
                     $QryUpdateUser .= "`lvl_raid` = '" . $LvlUpRaid . "', ";
                     $QryUpdateUser .= "`rpg_points` = `rpg_points` + 1 ";
                     $QryUpdateUser .= "WHERE ";
                     $QryUpdateUser .= "`id` = '" . $user['id'] . "';";
-                    doquery($QryUpdateUser, 'users');
+                    doquery($QryUpdateUser);
                     $HaveNewLevelRaid  .= "<tr>";
                     $HaveNewLevelRaid  .= "<th colspan=\"4\"><a href=\"officier.php\">" . $lang['Have_new_level_raid'] . "</a></th>";
                 }
@@ -165,7 +165,7 @@ switch ($mode) {
             // -----------------------------------------------------------------------------------------------
             // --- Gestion des flottes personnelles ---------------------------------------------------------
             // Toutes de vert vetues
-            $OwnFleets = doquery("SELECT * FROM {{table}} WHERE `fleet_owner` = '" . $user['id'] . "';", 'fleets');
+            $OwnFleets = doquery("SELECT * FROM game_fleets WHERE `fleet_owner` = '" . $user['id'] . "';");
             
             $Record = 0;
             while ($FleetRow = mysqli_fetch_array($OwnFleets)) {
@@ -196,7 +196,7 @@ switch ($mode) {
             // -----------------------------------------------------------------------------------------------
             // --- Gestion des flottes autres que personnelles ----------------------------------------------
             // Flotte ennemies (ou amie) mais non personnelles
-            $OtherFleets = doquery("SELECT * FROM {{table}} WHERE `fleet_target_owner` = '" . $user['id'] . "';", 'fleets');
+            $OtherFleets = doquery("SELECT * FROM game_fleets WHERE `fleet_target_owner` = '" . $user['id'] . "';");
 
             $Record = 2000;
             while ($FleetRow = mysqli_fetch_array($OtherFleets)) {
@@ -226,7 +226,7 @@ switch ($mode) {
             $Order = ($user['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
             $Sort = $user['planet_sort'];
 
-            $QryPlanets = "SELECT * FROM {{table}} WHERE `id_owner` = '" . $user['id'] . "' ORDER BY ";
+            $QryPlanets = "SELECT * FROM game_planets WHERE `id_owner` = '" . $user['id'] . "' ORDER BY ";
             if ($Sort == 0) {
                 $QryPlanets .= "`id` " . $Order;
             } elseif ($Sort == 1) {
@@ -234,7 +234,8 @@ switch ($mode) {
             } elseif ($Sort == 2) {
                 $QryPlanets .= "`name` " . $Order;
             }
-            $planets_query = doquery ($QryPlanets, 'planets');
+            $planets_query = doquery($QryPlanets);
+
             $Colone = 1;
             $AllPlanets = "<tr>";
             while ($UserPlanet = mysqli_fetch_array($planets_query)) {
@@ -275,7 +276,7 @@ switch ($mode) {
             }
             // -----------------------------------------------------------------------------------------------
             // --- Gestion des attaques missiles -------------------------------------------------------------
-            $iraks_query = doquery("SELECT * FROM {{table}} WHERE owner = '" . $user['id'] . "'", 'iraks');
+            $iraks_query = doquery("SELECT * FROM game_iraks WHERE owner = '" . $user['id'] . "'");
             $Record = 4000;
             while ($irak = mysqli_fetch_array ($iraks_query)) {
                 $Record++;
@@ -286,17 +287,21 @@ switch ($mode) {
 
                     $fpage[$irak['zeit']] .= InsertJavaScriptChronoApplet ("fm", $Record, $time, true);
 
-                    $planet_start = doquery("SELECT * FROM {{table}} WHERE
+                    $planet_start = doquery("SELECT * FROM game_planets WHERE
 						galaxy = '" . $irak['galaxy'] . "' AND
 						system = '" . $irak['system'] . "' AND
 						planet = '" . $irak['planet'] . "' AND
-						planet_type = '1'", 'planets');
+						planet_type = '1'"
+                    );
 
-                    $user_planet = doquery("SELECT * FROM {{table}} WHERE
+                    $user_planet = doquery("SELECT * FROM game_planets WHERE
 						galaxy = '" . $irak['galaxy_angreifer'] . "' AND
 						system = '" . $irak['system_angreifer'] . "' AND
 						planet = '" . $irak['planet_angreifer'] . "' AND
-						planet_type = '1'", 'planets', true);
+						planet_type = '1'",
+                        null,
+                        true
+                    );
 
                     if (mysqli_num_rows($planet_start) == 1) {
                         $planet = mysqli_fetch_array($planet_start);
@@ -342,7 +347,7 @@ switch ($mode) {
             // --- Gestion de l'affichage d'une lune ---------------------------------------------------------
             if (isset($lunarow) && isset($lunarow['id']) && $lunarow['id'] <> 0) {
                 if ($planetrow['planet_type'] == 1) {
-                    $lune = doquery ("SELECT `id`, `name`, `image` FROM {{table}} WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `planet` = '" . $planetrow['planet'] . "' AND `planet_type` = '3'", 'planets', true);
+                    $lune = doquery ("SELECT `id`, `name`, `image` FROM game_planets WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `planet` = '" . $planetrow['planet'] . "' AND `planet_type` = '3'", null, true);
                     $parse['moon_img'] = "<a href=\"?cp=" . $lune['id'] . "&re=0\" title=\"" . $lune['name'] . "\"><img src=\"skins/epicblue/planeten/" . $lune['image'] . ".jpg\" height=\"50\" width=\"50\"></a>";
                     $parse['moon'] = $lune['name'];
                 } else {
@@ -363,7 +368,7 @@ switch ($mode) {
             $parse['galaxy_galaxy'] = $planetrow['galaxy'];
             $parse['galaxy_planet'] = $planetrow['planet'];
             $parse['galaxy_system'] = $planetrow['system'];
-            $StatRecord = doquery("SELECT `build_points`, `fleet_points`, `tech_points`, `total_points`, `total_rank`, `total_old_rank` FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $user['id'] . "';", 'statpoints', true);
+            $StatRecord = doquery("SELECT `build_points`, `fleet_points`, `tech_points`, `total_points`, `total_rank`, `total_old_rank` FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $user['id'] . "';", null, true);
             
             $parse['user_points'] = isset($StatRecord) && isset($StatRecord['build_points']) ? pretty_number($StatRecord['build_points']) : 0;
             $parse['user_fleet'] = isset($StatRecord) && isset($StatRecord['fleet_points']) ? pretty_number($StatRecord['fleet_points']) : 0;
@@ -441,7 +446,7 @@ switch ($mode) {
             } else {
                 $parse['building'] = $lang['Free'];
             }
-            $query = doquery("SELECT COUNT(DISTINCT(id)) AS connectedPlayers FROM {{table}} WHERE onlinetime>" . (time()-900), 'users', true);
+            $query = doquery("SELECT COUNT(DISTINCT(id)) AS connectedPlayers FROM game_users WHERE onlinetime>" . (time()-900), null, true);
             $parse['NumberMembersOnline'] = isset($query["connectedPlayers"]) ? $query["connectedPlayers"] : 1;
 
             // $count = doquery(","users",true);

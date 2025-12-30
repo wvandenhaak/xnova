@@ -34,9 +34,9 @@ function GalaxyRowAlly ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, 
 	// Alliances
 	$Result  = "<th width=80>";
 	if (isset($GalaxyRowUser['ally_id']) && $GalaxyRowUser['ally_id'] != 0) {
-		$allyquery = doquery("SELECT * FROM {{table}} WHERE id=" . $GalaxyRowUser['ally_id'], "alliance", true);
+		$allyquery = doquery("SELECT * FROM game_alliance WHERE id=" . $GalaxyRowUser['ally_id'], null, true);
 		if ($allyquery) {
-			$members_count = doquery("SELECT COUNT(DISTINCT(id)) FROM {{table}} WHERE ally_id=" . $allyquery['id'] . ";", "users", true);
+			$members_count = doquery("SELECT COUNT(DISTINCT(id)) FROM game_users WHERE ally_id=" . $allyquery['id'] . ";", null, true);
 
 			if ($members_count[0] > 1) {
 				$add = "s";

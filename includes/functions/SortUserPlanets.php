@@ -32,16 +32,15 @@ function SortUserPlanets ( $CurrentUser ) {
 	$Order = ( $CurrentUser['planet_sort_order'] == 1 ) ? "DESC" : "ASC" ;
 	$Sort  = $CurrentUser['planet_sort'];
 
-	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `image`, `b_building`, `b_building_id` FROM {{table}} WHERE `id_owner` = '". $CurrentUser['id'] ."' ORDER BY ";
+	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `image`, `b_building`, `b_building_id` FROM game_planets WHERE `id_owner` = '". $CurrentUser['id'] ."' ORDER BY ";
 	if       ( $Sort == 0 ) {
 		$QryPlanets .= "`id` ". $Order;
 	} elseif ( $Sort == 1 ) {
 		$QryPlanets .= "`name` ". $Order;
 	} elseif ( $Sort == 2 ) {
 		$QryPlanets .= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
-	} 
-	$Planets = doquery ( $QryPlanets, 'planets');
+	}
+    $Planets = doquery($QryPlanets);
 
 	return $Planets;
 }
-?>

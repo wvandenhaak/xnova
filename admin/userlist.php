@@ -49,7 +49,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$PageTPL = gettemplate('admin/userlist_body');
 		$RowsTPL = gettemplate('admin/userlist_rows');
 
-		$query   = doquery("SELECT `id`, `username`, `email`, `user_lastip`, `register_time`, `onlinetime`, `banaday`, `bana` FROM {{table}} ORDER BY `". $TypeSort ."` ASC", 'users');
+		$query   = doquery("SELECT `id`, `username`, `email`, `user_lastip`, `register_time`, `onlinetime`, `banaday`, `bana` FROM game_users ORDER BY `". $TypeSort ."` ASC");
 
 		$parse                 = $lang;
 		$parse['adm_ul_table'] = "";

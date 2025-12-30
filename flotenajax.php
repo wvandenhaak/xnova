@@ -98,24 +98,24 @@ require_once dirname(__FILE__) .'/common.php';
 
 	$FleetArray = $fleet['fleetarray'];
 
-	$CurrentFlyingFleets = doquery("SELECT COUNT(fleet_id) AS `Nbre` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."';", 'fleets', true);
+	$CurrentFlyingFleets = doquery("SELECT COUNT(fleet_id) AS `Nbre` FROM game_fleets WHERE `fleet_owner` = '".$user['id']."';", null, true);
 	$CurrentFlyingFleets = $CurrentFlyingFleets["Nbre"];
 
-	$QrySelectEnemy  = "SELECT * FROM {{table}} ";
+	$QrySelectEnemy  = "SELECT * FROM game_planets ";
 	$QrySelectEnemy .= "WHERE ";
 	$QrySelectEnemy .= "`galaxy` = '". $_POST['galaxy'] ."' AND ";
 	$QrySelectEnemy .= "`system` = '". $_POST['system'] ."' AND ";
 	$QrySelectEnemy .= "`planet` = '". $_POST['planet'] ."' AND ";
 	$QrySelectEnemy .= "`planet_type` = '". $_POST['planettype'] ."';";
-	$TargetRow = doquery( $QrySelectEnemy, 'planets', true);
+    $TargetRow = doquery($QrySelectEnemy, null, true);
 
-	if       ($TargetRow['id_owner'] == '') {
+    if ($TargetRow['id_owner'] == '') {
 		$TargetUser = $user;
 	} elseif ($TargetRow['id_owner'] != '') {
-		$TargetUser = doquery("SELECT * FROM {{table}} WHERE `id` = '". $TargetRow['id_owner'] ."';", 'users', true);
+		$TargetUser = doquery("SELECT * FROM game_users WHERE `id` = '". $TargetRow['id_owner'] ."';", null, true);
 	}
-	$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", 'statpoints', true);
-	$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TargetUser['id'] ."';", 'statpoints', true);
+	$UserPoints    = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", null, true);
+	$User2Points   = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TargetUser['id'] ."';", null, true);
 
 	$CurrentPoints = $UserPoints['total_points'];
 	$TargetPoints  = $User2Points['total_points'];
@@ -220,7 +220,7 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 	$consumption = round($consumption) + 1;
 
-	$QryInsertFleet  = "INSERT INTO {{table}} SET ";
+	$QryInsertFleet  = "INSERT INTO game_fleets SET ";
 	$QryInsertFleet .= "`fleet_owner` = '". $user['id'] ."', ";
 	$QryInsertFleet .= "`fleet_mission` = '". intval($_POST['mission']) ."', ";
 	$QryInsertFleet .= "`fleet_amount` = '". $FleetShipCount ."', ";
@@ -237,19 +237,19 @@ require_once dirname(__FILE__) .'/common.php';
 	$QryInsertFleet .= "`fleet_end_type` = '". intval($_POST['planettype']) ."', ";
 	$QryInsertFleet .= "`fleet_target_owner` = '". $TargetRow['id_owner'] ."', ";
 	$QryInsertFleet .= "`start_time` = '" . time() . "';";
-	doquery( $QryInsertFleet, 'fleets');
+    doquery($QryInsertFleet);
 
 	$UserDeuterium   -= $consumption;
-	$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+	$QryUpdatePlanet  = "UPDATE game_planets SET ";
 	$QryUpdatePlanet .= $FleetSubQRY;
 	$QryUpdatePlanet .= "`deuterium` = '".$UserDeuterium."' " ;
 	$QryUpdatePlanet .= "WHERE ";
 	$QryUpdatePlanet .= "`id` = '". $planetrow['id'] ."';";
-	doquery( $QryUpdatePlanet, 'planets');
+    doquery($QryUpdatePlanet);
 
 	$CurrentFlyingFleets++;
 
-	$planetrow = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_planet'] ."';", 'planets', true);
+    $planetrow = doquery("SELECT * FROM game_planets WHERE `id` = '" . $user['current_planet'] . "';", null, true);
 	$ResultMessage  = "600;". $lang['gs_sending'] ." ". $FleetShipCount  ." ". $lang['tech'][$Ship] ." ". $lang['gs_to'] ." ". $_POST['galaxy'] .":". $_POST['system'] .":". $_POST['planet'] ."...|";
 	$ResultMessage .= $CurrentFlyingFleets ." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
 

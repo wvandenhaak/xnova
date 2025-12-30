@@ -55,13 +55,13 @@ includeLang('fleet');
 		);
 
 	if ($Mode == 8) {
-		$QrySelectGalaxy  = "SELECT * FROM {{table}} ";
+		$QrySelectGalaxy  = "SELECT * FROM game_galaxy ";
 		$QrySelectGalaxy .= "WHERE ";
 		$QrySelectGalaxy .= "`galaxy` = '".$planetrow['galaxy']."' AND ";
 		$QrySelectGalaxy .= "`system` = '".$planetrow['system']."' AND ";
 		$QrySelectGalaxy .= "`planet` = '".$planetrow['planet']."' ";
 		$QrySelectGalaxy .= "LIMIT 1;";
-		$TargetGalaxy     = doquery( $QrySelectGalaxy, 'galaxy', true);
+		$TargetGalaxy     = doquery( $QrySelectGalaxy, null, true);
 		$DebrisSize       = $TargetGalaxy['metal'] + $TargetGalaxy['crystal'];
 		$RecyclerNeeded   = floor($DebrisSize / ($pricelist[209]['capacity'])) + 1;
 		$user = MergeUserTechnology($user);
@@ -137,7 +137,7 @@ includeLang('fleet');
 	$page .= "		</tr>";
 	$page .= "	</table>";
 
-	$QryInsertFleet  = "INSERT INTO {{table}} SET ";
+	$QryInsertFleet  = "INSERT INTO game_fleets SET ";
 	$QryInsertFleet .= "`fleet_owner` = '". $user['id'] ."', ";
 	$QryInsertFleet .= "`fleet_mission` = '". $Mode ."', ";
 	$QryInsertFleet .= "`fleet_amount` = '". $ShipCount ."', ";
@@ -153,16 +153,14 @@ includeLang('fleet');
 	$QryInsertFleet .= "`fleet_end_planet` = '". $Planet ."', ";
 	$QryInsertFleet .= "`fleet_end_type` = '". $TypePl ."', ";
 	$QryInsertFleet .= "`start_time` = '". time() ."';";
-	doquery( $QryInsertFleet, 'fleets');
+    doquery($QryInsertFleet);
 
-	$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+	$QryUpdatePlanet  = "UPDATE game_planets SET ";
 	$QryUpdatePlanet .= $FleetSubQRY;
 	$QryUpdatePlanet .= "`planet_type` = '".$planetrow['planet_type']."' ";
 	$QryUpdatePlanet .= "WHERE ";
 	$QryUpdatePlanet .= "`id` = '". $planetrow['id'] ."'";
-	doquery ($QryUpdatePlanet, "planets");
-
-
+    doquery($QryUpdatePlanet);
 
 	display ( $page, "QuickFleet" );
 

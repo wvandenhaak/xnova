@@ -57,13 +57,13 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 	$FleetCapacity  = CreateFleetPopupedMissionLink ( $FleetRow, $lang['type_mission'][ $MissionType ], $FleetPrefix . $FleetStyle[ $MissionType ] );
 
 	$NameQuery  = "SELECT `name` ";
-	$NameQuery .= "FROM {{table}} ";
+	$NameQuery .= "FROM game_planets ";
 	$NameQuery .= "WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."' AND `planet_type` = '".$FleetRow['fleet_start_type']."' ";
 	$NameQuery .= "UNION ";
 	$NameQuery .= "SELECT `name` ";
-	$NameQuery .= "FROM {{table}} ";
+	$NameQuery .= "FROM game_planets ";
 	$NameQuery .= "WHERE `galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND `system` = '".$FleetRow['fleet_end_system']."' AND `planet` = '".$FleetRow['fleet_end_planet']."' AND `planet_type` = '".$FleetRow['fleet_end_type']."';";
-	$NameQuery = doquery($NameQuery, "planets", true);
+	$NameQuery = doquery($NameQuery, null, true);
 	
 	$StartType      = $FleetRow['fleet_start_type'];
 	$TargetType     = $FleetRow['fleet_end_type'];
@@ -161,5 +161,3 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 
 	return $MustacheEngine->render($RowsTPL, $bloc);
 }
-
-?>

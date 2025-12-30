@@ -38,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
 		includeLang('admin/multi');
 
-		$query   = doquery("SELECT * FROM {{table}}", 'multi');
+		$query   = doquery("SELECT * FROM game_multi");
 
 		$parse                 = $lang;
 		$parse['adm_mt_table'] = "";

@@ -48,7 +48,7 @@ if ($DeleteWhat != '') {
 	$MessPageMode = "delete";
 }
 
-$UsrMess       = doquery("SELECT `message_type` FROM {{table}} WHERE `message_owner` = '".strval($user['id'])."' ORDER BY `message_time` DESC", 'messages');
+$UsrMess       = doquery("SELECT `message_type` FROM game_messages WHERE `message_owner` = '".strval($user['id'])."' ORDER BY `message_time` DESC");
 
 $MessageType   = array (100, 0, 1, 2, 3, 4, 5, 15, 99, 97 );
 $TitleColor    = array (0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB', 97 => '#666666');
@@ -74,13 +74,13 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 				message ($lang['mess_no_ownerid'], $lang['mess_error']);
 			}
 
-			$OwnerRecord = doquery("SELECT `username`, `id_planet` FROM {{table}} WHERE `id` = '".intval($OwnerID)."';", 'users', true);
+			$OwnerRecord = doquery("SELECT `username`, `id_planet` FROM game_users WHERE `id` = '".intval($OwnerID)."';", null, true);
 
 			if (!$OwnerRecord) {
 				message ($lang['mess_no_owner']  , $lang['mess_error']);
 			}
 
-			$OwnerHome   = doquery("SELECT * FROM {{table}} WHERE `id_planet` = '". $OwnerRecord["id_planet"] ."';", 'galaxy', true);
+			$OwnerHome   = doquery("SELECT * FROM game_galaxy WHERE `id_planet` = '". $OwnerRecord["id_planet"] ."';", null, true);
 			if (!$OwnerHome) {
 				message ($lang['mess_no_ownerpl'], $lang['mess_error']);
 			}
@@ -135,14 +135,14 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 			// Suppression des messages selectionnés
 			$DeleteWhat = $_POST['deletemessages'];
 			if       ($DeleteWhat == 'deleteall') {
-				doquery("DELETE FROM {{table}} WHERE `message_owner` = '". $user['id'] ."';", 'messages');
+				doquery("DELETE FROM game_messages WHERE `message_owner` = '". $user['id'] ."';");
 			} elseif ($DeleteWhat == 'deletemarked') {
 				foreach($_POST as $Message => $Answer) {
 					if (preg_match("/delmes/i", $Message) && $Answer == 'on') {
 						$MessId   = str_replace("delmes", "", $Message);
-						$MessHere = doquery("SELECT * FROM {{table}} WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $user['id'] ."';", 'messages');
+						$MessHere = doquery("SELECT * FROM game_messages WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $user['id'] ."';");
 						if ($MessHere) {
-							doquery("DELETE FROM {{table}} WHERE `message_id` = '".$MessId."';", 'messages');
+							doquery("DELETE FROM game_messages WHERE `message_id` = '".$MessId."';");
 						}
 					}
 				}
@@ -153,9 +153,9 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 					$Selected   = "delmes".$MessId;
 					$IsSelected = $_POST[ $Selected ];
 					if (preg_match("/showmes/i", $Message) && !isset($IsSelected)) {
-						$MessHere = doquery("SELECT * FROM {{table}} WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $user['id'] ."';", 'messages');
+						$MessHere = doquery("SELECT * FROM game_messages WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $user['id'] ."';");
 						if ($MessHere) {
-							doquery("DELETE FROM {{table}} WHERE `message_id` = '".$MessId."';", 'messages');
+							doquery("DELETE FROM game_messages WHERE `message_id` = '".$MessId."';");
 						}
 					}
 				}
@@ -203,19 +203,19 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 			$page .= "</tr>";
 
 			if ($MessCategory == 100) {
-				$UsrMess       = doquery("SELECT * FROM {{table}} WHERE `message_owner` = '".$user['id']."' ORDER BY `message_time` DESC;", 'messages');
+				$UsrMess       = doquery("SELECT * FROM game_messages WHERE `message_owner` = '".$user['id']."' ORDER BY `message_time` DESC;");
 				$SubUpdateQry  = "";
 				for ($MessType = 0; $MessType < 101; $MessType++) {
 					if ( in_array($MessType, $MessageType) ) {
 						$SubUpdateQry .= "`". $messfields[$MessType] ."` = '0', ";
 					}
 				}
-				$QryUpdateUser  = "UPDATE {{table}} SET ";
+				$QryUpdateUser  = "UPDATE game_users SET ";
 				$QryUpdateUser .= $SubUpdateQry;
 				$QryUpdateUser .= "`id` = '".$user['id']."' ";
 				$QryUpdateUser .= "WHERE ";
 				$QryUpdateUser .= "`id` = '".$user['id']."';";
-				doquery ( $QryUpdateUser, 'users' );
+                doquery($QryUpdateUser);
 
 				while ($CurMess = mysqli_fetch_array($UsrMess)) {
 					$page .= "\n<tr>";
@@ -236,14 +236,14 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 					$page .= "</tr>";
 				}
 			} else {
-				$UsrMess       = doquery("SELECT * FROM {{table}} WHERE `message_owner` = '".$user['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;", 'messages');
+				$UsrMess       = doquery("SELECT * FROM game_messages WHERE `message_owner` = '".$user['id']."' AND `message_type` = '".$MessCategory."' ORDER BY `message_time` DESC;");
 				if ($WaitingMess[$MessCategory] <> '') {
-					$QryUpdateUser  = "UPDATE {{table}} SET ";
+					$QryUpdateUser  = "UPDATE game_users SET ";
 					$QryUpdateUser .= "`".$messfields[$MessCategory]."` = '0', ";
 					$QryUpdateUser .= "`".$messfields[100]."` = `".$messfields[100]."` - '".$WaitingMess[$MessCategory]."' ";
 					$QryUpdateUser .= "WHERE ";
 					$QryUpdateUser .= "`id` = '".$user['id']."';";
-					doquery ( $QryUpdateUser, 'users' );
+                    doquery($QryUpdateUser);
 				}
 				while ($CurMess = mysqli_fetch_array($UsrMess)) {
 					if ($CurMess['message_type'] == $MessCategory) {

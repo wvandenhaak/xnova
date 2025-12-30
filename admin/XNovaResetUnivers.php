@@ -43,42 +43,42 @@ function XNovaResetUnivers ( $CurrentUser ) {
 	if (in_array($CurrentUser['authlevel'], array(Constants::LEVEL_ADMIN))) {
 
 		// Copier la table users et planets vers des tables de replis !
-		doquery( "RENAME TABLE {{table}} TO {{table}}_s", 'planets');
-		doquery( "RENAME TABLE {{table}} TO {{table}}_s", 'users');
-		doquery( "RENAME TABLE {{table}} TO {{table}}_s", 'galaxy');
-		doquery( "RENAME TABLE {{table}} TO {{table}}_s", 'banned');
+		doquery( "RENAME TABLE game_planets TO game_planets_s");
+		doquery( "RENAME TABLE game_users TO game_users_s");
+		doquery( "RENAME TABLE game_galaxy TO game_galaxy_s");
+		doquery( "RENAME TABLE game_banned TO game_banned_s");
 
 		// Recreer la structure des tables renommées
-		doquery( "CREATE  TABLE IF NOT EXISTS {{table}} ( LIKE {{table}}_s );", 'planets');
-		doquery( "CREATE  TABLE IF NOT EXISTS {{table}} ( LIKE {{table}}_s );", 'users');
-		doquery( "CREATE  TABLE IF NOT EXISTS {{table}} ( LIKE {{table}}_s );", 'galaxy');
-		doquery( "CREATE  TABLE IF NOT EXISTS {{table}} ( LIKE {{table}}_s );", 'banned');
+		doquery( "CREATE  TABLE IF NOT EXISTS game_planets ( LIKE game_planets_s );");
+		doquery( "CREATE  TABLE IF NOT EXISTS game_users ( LIKE game_users_s );");
+		doquery( "CREATE  TABLE IF NOT EXISTS game_galaxy ( LIKE game_galaxy_s );");
+		doquery( "CREATE  TABLE IF NOT EXISTS game_banned ( LIKE game_banned_s );");
 
 		// Vider toutes les tables !
-		doquery( "TRUNCATE TABLE {{table}}", 'aks');
-		doquery( "TRUNCATE TABLE {{table}}", 'alliance');
-		doquery( "TRUNCATE TABLE {{table}}", 'annonce');
-		doquery( "TRUNCATE TABLE {{table}}", 'banned');
-		doquery( "TRUNCATE TABLE {{table}}", 'buddy');
-		doquery( "TRUNCATE TABLE {{table}}", 'galaxy');
-		doquery( "TRUNCATE TABLE {{table}}", 'errors');
-		doquery( "TRUNCATE TABLE {{table}}", 'fleets');
-		doquery( "TRUNCATE TABLE {{table}}", 'iraks');
-		doquery( "TRUNCATE TABLE {{table}}", 'lunas');
-		doquery( "TRUNCATE TABLE {{table}}", 'messages');
-		doquery( "TRUNCATE TABLE {{table}}", 'notes');
-		doquery( "TRUNCATE TABLE {{table}}", 'rw');
-		doquery( "TRUNCATE TABLE {{table}}", 'statpoints');
+		doquery( "TRUNCATE TABLE game_aks");
+		doquery( "TRUNCATE TABLE game_alliance");
+		doquery( "TRUNCATE TABLE game_annonce");
+		doquery( "TRUNCATE TABLE game_banned");
+		doquery( "TRUNCATE TABLE game_buddy");
+		doquery( "TRUNCATE TABLE game_galaxy");
+		doquery( "TRUNCATE TABLE game_errors");
+		doquery( "TRUNCATE TABLE game_fleets");
+		doquery( "TRUNCATE TABLE game_iraks");
+		doquery( "TRUNCATE TABLE game_lunas");
+		doquery( "TRUNCATE TABLE game_messages");
+		doquery( "TRUNCATE TABLE game_notes");
+		doquery( "TRUNCATE TABLE game_rw");
+		doquery( "TRUNCATE TABLE game_statpoints");
 
-		$AllUsers  = doquery ("SELECT `username`,`password`,`email`, `authlevel`,`galaxy`,`system`,`planet`, `onlinetime`, `register_time`, `id_planet` FROM {{table}} WHERE 1;", 'users_s');
+		$AllUsers  = doquery ("SELECT `username`,`password`,`email`, `authlevel`,`galaxy`,`system`,`planet`, `onlinetime`, `register_time`, `id_planet` FROM game_users_s WHERE 1;");
 		$LimitTime = time() - (15 * (24 * (60 * 60)));
 		$TransUser = 0;
 		while ( $TheUser = mysqli_fetch_assoc($AllUsers) ) {
 			if ( $TheUser['onlinetime'] > $LimitTime ) {
-				$UserPlanet     = doquery ("SELECT `name` FROM {{table}} WHERE `id` = '". $TheUser['id_planet']."';", 'planets_s', true);
+				$UserPlanet     = doquery ("SELECT `name` FROM game_planets_s WHERE `id` = '". $TheUser['id_planet']."';", null, true);
 				if ($UserPlanet['name'] != "") {
 					// Creation de l'utilisateur
-					$QryInsertUser  = "INSERT INTO {{table}} SET ";
+					$QryInsertUser  = "INSERT INTO game_users SET ";
 					$QryInsertUser .= "`username` = '".      $TheUser['username']      ."', ";
 					$QryInsertUser .= "`email` = '".         $TheUser['email']         ."', ";
 					$QryInsertUser .= "`id_planet` = '0', ";
@@ -88,32 +88,33 @@ function XNovaResetUnivers ( $CurrentUser ) {
 					$QryInsertUser .= "`planet` = '".        $TheUser['planet']        ."', ";
 					$QryInsertUser .= "`register_time` = '". $TheUser['register_time'] ."', ";
 					$QryInsertUser .= "`password` = '".      $TheUser['password']      ."';";
-					doquery( $QryInsertUser, 'users');
+                    doquery($QryInsertUser);
 
 					// On cherche le numero d'enregistrement de l'utilisateur fraichement cr��
-					$NewUser        = doquery("SELECT `id` FROM {{table}} WHERE `username` = '". $TheUser['username'] ."' LIMIT 1;", 'users', true);
+					$NewUser        = doquery("SELECT `id` FROM game_users WHERE `username` = '". $TheUser['username'] ."' LIMIT 1;", null, true);
 
 					CreateOnePlanetRecord ($TheUser['galaxy'], $TheUser['system'], $TheUser['planet'], $NewUser['id'], $UserPlanet['name'], true);
 					// Recherche de la reference de la nouvelle planete (qui est unique normalement !
-					$PlanetID       = doquery("SELECT `id` FROM {{table}} WHERE `id_owner` = '". $NewUser['id'] ."' LIMIT 1;", 'planets', true);
+					$PlanetID       = doquery("SELECT `id` FROM game_planets WHERE `id_owner` = '". $NewUser['id'] ."' LIMIT 1;", null, true);
 
 					// Mise a jour de l'enregistrement utilisateur avec les infos de sa planete mere
-					$QryUpdateUser  = "UPDATE {{table}} SET ";
+					$QryUpdateUser  = "UPDATE game_users SET ";
 					$QryUpdateUser .= "`id_planet` = '".      $PlanetID['id'] ."', ";
 					$QryUpdateUser .= "`current_planet` = '". $PlanetID['id'] ."' ";
 					$QryUpdateUser .= "WHERE ";
 					$QryUpdateUser .= "`id` = '".             $NewUser['id']  ."';";
-					doquery( $QryUpdateUser, 'users');
+                    doquery($QryUpdateUser);
+
 					$TransUser++;
 				}
 			}
 		} // while
 		// Mise a jour du nombre de joueurs inscripts
-		doquery("UPDATE {{table}} SET `config_value` = '". $TransUser ."' WHERE `config_name` = 'users_amount' LIMIT 1;", 'config');
+		doquery("UPDATE game_config SET `config_value` = '". $TransUser ."' WHERE `config_name` = 'users_amount' LIMIT 1;");
 
 		// Menage on vire les tables transitoires
-		doquery("DROP TABLE {{table}}", 'planets_s');
-		doquery("DROP TABLE {{table}}", 'users_s');
+		doquery("DROP TABLE game_planets_s");
+		doquery("DROP TABLE game_users_s");
 
 		AdminMessage ( $TransUser . $lang['adm_rz_done'], $lang['adm_rz_ttle'] );
 	} else {

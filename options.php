@@ -42,16 +42,16 @@ require_once dirname(__FILE__) .'/common.php';
     if ($_POST && $mode == "exit") { // Array ( [db_character]
        if (isset($_POST["exit_modus"]) && $_POST["exit_modus"] == 'on' and $user['urlaubs_until'] <= time()){
           $urlaubs_modus = "0";
-          doquery("UPDATE {{table}} SET
+          doquery("UPDATE game_users SET
              `urlaubs_modus` = '0',
              `urlaubs_until` = '0'
-             WHERE `id` = '".$user['id']."' LIMIT 1", "users");
+             WHERE `id` = '".$user['id']."' LIMIT 1");
 
 //Remise des mines au retour du mod vacance
 
-          $query = doquery("SELECT * FROM {{table}} WHERE id_owner = '{$user['id']}'", 'planets');
+          $query = doquery("SELECT * FROM game_planets WHERE id_owner = '{$user['id']}'");
           while($id = mysqli_fetch_array($query)){
-             doquery("UPDATE {{table}} SET
+             doquery("UPDATE game_planets SET
                    energy_used = '10',
                    energy_max = '10',
                    metal_mine_porcent = '10',
@@ -60,7 +60,7 @@ require_once dirname(__FILE__) .'/common.php';
                    solar_plant_porcent = '10',
                    fusion_plant_porcent = '10',
                    solar_satelit_porcent = '10'
-                 WHERE id = '{$id['id']}' AND `planet_type` = 1 ", 'planets');}
+                 WHERE id = '{$id['id']}' AND `planet_type` = 1 ");}
 
           message($lang['succeful_save'], $lang['Options'],"options.php",1);
        }else{
@@ -136,27 +136,27 @@ require_once dirname(__FILE__) .'/common.php';
        // Modo vacaciones
        if (isset($_POST["urlaubs_modus"]) && $_POST["urlaubs_modus"] == 'on') {
        //Selectionne si le joueur a des flottes en vol
-       	$fleet  = doquery("SELECT COUNT(fleet_owner) AS `actcnt` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."';", 'fleets', true);
+       	$fleet  = doquery("SELECT COUNT(fleet_owner) AS `actcnt` FROM game_fleets WHERE `fleet_owner` = '".$user['id']."';", null, true);
        //Selectionne si le joueur a des batiments en construction
-        $build  = doquery("SELECT COUNT(id_owner) AS `building` FROM {{table}} WHERE `id_owner` = '".$user['id']."' and `b_building`!=0;", 'planets', true);
+        $build  = doquery("SELECT COUNT(id_owner) AS `building` FROM game_planets WHERE `id_owner` = '".$user['id']."' and `b_building`!=0;", null, true);
        //Selectionne si le joueur a des techno en cours
-        $tech  = doquery("SELECT COUNT(id) AS `tech` FROM {{table}} WHERE `id` = '".$user['id']."' and `b_tech_planet`!=0;", 'users', true);
+        $tech  = doquery("SELECT COUNT(id) AS `tech` FROM game_users WHERE `id` = '".$user['id']."' and `b_tech_planet`!=0;", null, true);
        //Selectionne si le joueur est en train de se faire attaquer
-        $attack  = doquery("SELECT COUNT(fleet_taget_owner) AS `attack` FROM {{table}} WHERE `fleet_taget_owner` = '".$user['id']."';", 'fleets', true);
+        $attack  = doquery("SELECT COUNT(fleet_taget_owner) AS `attack` FROM game_fleets WHERE `fleet_taget_owner` = '".$user['id']."';", null, true);
        	if($fleet['actcnt']=='0' && $build['building']=='0' && $tech['tech']=='0' && $attack['attack']=='0') {
           $urlaubs_modus = "1";
           $time = time() + 172800;
-          doquery("UPDATE {{table}} SET
+          doquery("UPDATE game_users SET
              `urlaubs_modus` = '$urlaubs_modus',
              `urlaubs_until` = '$time'
-             WHERE `id` = '$iduser' LIMIT 1", "users");
+             WHERE `id` = '$iduser' LIMIT 1");
              }  else {
              message ( 'Verifiez vos flottes, technologies et batiments','<center><font color=\"red\">Vous avez des actions en cours</font></center>'  );
              }
 
-          $query = doquery("SELECT * FROM {{table}} WHERE id_owner = '{$user['id']}'", 'planets');
+          $query = doquery("SELECT * FROM game_planets WHERE id_owner = '{$user['id']}'");
           while($id = mysqli_fetch_array($query)){
-             doquery("UPDATE {{table}} SET
+             doquery("UPDATE game_planets SET
                    metal_perhour = '".$game_config['metal_basic_income']."',
                    crystal_perhour = '".$game_config['metal_basic_income']."',
                    deuterium_perhour = '".$game_config['metal_basic_income']."',
@@ -168,7 +168,7 @@ require_once dirname(__FILE__) .'/common.php';
                    solar_plant_porcent = '0',
                    fusion_plant_porcent = '0',
                    solar_satelit_porcent = '0'
-                 WHERE id = '{$id['id']}' AND `planet_type` = 1 ", 'planets');
+                 WHERE id = '{$id['id']}' AND `planet_type` = 1 ");
           }
        } else {
           $urlaubs_modus = "0";
@@ -208,7 +208,7 @@ require_once dirname(__FILE__) .'/common.php';
          
        }
 
-       doquery("UPDATE {{table}} SET
+       doquery("UPDATE game_users SET
        `email` = '$db_email',
        `planet_sort` = '$SortMode',
        `planet_sort_order` = '$SortOrderMode',
@@ -222,20 +222,20 @@ require_once dirname(__FILE__) .'/common.php';
        `settings_mis` = '$settings_mis',
        `urlaubs_modus` = '$urlaubs_modus',
        `db_deaktjava` = '$db_deaktjava'
-       WHERE `id` = '$iduser' LIMIT 1", "users");
+       WHERE `id` = '$iduser' LIMIT 1");
 
        if (isset($_POST["db_password"]) && md5($_POST["db_password"]) == $user["password"]) {
           if (!empty($_POST['newpass1']) && !empty($_POST['newpass2']) && $_POST["newpass1"] == $_POST["newpass2"]) {
              $newpass = md5($_POST["newpass1"]);
-             doquery("UPDATE {{table}} SET `password` = '{$newpass}' WHERE `id` = '{$user['id']}' LIMIT 1", "users");
+             doquery("UPDATE game_users SET `password` = '{$newpass}' WHERE `id` = '{$user['id']}' LIMIT 1");
              setcookie($game_config["COOKIE_NAME"], "", time()-100000, "/", "", 0); //le da el expire
              message($lang['succeful_changepass'], $lang['changue_pass'],"login.php",1);
           }
        }
        if ($user['username'] != $_POST["db_character"]) {
-          $query = doquery("SELECT id FROM {{table}} WHERE username='{$_POST["db_character"]}'", 'users', true);
+          $query = doquery("SELECT id FROM game_users WHERE username='{$_POST["db_character"]}'", null, true);
           if (!$query) {
-             doquery("UPDATE {{table}} SET username='{$username}' WHERE id='{$user['id']}' LIMIT 1", "users");
+             doquery("UPDATE game_users SET username='{$username}' WHERE id='{$user['id']}' LIMIT 1");
              setcookie($game_config["COOKIE_NAME"], "", time()-100000, "/", "", 0); //le da el expire
              message($lang['succeful_changename'], $lang['changue_name'],"login.php",1);
           }

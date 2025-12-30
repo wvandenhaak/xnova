@@ -66,7 +66,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $ViewPage = 1;
             }
         } elseif ($Next   == true) {
-            $Mess      = doquery("SELECT COUNT(*) AS `max` FROM {{table}} WHERE `message_type` = '". $Selected ."';", 'messages', true);
+            $Mess      = doquery("SELECT COUNT(*) AS `max` FROM game_messages WHERE `message_type` = '". $Selected ."';", null, true);
             $MaxPage   = ceil ( ($Mess['max'] / 25) );
             $CurrPage += 1;
             if ($CurrPage <= $MaxPage) {
@@ -77,7 +77,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
         } elseif ($DelSel == true) {
             foreach($_POST['sele'] as $MessId => $Value) {
                 if ($Value = "on") {
-                    doquery ( "DELETE FROM {{table}} WHERE `message_id` = '". $MessId ."';", 'messages');
+                    doquery ( "DELETE FROM game_messages WHERE `message_id` = '". $MessId ."';");
                 }
             }
         } elseif ($DelDat == true) {
@@ -86,12 +86,12 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
             $SelYear   = $_POST['selyear'];
             $LimitDate = mktime (0,0,0, $SelMonth, $SelDay, $SelYear );
             if ($LimitDate != false) {
-                doquery ( "DELETE FROM {{table}} WHERE `message_time` <= '". $LimitDate ."';", 'messages');
-                doquery ( "DELETE FROM {{table}} WHERE `time` <= '". $LimitDate ."';", 'rw');
+                doquery ( "DELETE FROM game_messages WHERE `message_time` <= '". $LimitDate ."';");
+                doquery ( "DELETE FROM game_rw WHERE `time` <= '". $LimitDate ."';");
             }
         }
 
-        $Mess     = doquery("SELECT COUNT(*) AS `max` FROM {{table}} WHERE `message_type` = '". $Selected ."';", 'messages', true);
+        $Mess     = doquery("SELECT COUNT(*) AS `max` FROM game_messages WHERE `message_type` = '". $Selected ."';", null, true);
         $MaxPage  = ceil ( ($Mess['max'] / 25) );
 
 		$parse                      = $lang;
@@ -124,9 +124,9 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['mlst_title'] = $lang['mlst_title'];
 
 		$StartRec           = 1 + (($ViewPage - 1) * 25);
-		$Messages           = doquery("SELECT `message_id`, `message_from`, `message_owner`, `message_text`, `message_time` FROM {{table}} WHERE `message_type` = '". $Selected ."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;", 'messages');
+		$Messages           = doquery("SELECT `message_id`, `message_from`, `message_owner`, `message_text`, `message_time` FROM game_messages WHERE `message_type` = '". $Selected ."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 		while ($row = mysqli_fetch_assoc($Messages)) {
-			$OwnerData = doquery ("SELECT `username` FROM {{table}} WHERE `id` = '". $row['message_owner'] ."';", 'users',true);
+			$OwnerData = doquery ("SELECT `username` FROM game_users WHERE `id` = '". $row['message_owner'] ."';", null,true);
 			$bloc['mlst_id']      = $row['message_id'];
 			$bloc['mlst_from']    = $row['message_from'];
 			$bloc['mlst_to']      = $OwnerData['username'] ." ID:". $row['message_owner'];
@@ -139,7 +139,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$display            = $MustacheEngine->render($BodyTpl , $parse);
 
 		if (isset($_POST['delit'])) {
-			doquery ("DELETE FROM {{table}} WHERE `message_id` = '". $_POST['delit'] ."';", 'messages');
+			doquery ("DELETE FROM game_messages WHERE `message_id` = '". $_POST['delit'] ."';");
 			AdminMessage ( $lang['mlst_mess_del'] ." ( ". $_POST['delit'] ." )", $lang['mlst_title'], "./messagelist.php", 3);
 		}
 		display ($display, $lang['mlst_title'], false, true);

@@ -55,7 +55,7 @@ if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_
 				$ranga = 'Moderator';
 			}
 			if ($game_config['tresc'] != '' and $game_config['temat']) {
-				$sq      = doquery("SELECT `id` FROM {{table}}", "users");
+				$sq      = doquery("SELECT `id` FROM game_users");
 				$Time    = time();
 				$From    = "<font color=\"". $kolor ."\">". $ranga ." ".$user['username']."</font>";
 				$Subject = "<font color=\"". $kolor ."\">". $game_config['temat'] ."</font>";

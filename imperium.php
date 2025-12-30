@@ -38,7 +38,7 @@ includeLang('imperium');
 $Order = ($user['planet_sort_order'] == 1) ? "DESC" : "ASC";
 $Sort  = $user['planet_sort'];
 $user = MergeUserTechnology($user);
-$QryPlanets  = "SELECT * FROM {{table}} WHERE `id_owner` = '" . $user['id'] . "' ORDER BY ";
+$QryPlanets  = "SELECT * FROM game_planets WHERE `id_owner` = '" . $user['id'] . "' ORDER BY ";
 if ($Sort == 0) {
 	$QryPlanets .= "`id` " . $Order;
 } elseif ($Sort == 1) {
@@ -46,7 +46,7 @@ if ($Sort == 0) {
 } elseif ($Sort == 2) {
 	$QryPlanets .= "`name` " . $Order;
 }
-$planetsrow = doquery($QryPlanets, 'planets');
+$planetsrow = doquery($QryPlanets);
 
 $planet = array();
 $parse  = $lang;

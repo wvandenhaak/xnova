@@ -34,7 +34,13 @@ class Database
     static $config = NULL;
 }
 
-function doquery($query, $table, $fetch = false)
+/**
+ * @param string $query
+ * @param ?string $table DEPRECATED: Replaces game_{{table}} for given table name with prefex.
+ * @param bool $fetch
+ * @return array|bool|mysqli_result|null
+ */
+function doquery($query, $table = null, $fetch = false)
 {
     global $SqlQueries;
     if (!isset(Database::$config)) {
@@ -52,7 +58,6 @@ function doquery($query, $table, $fetch = false)
         mysqli_select_db(Database::$dbHandle, $config['global']['database']['options']['database'])
             or trigger_error(mysqli_error(Database::$dbHandle)."$query<br />" . PHP_EOL, E_USER_WARNING);
     }
-    $sql = str_replace("{{table}}", "game_{$table}", $query);
 
     $SqlQueries++;
     $dbt=debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
@@ -60,11 +65,11 @@ function doquery($query, $table, $fetch = false)
 
     if(!defined('IS_AJAX_SCRIPT')){
         echo "<!-- Caller : ".$caller ." -->\r\n";
-        echo "<!-- ".$sql." -->\r\n";
+        echo "<!-- ".$query." -->\r\n";
     }
     
-    if (false === ($sqlQuery = mysqli_query(Database::$dbHandle, $sql))) {
-        trigger_error(mysqli_error(Database::$dbHandle) . PHP_EOL . "<br /><pre></code>$sql<code></pre><br />" . PHP_EOL, E_USER_WARNING);
+    if (false === ($sqlQuery = mysqli_query(Database::$dbHandle, $query))) {
+        trigger_error(mysqli_error(Database::$dbHandle) . PHP_EOL . "<br /><pre></code>$query<code></pre><br />" . PHP_EOL, E_USER_WARNING);
     }
     if($fetch) {
         return mysqli_fetch_array($sqlQuery);

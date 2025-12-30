@@ -38,19 +38,19 @@ function CheckCookies($IsUserChecked)
     if (isset($_SESSION['user_id'])) {
         if(!defined('QRYLESS')){
             $sql =<<<EOF
-            SELECT * FROM {{table}}
+            SELECT * FROM game_users
                 WHERE id      ={$_SESSION['user_id']}
                 LIMIT 1
             EOF;
         }else{
             $sql =<<<EOF
-SELECT authlevel, bana FROM {{table}}
+SELECT authlevel, bana FROM game_users
     WHERE id      ={$_SESSION['user_id']}
     LIMIT 1
 EOF;
         }
         
-        $userData = doquery($sql, 'users', true);
+        $userData = doquery($sql, null, true);
     } else if (isset($_COOKIE['nova-cookie'])) {
         $cookieData = unserialize(stripslashes($_COOKIE['nova-cookie']));
         $cookieData = array(
@@ -59,12 +59,12 @@ EOF;
             );
 
         $sql =<<<EOF
-SELECT * FROM {{table}} AS user
+SELECT * FROM game_users AS user
     WHERE id={$cookieData['id']}
       AND (@key:="{$cookieData['key']}")=CONCAT((@salt:=MID(@key, 0, 4)), SHA1(CONCAT(user.username, user.password, @salt)))
     LIMIT 1
 EOF;
-        $userData = doquery($sql, 'users', true);
+        $userData = doquery($sql, null, true);
         $_SESSION['user_id'] = $userData['id'];
         if (!isset($userData) || empty($userData)) {
             message($lang['cookies']['Error2'] );
@@ -84,7 +84,7 @@ EOF;
         if(!defined('QRYLESS')){ //la page chargée s'en chargera
             $now = time();
     $sql =<<<EOF
-UPDATE {{table}}
+UPDATE game_users
     SET `onlinetime` = "{$now}",
         `current_page` = "{$sessionData['request_uri']}",
         `user_lastip` = "{$sessionData['remote_addr']}",
@@ -92,7 +92,7 @@ UPDATE {{table}}
     WHERE `id`={$_SESSION['user_id']}
     LIMIT 1;
 EOF;
-    doquery($sql, 'users');
+    doquery($sql);
         }
     
     $IsUserChecked = true;

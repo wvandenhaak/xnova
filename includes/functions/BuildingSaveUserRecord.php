@@ -30,13 +30,11 @@
 
 function BuildingSaveUserRecord ( $CurrentUser ) {
 
-	$QryUpdateUser  = "UPDATE {{table}} SET ";
+	$QryUpdateUser  = "UPDATE game_users SET ";
 	$QryUpdateUser .= "`xpminier` = '".      $CurrentUser['xpminier']      ."' ";
 	$QryUpdateUser .= "WHERE ";
 	$QryUpdateUser .= "`id` = '".            $CurrentUser["id"]            ."';";
-	doquery( $QryUpdateUser, 'users');
+	doquery( $QryUpdateUser);
 
 	return;
 }
-
-?>

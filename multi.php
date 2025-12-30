@@ -52,14 +52,12 @@ if ($mode == 'add') {
     $Texte = $_POST['texte'];
     $Joueur = $user['username'];
 
-    $SQLAjoutDeclaration = "INSERT INTO {{table}} SET ";
+    $SQLAjoutDeclaration = "INSERT INTO game_multi SET ";
     $SQLAjoutDeclaration .= "`player` = '". $Joueur ."', ";
 	$SQLAjoutDeclaration .= "`text` = '". $Texte ."';";
-    doquery($SQLAjoutDeclaration, 'multi');
-
+    doquery($SQLAjoutDeclaration);
 
     message($lang['sys_request_ok'],$lang['sys_ok']);
-
 }
 // D�claration des multi compte
 // Par Tom pour XNova

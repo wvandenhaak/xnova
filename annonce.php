@@ -32,7 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$annonce = doquery("SELECT * FROM {{table}} ", 'annonce');
+$annonce = doquery("SELECT * FROM game_annonce ");
 $action  = isset($_GET['action']) ? intval($_GET['action']) : "";
 
 if ($action == 5) {
@@ -60,7 +60,7 @@ if ($action == 5) {
 		HTML;
 	}else{
 	
-		doquery("INSERT INTO {{table}} SET
+		doquery("INSERT INTO game_annonce SET
 	user='{$user['username']}',
 	galaxie='{$planetrow['galaxy']}',
 	systeme='{$planetrow['system']}',
@@ -69,7 +69,7 @@ if ($action == 5) {
 	deuta='{$deutvendre}',
 	metals='{$metalsouhait}',
 	cristals='{$cristalsouhait}',
-	deuts='{$deutsouhait}'" , "annonce");
+	deuts='{$deutsouhait}'");
 	
 	$page2 = <<<HTML
 	<center>
@@ -83,7 +83,7 @@ if ($action == 5) {
 
 	display($page2);
 }else{
-	$annonce = doquery("SELECT * FROM {{table}} ORDER BY `id` DESC ", "annonce");
+	$annonce = doquery("SELECT * FROM game_annonce ORDER BY `id` DESC ");
 
 	$page2 = "<HTML>
 <center>

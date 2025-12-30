@@ -46,10 +46,8 @@ function CheckPlanetUsedFields ( &$planet ) {
 		// Mise a jour du nombre de case dans la BDD si incorrect
 		if ((!isset($planet['field_current']) || $planet['field_current'] != $cfc) && isset($planet['id'])) {
 			$planet['field_current'] = $cfc;
-			doquery("UPDATE {{table}} SET field_current=$cfc WHERE id={$planet['id']}", 'planets');
+			doquery("UPDATE game_planets SET field_current=$cfc WHERE id={$planet['id']}");
 		}
 	}
 	
 }
-
-?>

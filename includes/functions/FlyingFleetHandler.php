@@ -31,9 +31,9 @@
 function FlyingFleetHandler (&$planet) {
 	global $resource;
 
-	doquery("LOCK TABLE {{table}}lunas WRITE, {{table}}rw WRITE, {{table}}errors WRITE, {{table}}messages WRITE, {{table}}fleets WRITE, {{table}}planets WRITE, {{table}}galaxy WRITE ,{{table}}users WRITE", "");
+	doquery("LOCK TABLE game_lunas WRITE, game_rw WRITE, game_errors WRITE, game_messages WRITE, game_fleets WRITE, game_planets WRITE, game_galaxy WRITE ,game_users WRITE");
 
-	$QryFleet   = "SELECT * FROM {{table}} ";
+	$QryFleet   = "SELECT * FROM game_fleets ";
 	$QryFleet  .= "WHERE (";
 	$QryFleet  .= "( ";
 	$QryFleet  .= "`fleet_start_galaxy` = ". $planet['galaxy']      ." AND ";
@@ -46,7 +46,7 @@ function FlyingFleetHandler (&$planet) {
 	$QryFleet  .= "`fleet_end_planet` = ".   $planet['planet']      ." ) AND ";
 	$QryFleet  .= "`fleet_end_type`= ".      $planet['planet_type'] ." ) AND ";
 	$QryFleet  .= "( `fleet_start_time` < '". time() ."' OR `fleet_end_time` < '". time() ."' );";
-	$fleetquery = doquery( $QryFleet, 'fleets' );
+    $fleetquery = doquery($QryFleet);
 
 	while ($CurrentFleet = mysqli_fetch_array($fleetquery)) {
 		switch ($CurrentFleet["fleet_mission"]) {
@@ -57,7 +57,7 @@ function FlyingFleetHandler (&$planet) {
 
 			case 2:
 				// Attaque groupée
-				doquery ("DELETE FROM {{table}} WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';", 'fleets');
+				doquery ("DELETE FROM game_fleets WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';");
 				break;
 
 			case 3:
@@ -106,7 +106,7 @@ function FlyingFleetHandler (&$planet) {
 				break;
 
 			default: {
-				doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';", 'fleets');
+				doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $CurrentFleet['fleet_id'] ."';");
 			}
 		}
 	}

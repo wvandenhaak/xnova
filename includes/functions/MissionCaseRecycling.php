@@ -33,13 +33,13 @@ function MissionCaseRecycling ($FleetRow) {
 
 	if ($FleetRow["fleet_mess"] == "0") {
 		if ($FleetRow['fleet_start_time'] <= time()) {
-			$QrySelectGalaxy  = "SELECT * FROM {{table}} ";
+			$QrySelectGalaxy  = "SELECT * FROM game_galaxy ";
 			$QrySelectGalaxy .= "WHERE ";
 			$QrySelectGalaxy .= "`galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND ";
 			$QrySelectGalaxy .= "`system` = '".$FleetRow['fleet_end_system']."' AND ";
 			$QrySelectGalaxy .= "`planet` = '".$FleetRow['fleet_end_planet']."' ";
 			$QrySelectGalaxy .= "LIMIT 1;";
-			$TargetGalaxy     = doquery( $QrySelectGalaxy, 'galaxy', true);
+			$TargetGalaxy     = doquery( $QrySelectGalaxy, null, true);
 
 			$FleetRecord         = explode(";", $FleetRow['fleet_array']);
 			$RecyclerCapacity    = 0;
@@ -90,7 +90,7 @@ function MissionCaseRecycling ($FleetRow) {
 			$NewCargo['Crystal']   = $FleetRow["fleet_resource_crystal"] + $RecycledGoods["crystal"];
 			$NewCargo['Deuterium'] = $FleetRow["fleet_resource_deuterium"];
 
-			$QryUpdateGalaxy  = "UPDATE {{table}} SET ";
+			$QryUpdateGalaxy  = "UPDATE game_galaxy SET ";
 			$QryUpdateGalaxy .= "`metal` = `metal` - '".$RecycledGoods["metal"]."', ";
 			$QryUpdateGalaxy .= "`crystal` = `crystal` - '".$RecycledGoods["crystal"]."' ";
 			$QryUpdateGalaxy .= "WHERE ";
@@ -98,13 +98,13 @@ function MissionCaseRecycling ($FleetRow) {
 			$QryUpdateGalaxy .= "`system` = '".$FleetRow['fleet_end_system']."' AND ";
 			$QryUpdateGalaxy .= "`planet` = '".$FleetRow['fleet_end_planet']."' ";
 			$QryUpdateGalaxy .= "LIMIT 1;";
-			doquery( $QryUpdateGalaxy, 'galaxy');
+            doquery($QryUpdateGalaxy);
 
 			$Message = sprintf($lang['sys_recy_gotten'], pretty_number($RecycledGoods["metal"]), $lang['Metal'], pretty_number($RecycledGoods["crystal"]), $lang['Crystal']);
 			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_start_time'], 4, $lang['sys_mess_spy_control'], $lang['sys_recy_report'], $Message);
-			doquery("UPDATE {{table}} SET `mnl_exploit` = `mnl_exploit` + '1' WHERE `id` = '".$FleetRow['fleet_owner']."'", 'users');
+			doquery("UPDATE game_users SET `mnl_exploit` = `mnl_exploit` + '1' WHERE `id` = '".$FleetRow['fleet_owner']."'");
 
-			$QryUpdateFleet  = "UPDATE {{table}} SET ";
+			$QryUpdateFleet  = "UPDATE game_fleets SET ";
             $QryUpdateFleet .= "`fleet_resource_metal` = '".$NewCargo['Metal']."', ";
 			$QryUpdateFleet .= "`fleet_resource_crystal` = '".$NewCargo['Crystal']."', ";
 			$QryUpdateFleet .= "`fleet_resource_deuterium` = '".$NewCargo['Deuterium']."', ";
@@ -112,7 +112,7 @@ function MissionCaseRecycling ($FleetRow) {
             $QryUpdateFleet .= "WHERE ";
 			$QryUpdateFleet .= "`fleet_id` = '".$FleetRow['fleet_id']."' ";
             $QryUpdateFleet .= "LIMIT 1;";
-			doquery( $QryUpdateFleet, 'fleets');
+            doquery($QryUpdateFleet);
 		}
 	} else {
 		if ($FleetRow['fleet_end_time'] <= time()) {
@@ -125,7 +125,7 @@ function MissionCaseRecycling ($FleetRow) {
 			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 4, $lang['sys_mess_spy_control'], $lang['sys_mess_fleetback'], $Message);
 
 			RestoreFleetToPlanet ( $FleetRow, true );
-			doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+			doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
 		}
 	}
 }
@@ -133,5 +133,3 @@ function MissionCaseRecycling ($FleetRow) {
 // -----------------------------------------------------------------------------------------------------------
 // History version
 // 1.0 Mise en module initiale
-
-?>

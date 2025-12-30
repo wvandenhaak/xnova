@@ -41,49 +41,49 @@ function MissionCaseDestruction($FleetRow)
             return;
          }
 
-         $QryTargetPlanet  = "SELECT * FROM {{table}} ";
+         $QryTargetPlanet  = "SELECT * FROM game_planets ";
          $QryTargetPlanet .= "WHERE ";
          $QryTargetPlanet .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
          $QryTargetPlanet .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
          $QryTargetPlanet .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' AND ";
          $QryTargetPlanet .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."';";
-         $TargetPlanet     = doquery( $QryTargetPlanet, 'planets', true);
-
+         $TargetPlanet = doquery($QryTargetPlanet, null, true);
          $TargetUserID     = $TargetPlanet['id_owner'];
-         $QryDepPlanet  = "SELECT * FROM {{table}} ";
+
+         $QryDepPlanet  = "SELECT * FROM game_planets ";
          $QryDepPlanet .= "WHERE ";
          $QryDepPlanet .= "`galaxy` = '". $FleetRow['fleet_start_galaxy'] ."' AND ";
          $QryDepPlanet .= "`system` = '". $FleetRow['fleet_start_system'] ."' AND ";
          $QryDepPlanet .= "`planet` = '". $FleetRow['fleet_start_planet'] ."' AND ";
          $QryDepPlanet .= "`planet_type` = '". $FleetRow['fleet_start_type'] ."';";
-         $DepPlanet     = doquery( $QryDepPlanet, 'planets', true);
+         $DepPlanet = doquery($QryDepPlanet, null, true);
          $DepName     = $DepPlanet['name'];
 
-         $QryCurrentUser   = "SELECT * FROM {{table}} ";
+         $QryCurrentUser   = "SELECT * FROM game_users ";
          $QryCurrentUser  .= "WHERE ";
          $QryCurrentUser  .= "`id` = '". $FleetRow['fleet_owner'] ."';";
-         $CurrentUser      = doquery($QryCurrentUser , 'users', true);
+         $CurrentUser      = doquery($QryCurrentUser , null, true);
          $CurrentUserID    = $CurrentUser['id'];
 
-         $QryTargetUser    = "SELECT * FROM {{table}} ";
+         $QryTargetUser    = "SELECT * FROM game_users ";
          $QryTargetUser   .= "WHERE ";
          $QryTargetUser   .= "`id` = '". $TargetUserID ."';";
-         $TargetUser       = doquery($QryTargetUser, 'users', true);
+          $TargetUser = doquery($QryTargetUser, null, true);
 
          $QryTargetTech    = "SELECT ";
          $QryTargetTech   .= "`military_tech`, `defence_tech`, `shield_tech` ";
-         $QryTargetTech   .= "FROM {{table}} ";
+         $QryTargetTech   .= "FROM game_users_tech ";
          $QryTargetTech   .= "WHERE ";
          $QryTargetTech   .= "`uid` = '". $TargetUserID ."';";
 
-         $TargetTechno     = doquery($QryTargetTech, 'users_tech', true);
+         $TargetTechno     = doquery($QryTargetTech, null, true);
 
          $QryCurrentTech   = "SELECT ";
          $QryCurrentTech  .= "`military_tech`, `defence_tech`, `shield_tech` ";
-         $QryCurrentTech  .= "FROM {{table}} ";
+         $QryCurrentTech  .= "FROM game_users_tech ";
          $QryCurrentTech  .= "WHERE ";
          $QryCurrentTech  .= "`uid` = '". $CurrentUserID ."';";
-         $CurrentTechno    = doquery($QryCurrentTech, 'users_tech', true);
+         $CurrentTechno    = doquery($QryCurrentTech, null, true);
 
          for ($SetItem = 200; $SetItem < 500; $SetItem++) {
             if ($TargetPlanet[$resource[$SetItem]] > 0) {
@@ -160,17 +160,18 @@ function MissionCaseDestruction($FleetRow)
                 $finmess = $lang['sys_destruc_reussi'];
 
                 //destruction de la lune dabord dans la liste des planetes puis dans la liste des lunes et enfin dans la galaxie
-                doquery("DELETE FROM {{table}} WHERE `id` = '". $TargetPlanet['id'] ."';", 'planets');
-                $Qrydestructionlune  = "UPDATE {{table}} SET ";
+                doquery("DELETE FROM game_planets WHERE `id` = '". $TargetPlanet['id'] ."';");
+
+                $Qrydestructionlune  = "UPDATE game_lunas SET ";
                 $Qrydestructionlune .= "`destruyed` = '1' ";
                 $Qrydestructionlune .= "WHERE ";
                 $Qrydestructionlune .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
                 $Qrydestructionlune .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
                 $Qrydestructionlune .= "`lunapos` = '". $FleetRow['fleet_end_planet'] ."' ";
                 $Qrydestructionlune .= "LIMIT 1 ;";
-                doquery( $Qrydestructionlune , 'lunas');
+                doquery($Qrydestructionlune);
 
-                $Qrydestructionlune2  = "UPDATE {{table}} SET ";
+                $Qrydestructionlune2  = "UPDATE game_galaxy SET ";
                 $Qrydestructionlune2 .= "`id_luna` = '0' ";
                 $Qrydestructionlune2 .= "WHERE ";
                 $Qrydestructionlune2 .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
@@ -178,46 +179,46 @@ function MissionCaseDestruction($FleetRow)
                 $Qrydestructionlune2 .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' ";
                 $Qrydestructionlune2 .= "LIMIT 1 ;";
                 //$Qrydestructionlune2 .= ";";
+                doquery($Qrydestructionlune2);
 
-                doquery( $Qrydestructionlune2 , 'galaxy');
                 //la lune est detruite, alors on redirige les flottes sur la planete
-                $QryDetFleets1  = "UPDATE {{table}} SET ";
+                $QryDetFleets1  = "UPDATE game_fleets SET ";
                 $QryDetFleets1 .= "`fleet_start_type` = '1' ";
                 $QryDetFleets1 .= "WHERE ";
                 $QryDetFleets1 .= "`fleet_start_galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
                 $QryDetFleets1 .= "`fleet_start_system` = '". $FleetRow['fleet_end_system'] ."' AND ";
                 $QryDetFleets1 .= "`fleet_start_planet` = '". $FleetRow['fleet_end_planet'] ."' ";
                 $QryDetFleets1 .= ";";
-                doquery( $QryDetFleets1 , 'fleets');
+                doquery($QryDetFleets1);
 
-                $QryDetFleets2  = "UPDATE {{table}} SET ";
+                $QryDetFleets2  = "UPDATE game_fleets SET ";
                 $QryDetFleets2 .= "`fleet_end_type` = '1' ";
                 $QryDetFleets2 .= "WHERE ";
                 $QryDetFleets2 .= "`fleet_end_galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
                 $QryDetFleets2 .= "`fleet_end_system` = '". $FleetRow['fleet_end_system'] ."' AND ";
                 $QryDetFleets2 .= "`fleet_end_planet` = '". $FleetRow['fleet_end_planet'] ."' ";
                 $QryDetFleets2 .= ";";
-                doquery( $QryDetFleets2 , 'fleets');
+                doquery($QryDetFleets2);
 
                 //maintenant on va verifier si la vue du joueur n est pas calee sur la lune qui est detruite
                 if ($TargetUser['current_planet'] == $TargetPlanet['id']){
-                $QryPlanet  = "SELECT * FROM {{table}} ";
+                $QryPlanet  = "SELECT * FROM game_planets ";
 
                 $QryPlanet .= "WHERE ";
                 $QryPlanet .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
                 $QryPlanet .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
                 $QryPlanet .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' AND ";
                 $QryPlanet .= "`planet_type` = '1';";
-                $Planet     = doquery( $QryPlanet, 'planets', true);
+                $Planet     = doquery($QryPlanet, null, true);
                 $IDPlanet     = $Planet['id'];
 
-                $Qryvue  = "UPDATE {{table}} SET ";
+                $Qryvue  = "UPDATE game_users SET ";
                 $Qryvue .= "`current_planet` = '". $IDPlanet ."' ";
                 $Qryvue .= "WHERE ";
                 $Qryvue .= "`id` = '". $TargetUserID ."' ";
                 $Qryvue .= ";";
 
-                doquery( $Qryvue , 'users');
+                doquery($Qryvue);
             }
         } else {
             $resultat = '0';
@@ -235,7 +236,7 @@ function MissionCaseDestruction($FleetRow)
             if ($tirage2 <= $chance2) {
                 $resultat2 = ' detruite 1'; // RIP detruite
                 $finmess = $lang['sys_destruc_echec'];
-                doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+                doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
             }
          else          {
                       $resultat2 = 'sauvees 0'; // les RIP sont saines et sauves
@@ -248,51 +249,34 @@ function MissionCaseDestruction($FleetRow)
 
          // Mise a jour de l'enregistrement de la planete attaqu�e
 
-         $QryUpdateTarget  = "UPDATE {{table}} SET ";
-
+         $QryUpdateTarget  = "UPDATE game_planets SET ";
          $QryUpdateTarget .= $TargetPlanetUpd;
-
          $QryUpdateTarget .= "`metal` = `metal` - '". $Mining['metal'] ."', ";
-
          $QryUpdateTarget .= "`crystal` = `crystal` - '". $Mining['crystal'] ."', ";
-
          $QryUpdateTarget .= "`deuterium` = `deuterium` - '". $Mining['deuter'] ."' ";
-
          $QryUpdateTarget .= "WHERE ";
-
          $QryUpdateTarget .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
-
          $QryUpdateTarget .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
-
          $QryUpdateTarget .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' AND ";
-
          $QryUpdateTarget .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."' ";
-
          $QryUpdateTarget .= "LIMIT 1;";
 
-         doquery( $QryUpdateTarget , 'planets');
+         doquery($QryUpdateTarget);
 
 
 
          // Mise a jour du champ de ruine devant la planete attaqu�e
 
-         $QryUpdateGalaxy  = "UPDATE {{table}} SET ";
-
+         $QryUpdateGalaxy  = "UPDATE game_galaxy SET ";
          $QryUpdateGalaxy .= "`metal` = `metal` + '". $zlom['metal'] ."', ";
-
          $QryUpdateGalaxy .= "`crystal` = `crystal` + '". $zlom['crystal'] ."' ";
-
          $QryUpdateGalaxy .= "WHERE ";
-
          $QryUpdateGalaxy .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
-
          $QryUpdateGalaxy .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
-
          $QryUpdateGalaxy .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' ";
-
          $QryUpdateGalaxy .= "LIMIT 1;";
 
-         doquery( $QryUpdateGalaxy , 'galaxy');
+         doquery($QryUpdateGalaxy);
 
 
 
@@ -537,7 +521,7 @@ function MissionCaseDestruction($FleetRow)
                $raport           .= $DebrisField ."<br />";
                $raport           .= $introdestruc ."<br />";
                $raport           .= $lang['sys_destruc_stop'] ."<br />";
-               doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+               doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
                break;
 
             default:
@@ -548,14 +532,14 @@ function MissionCaseDestruction($FleetRow)
          $raport           .= $SimMessage ."</table>";
 
          $rid = md5($raport);
-         $QryInsertRapport  = "INSERT INTO {{table}} SET ";
+         $QryInsertRapport  = "INSERT INTO game_rw SET ";
          $QryInsertRapport .= "`time` = UNIX_TIMESTAMP(), ";
          $QryInsertRapport .= "`id_owner1` = '". $FleetRow['fleet_owner'] ."', ";
          $QryInsertRapport .= "`id_owner2` = '". $TargetUserID ."', ";
          $QryInsertRapport .= "`rid` = '". $rid ."', ";
          $QryInsertRapport .= "`a_zestrzelona` = '". $a_zestrzelona ."', ";
          $QryInsertRapport .= "`raport` = '". addslashes ( $raport ) ."';";
-         doquery( $QryInsertRapport , 'rw');
+         doquery($QryInsertRapport);
 
 
 
@@ -576,14 +560,14 @@ function MissionCaseDestruction($FleetRow)
          $raport .= "<font color=\"green\">   ". $lang['sys_perte_defenseur'] .":". $zlom["wrog"] ."</font><br />" ;
          $raport .= $lang['sys_debris'] ." ". $lang['Metal'] .":<font color=\"#adaead\">". $zlom['metal'] ."</font>   ". $lang['Crystal'] .":<font color=\"#ef51ef\">". $zlom['crystal'] ."</font><br /></center>";
 
-         $QryUpdateFleet  = "UPDATE {{table}} SET ";
+         $QryUpdateFleet  = "UPDATE game_fleets SET ";
          $QryUpdateFleet .= "`fleet_amount` = '". $FleetAmount ."', ";
          $QryUpdateFleet .= "`fleet_array` = '". $FleetArray ."', ";
          $QryUpdateFleet .= "`fleet_mess` = '1' ";
          $QryUpdateFleet .= "WHERE fleet_id = '". $FleetRow['fleet_id'] ."' ";
          $QryUpdateFleet .= "LIMIT 1 ;";
+         doquery($QryUpdateFleet);
 
-         doquery( $QryUpdateFleet , 'fleets');
          SendSimpleMessage ( $CurrentUserID, '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_destruc_report'], $raport );
          // Colorisation du r�sum� de rapport pour le defenseur
          $raport2  = "<a href # OnClick=\"f( 'rw.php?raport=". $rid ."', '');\" >";
@@ -617,10 +601,10 @@ function MissionCaseDestruction($FleetRow)
                }
             }
          }
-         doquery ("DELETE FROM {{table}} WHERE `fleet_id` = " . $FleetRow["fleet_id"], 'fleets');
+         doquery ("DELETE FROM game_fleets WHERE `fleet_id` = " . $FleetRow["fleet_id"]);
 
          if (!($FleetResult == "w")) {
-            $QryUpdatePlanet  = "UPDATE {{table}} SET ";
+            $QryUpdatePlanet  = "UPDATE game_planets SET ";
             $QryUpdatePlanet .= $fquery;
             $QryUpdatePlanet .= "`metal` = `metal` + ". $FleetRow['fleet_resource_metal'] .", ";
             $QryUpdatePlanet .= "`crystal` = `crystal` + ". $FleetRow['fleet_resource_crystal'] .", ";
@@ -631,7 +615,7 @@ function MissionCaseDestruction($FleetRow)
             $QryUpdatePlanet .= "`planet` = ".$FleetRow['fleet_start_planet']." AND ";
             $QryUpdatePlanet .= "`planet_type` = ".$FleetRow['fleet_start_type']." LIMIT 1 ;";
 
-            doquery( $QryUpdatePlanet, 'planets' );
+            doquery($QryUpdatePlanet);
          }
       }
    }

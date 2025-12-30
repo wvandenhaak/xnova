@@ -33,14 +33,14 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 	$user = MergeUserTechnology($user);
-	$maxfleet  = doquery("SELECT COUNT(fleet_owner) AS `actcnt` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."';", 'fleets', true);
+	$maxfleet  = doquery("SELECT COUNT(fleet_owner) AS `actcnt` FROM game_fleets WHERE `fleet_owner` = '".$user['id']."';", null, true);
 
 	$MaxFlyingFleets     = $maxfleet['actcnt'];
 
     //Compteur de flotte en expéditions et nombre d'expédition maximum
     $MaxExpedition      = $user[$resource[124]];
     if ($MaxExpedition >= 1) {
-		$maxexpde  = doquery("SELECT COUNT(fleet_owner) AS `expedi` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."' AND `fleet_mission` = '15';", 'fleets', true);
+		$maxexpde  = doquery("SELECT COUNT(fleet_owner) AS `expedi` FROM game_fleets WHERE `fleet_owner` = '".$user['id']."' AND `fleet_mission` = '15';", null, true);
 	    $ExpeditionEnCours  = isset($maxexpde) && isset ($maxexpde['expedi']) ? $maxexpde['expedi'] : 0;
 		$EnvoiMaxExpedition = 1 + floor( $MaxExpedition / 3 );
     }else{
@@ -104,7 +104,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "</tr>";
 
 	// Gestion des flottes du joueur actif
-	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner = ".$user['id'].";", "fleets");
+	$fq = doquery("SELECT * FROM game_fleets WHERE fleet_owner = ".$user['id'].";");
 	$i  = 0;
 
 

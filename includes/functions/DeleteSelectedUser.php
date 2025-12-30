@@ -31,39 +31,37 @@
 function DeleteSelectedUser ( $UserID ) {
 
 	//Warning : technologies record will be deleted by MySQL Trigger (BEFORE DROP trigger)
-	$TheUser = doquery ( "SELECT * FROM {{table}} WHERE `id` = '" . $UserID . "';", 'users', true );
+	$TheUser = doquery ( "SELECT * FROM game_users WHERE `id` = '" . $UserID . "';", null, true );
 	if ( $TheUser['ally_id'] != 0 ) {
-		$TheAlly = doquery ( "SELECT * FROM {{table}} WHERE `id` = '" . $TheUser['ally_id'] . "';", 'alliance', true );
+		$TheAlly = doquery ( "SELECT * FROM game_alliance WHERE `id` = '" . $TheUser['ally_id'] . "';", null, true );
 		$TheAlly['ally_members'] -= 1;
 		if ( $TheAlly['ally_members'] > 0 ) {
-			doquery ( "UPDATE {{table}} SET `ally_members` = '" . $TheAlly['ally_members'] . "' WHERE `id` = '" . $TheAlly['id'] . "';", 'alliance' );
+			doquery ( "UPDATE game_alliance SET `ally_members` = '" . $TheAlly['ally_members'] . "' WHERE `id` = '" . $TheAlly['id'] . "';");
 		} else {
-			doquery ( "DELETE FROM {{table}} WHERE `id` = '" . $TheAlly['id'] . "';", 'alliance' );
-			doquery ( "DELETE FROM {{table}} WHERE `stat_type` = '2' AND `id_owner` = '" . $TheAlly['id'] . "';", 'statpoints' );
+			doquery ( "DELETE FROM game_alliance WHERE `id` = '" . $TheAlly['id'] . "';");
+			doquery ( "DELETE FROM game_statpoints WHERE `stat_type` = '2' AND `id_owner` = '" . $TheAlly['id'] . "';");
 		}
 	}
-	doquery ( "DELETE FROM {{table}} WHERE `stat_type` = '1' AND `id_owner` = '" . $UserID . "';", 'statpoints' );
+	doquery ( "DELETE FROM game_statpoints WHERE `stat_type` = '1' AND `id_owner` = '" . $UserID . "';");
 
-	$ThePlanets = doquery ( "SELECT * FROM {{table}} WHERE `id_owner` = '" . $UserID . "';", 'planets' );
+	$ThePlanets = doquery ( "SELECT * FROM game_planets WHERE `id_owner` = '" . $UserID . "';");
 	while ( $OnePlanet = mysqli_fetch_assoc ( $ThePlanets ) ) {
 		if ( $OnePlanet['planet_type'] == 1 ) {
-			doquery ( "DELETE FROM {{table}} WHERE `galaxy` = '" . $OnePlanet['galaxy'] . "' AND `system` = '" . $OnePlanet['system'] . "' AND `planet` = '" . $OnePlanet['planet'] . "';", 'galaxy' );
+			doquery ( "DELETE FROM game_galaxy WHERE `galaxy` = '" . $OnePlanet['galaxy'] . "' AND `system` = '" . $OnePlanet['system'] . "' AND `planet` = '" . $OnePlanet['planet'] . "';");
 		} elseif ( $OnePlanet['planet_type'] == 3 ) {
-			doquery ( "DELETE FROM {{table}} WHERE `galaxy` = '" . $OnePlanet['galaxy'] . "' AND `system` = '" . $OnePlanet['system'] . "' AND `lunapos` = '" . $OnePlanet['planet'] . "';", 'lunas' );
+			doquery ( "DELETE FROM game_lunas WHERE `galaxy` = '" . $OnePlanet['galaxy'] . "' AND `system` = '" . $OnePlanet['system'] . "' AND `lunapos` = '" . $OnePlanet['planet'] . "';");
 		}
-		doquery ( "DELETE FROM {{table}} WHERE `id` = '" . $OnePlanet['id'] . "';", 'planets' );
+		doquery ( "DELETE FROM game_planets WHERE `id` = '" . $OnePlanet['id'] . "';");
 	}
-	doquery ( "DELETE FROM {{table}} WHERE `message_sender` = '" . $UserID . "';", 'messages' );
-	doquery ( "DELETE FROM {{table}} WHERE `message_owner` = '" . $UserID . "';", 'messages' );
-	doquery ( "DELETE FROM {{table}} WHERE `owner` = '" . $UserID . "';", 'notes' );
-	doquery ( "DELETE FROM {{table}} WHERE `fleet_owner` = '" . $UserID . "';", 'fleets' );
-	doquery ( "DELETE FROM {{table}} WHERE `id_owner1` = '" . $UserID . "';", 'rw' );
-	doquery ( "DELETE FROM {{table}} WHERE `id_owner2` = '" . $UserID . "';", 'rw' );
-	doquery ( "DELETE FROM {{table}} WHERE `sender` = '" . $UserID . "';", 'buddy' );
-	doquery ( "DELETE FROM {{table}} WHERE `owner` = '" . $UserID . "';", 'buddy' );
-	doquery ( "DELETE FROM {{table}} WHERE `user` = '" . $UserID . "';", 'annonce' );
-	doquery ( "DELETE FROM {{table}} WHERE `id` = '" . $UserID . "';", 'users' );
+	doquery ( "DELETE FROM game_messages WHERE `message_sender` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_messages WHERE `message_owner` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_notes WHERE `owner` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_fleets WHERE `fleet_owner` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_rw WHERE `id_owner1` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_rw WHERE `id_owner2` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_buddy WHERE `sender` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_buddy WHERE `owner` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_annonce WHERE `user` = '" . $UserID . "';");
+	doquery ( "DELETE FROM game_users WHERE `id` = '" . $UserID . "';");
 
 }
-
-?>

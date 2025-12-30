@@ -43,46 +43,13 @@ if (strtolower(substr(PHP_SAPI, 0, 3)) == 'cli' || in_array($user['authlevel'], 
 	includeLang('admin/interface');
 
 	$StatDate   = time();
-	/*doquery("TRUNCATE TABLE {{table}}", "statpoints");
-	$users = doquery("SELECT * from game_users WHERE 1", "users");
-	while($u = mysqli_fetch_assoc($users)){
-			$QryInsertStats  = "INSERT INTO {{table}} SET ";
-			$QryInsertStats .= "`id_owner` = '". $u['id'] ."', ";
-			$QryInsertStats .= "`id_ally` = '". $u['ally_id'] ."', ";
-			$QryInsertStats .= "`stat_type` = '1', "; // 1 pour joueur , 2 pour alliance
-			$QryInsertStats .= "`stat_code` = '1', "; // de 1 a 5 mis a jour de maniere automatique
-			$QryInsertStats .= "`tech_points` = '0', ";
-			$QryInsertStats .= "`tech_count` = '0', ";
-			$QryInsertStats .= "`tech_rank` = '0', ";
-			$QryInsertStats .= "`tech_old_rank` = '0', ";
-			$QryInsertStats .= "`build_points` = '0', ";
-			$QryInsertStats .= "`build_count` = '0', ";
-			$QryInsertStats .= "`build_rank` = '0', ";
-			$QryInsertStats .= "`build_old_rank` = '0', ";
-			$QryInsertStats .= "`defs_points` = '0', ";
-			$QryInsertStats .= "`defs_count` = '0', ";
-			$QryInsertStats .= "`defs_rank` = '0', ";
-			$QryInsertStats .= "`defs_old_rank` = '0', ";
-			$QryInsertStats .= "`fleet_points` = '0', ";
-			$QryInsertStats .= "`fleet_count` = '0', ";
-			$QryInsertStats .= "`fleet_rank` = '0', ";
-			$QryInsertStats .= "`fleet_old_rank` = '0', ";
-			$QryInsertStats .= "`total_points` = '0', ";
-			$QryInsertStats .= "`total_count` = '0', ";
-			$QryInsertStats .= "`total_rank` = '0', ";
-			$QryInsertStats .= "`total_old_rank` = '0', ";
-			$QryInsertStats .= "`stat_date` = '". time() ."';";
-			doquery ( $QryInsertStats , 'statpoints');
-	}
 
-die();*/
 	// Rotation des statistiques
-	//doquery ( "UPDATE {{table}} SET `stat_code` = `stat_code` + '1';" , 'statpoints');
+	//doquery("UPDATE game_statpoints SET `stat_code` = `stat_code` + '1';");
 
 	//@Todo
-	//$GameUsers  = doquery("SELECT * FROM {{table}} WHERE authlevel<3", 'users');
+	//$GameUsers  = doquery("SELECT * FROM game_users WHERE authlevel<3");
 
-	
 	$GameUsers = <<<SQL_EOF
 	SELECT 
 		u.*,
@@ -115,7 +82,7 @@ die();*/
 		s.stat_type = 1
 SQL_EOF;
 
-	$GameUsers  = doquery($GameUsers, 'users');
+	$GameUsers  = doquery($GameUsers);
 	$MesurablePlanetsUnits = array_merge($reslist['build'], $reslist['defense'], $reslist['fleet']);
 
 	$PlanetQry = "SELECT id, points, ";
@@ -123,7 +90,7 @@ SQL_EOF;
 		$PlanetQry .= $resource[ $unit ] .", ";
 	}
 	$PlanetQry = substr($PlanetQry, 0, -2);
-	$PlanetQry .= " FROM {{table}} WHERE `id_owner` = %s";
+	$PlanetQry .= " FROM game_planets WHERE `id_owner` = %s";
 	
 
 	while ($CurUser = mysqli_fetch_assoc($GameUsers)) {
@@ -145,7 +112,7 @@ SQL_EOF;
 		$GCount         = $TTechCount;
 		$GPoints        = $TTechPoints;
 		$UsrPlanets = sprintf($PlanetQry, $CurUser['id']);
-		$UsrPlanets     = doquery($UsrPlanets, 'planets');
+		$UsrPlanets     = doquery($UsrPlanets);
 		while ($CurPlanet = mysqli_fetch_assoc($UsrPlanets) ) {
 			$Points           = GetBuildPoints ( $CurPlanet );
 			$TBuildCount     += $Points['BuildCount'];
@@ -167,11 +134,11 @@ SQL_EOF;
 
 			$GPoints         += $PlanetPoints;
 			if($CurPlanet['points'] != $PlanetPoints){
-				$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+				$QryUpdatePlanet  = "UPDATE game_planets SET ";
 				$QryUpdatePlanet .= "`points` = '". $PlanetPoints ."' ";
 				$QryUpdatePlanet .= "WHERE ";
 				$QryUpdatePlanet .= "`id` = '". $CurPlanet['id'] ."';";
-				doquery ( $QryUpdatePlanet , 'planets');
+                doquery($QryUpdatePlanet);
 			}
 		}
 		
@@ -186,7 +153,7 @@ SQL_EOF;
 			$hasModifications = false;
 
 			//update
-			$QryInsertStats  = "UPDATE {{table}} SET ";
+			$QryInsertStats  = "UPDATE game_statpoints SET ";
 			$QryInsertStats .= "`id_owner` = '". $CurUser['id'] ."', ";
 			$QryInsertStats .= "`stat_code` = '1', "; // de 1 a 5 mis a jour de maniere automatique
 			$QryInsertStats .= "`id_ally` = '". $CurUser['ally_id'] ."', ";
@@ -258,72 +225,16 @@ SQL_EOF;
 			$QryInsertStats .= "`stat_date` = '". $StatDate ."' ";
 			$QryInsertStats .= "WHERE `id_owner` = '". $CurUser['id'] ."' AND `stat_type` = '1';";// 1 pour joueur , 2 pour alliance
 			if($hasModifications){
-				doquery ( $QryInsertStats , 'statpoints');
+                doquery($QryInsertStats);
 			}
 			
 			
 		
 		// Suppression de l'ancien enregistrement
-		//doquery ("DELETE FROM {{table}} WHERE `stat_type` = '1' AND `id_owner` = '".$CurUser['id']."';",'statpoints');
+		//doquery ("DELETE FROM game_statpoints WHERE `stat_type` = '1' AND `id_owner` = '".$CurUser['id']."';");
 	
 	}
 
-	/*
-	$Rank           = 1;
-	$RankQry        = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `tech_points` DESC;", 'statpoints');
-	while ($TheRank = mysqli_fetch_assoc($RankQry) ) {
-		$QryUpdateStats  = "UPDATE {{table}} SET ";
-		$QryUpdateStats .= "`tech_rank` = '". $Rank ."' ";
-		$QryUpdateStats .= "WHERE ";
-		$QryUpdateStats .= " `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TheRank['id_owner'] ."';";
-		doquery ( $QryUpdateStats , 'statpoints');
-		$Rank++;
-	}
-
-	$Rank           = 1;
-	$RankQry        = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `build_points` DESC;", 'statpoints');
-	while ($TheRank = mysqli_fetch_assoc($RankQry) ) {
-		$QryUpdateStats  = "UPDATE {{table}} SET ";
-		$QryUpdateStats .= "`build_rank` = '". $Rank ."' ";
-		$QryUpdateStats .= "WHERE ";
-		$QryUpdateStats .= " `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TheRank['id_owner'] ."';";
-		doquery ( $QryUpdateStats , 'statpoints');
-		$Rank++;
-	}
-
-	$Rank           = 1;
-	$RankQry        = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `defs_points` DESC;", 'statpoints');
-	while ($TheRank = mysqli_fetch_assoc($RankQry) ) {
-		$QryUpdateStats  = "UPDATE {{table}} SET ";
-		$QryUpdateStats .= "`defs_rank` = '". $Rank ."' ";
-		$QryUpdateStats .= "WHERE ";
-		$QryUpdateStats .= " `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TheRank['id_owner'] ."';";
-		doquery ( $QryUpdateStats , 'statpoints');
-		$Rank++;
-	}
-
-	$Rank           = 1;
-	$RankQry        = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `fleet_points` DESC;", 'statpoints');
-	while ($TheRank = mysqli_fetch_assoc($RankQry) ) {
-		$QryUpdateStats  = "UPDATE {{table}} SET ";
-		$QryUpdateStats .= "`fleet_rank` = '". $Rank ."' ";
-		$QryUpdateStats .= "WHERE ";
-		$QryUpdateStats .= " `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TheRank['id_owner'] ."';";
-		doquery ( $QryUpdateStats , 'statpoints');
-		$Rank++;
-	}
-
-	$Rank           = 1;
-	$RankQry        = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `total_points` DESC;", 'statpoints');
-	while ($TheRank = mysqli_fetch_assoc($RankQry) ) {
-		$QryUpdateStats  = "UPDATE {{table}} SET ";
-		$QryUpdateStats .= "`total_rank` = '". $Rank ."' ";
-		$QryUpdateStats .= "WHERE ";
-		$QryUpdateStats .= " `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TheRank['id_owner'] ."';";
-		doquery ( $QryUpdateStats , 'statpoints');
-		$Rank++;
-	}
-	*/
 	//@Todo : le rang peut se déterminer à l'affichage ?
 	// Statistiques des alliances ...
 	
@@ -342,7 +253,7 @@ ON a.id = s.id_owner
 WHERE
 s.stat_type = 2
 SQL_EOF;
-	$GameAllys  = doquery($GameAllys, 'alliance'); //todo db prefix
+	$GameAllys  = doquery($GameAllys);
 
 	while ($CurAlly = mysqli_fetch_assoc($GameAllys)) {
 		// Recuperation des anciennes statistiques
@@ -353,7 +264,7 @@ SQL_EOF;
 		$OldFleetRank = isset($CurAlly['fleet_rank']) ? $CurAlly['fleet_rank'] : 0;
 
 		
-		doquery ("DELETE FROM {{table}} WHERE `stat_type` = '2' AND `id_owner` = '".$CurAlly['id']."';",'statpoints');
+		doquery ("DELETE FROM game_statpoints WHERE `stat_type` = '2' AND `id_owner` = '".$CurAlly['id']."';");
 		
 
 		// Total des unitées consommée pour la recherche
@@ -368,11 +279,11 @@ SQL_EOF;
 		$QrySumSelect  .= "SUM(`fleet_count`)  as `FleetCount`, ";
 		$QrySumSelect  .= "SUM(`total_points`) as `TotalPoint`, ";
 		$QrySumSelect  .= "SUM(`total_count`)  as `TotalCount` ";
-		$QrySumSelect  .= "FROM {{table}} ";
+		$QrySumSelect  .= "FROM game_statpoints ";
 		$QrySumSelect  .= "WHERE ";
 		$QrySumSelect  .= "`stat_type` = '1' AND ";
 		$QrySumSelect  .= "`id_ally` = '". $CurAlly['id'] ."';";
-		$Points         = doquery( $QrySumSelect, 'statpoints', true);
+		$Points         = doquery( $QrySumSelect, null, true);
 
 		$TTechCount     = $Points['TechCount'];
 		$TTechPoints    = $Points['TechPoint'];
@@ -385,7 +296,7 @@ SQL_EOF;
 		$GCount         = $Points['TotalCount'];
 		$GPoints        = $Points['TotalPoint'];
 
-		$QryInsertStats  = "INSERT INTO {{table}} SET ";
+		$QryInsertStats  = "INSERT INTO game_statpoints SET ";
 		$QryInsertStats .= "`id_owner` = '". $CurAlly['id'] ."', ";
 		$QryInsertStats .= "`id_ally` = '0', ";
 		$QryInsertStats .= "`stat_type` = '2', "; // 1 pour joueur , 2 pour alliance
@@ -406,7 +317,7 @@ SQL_EOF;
 		$QryInsertStats .= "`total_count` = '". $GCount ."', ";
 		$QryInsertStats .= "`total_old_rank` = '". $OldTotalRank ."', ";
 		$QryInsertStats .= "`stat_date` = '". $StatDate ."';";
-		doquery ( $QryInsertStats , 'statpoints');
+        doquery($QryInsertStats);
 	}
 
 	AdminMessage ( $lang['adm_done'], $lang['adm_stat_title'] );

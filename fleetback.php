@@ -39,7 +39,7 @@ require_once dirname(__FILE__) .'/common.php';
 	if ( is_numeric($_POST['fleetid']) ) {
 		$fleetid  = intval($_POST['fleetid']);
 
-		$FleetRow = doquery("SELECT * FROM {{table}} WHERE `fleet_id` = '". $fleetid ."';", 'fleets', true);
+		$FleetRow = doquery("SELECT * FROM game_fleets WHERE `fleet_id` = '". $fleetid ."';", null, true);
 		$i = 0;
 
 		if ($FleetRow['fleet_owner'] == $user['id']) {
@@ -63,7 +63,7 @@ require_once dirname(__FILE__) .'/common.php';
 				// Allez houste au bout du compte y a la maison !! (E.T. phone home.............)
 				$ReturnFlyingTime  = $CurrentFlyingTime + time();
 
-				$QryUpdateFleet  = "UPDATE {{table}} SET ";
+				$QryUpdateFleet  = "UPDATE game_fleets SET ";
 				$QryUpdateFleet .= "`fleet_start_time` = '". (time() - 1) ."', ";
 				$QryUpdateFleet .= "`fleet_end_stay` = '0', ";
 				$QryUpdateFleet .= "`fleet_end_time` = '". ($ReturnFlyingTime + 1) ."', ";
@@ -71,7 +71,7 @@ require_once dirname(__FILE__) .'/common.php';
 				$QryUpdateFleet .= "`fleet_mess` = '1' ";
 				$QryUpdateFleet .= "WHERE ";
 				$QryUpdateFleet .= "`fleet_id` = '" . $fleetid . "';";
-				doquery( $QryUpdateFleet, 'fleets');
+                doquery($QryUpdateFleet);
 
 				$BoxTitle   = $lang['fl_sback'];
 				$TxtColor   = "lime";

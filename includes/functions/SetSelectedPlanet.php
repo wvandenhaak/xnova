@@ -40,14 +40,12 @@ function SetSelectedPlanet ( &$CurrentUser )
 		is_numeric($SelectPlanet) &&
 		isset($RestorePlanet)     &&
 		$RestorePlanet == 0) {
-		$IsPlanetMine   = doquery("SELECT `id` FROM {{table}} WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '". $CurrentUser['id'] ."';", 'planets', true);
+		$IsPlanetMine   = doquery("SELECT `id` FROM game_planets WHERE `id` = '". $SelectPlanet ."' AND `id_owner` = '". $CurrentUser['id'] ."';", null, true);
 		if ($IsPlanetMine) {
 			// Ouaip elle est a moi ... Donc ... on met la met comme planete courrante
 			$CurrentUser['current_planet'] = $SelectPlanet;
 			// Puis tant qu'a faire ... On l'enregistre aussi sait on jamais
-			doquery("UPDATE {{table}} SET `current_planet` = '". $SelectPlanet ."' WHERE `id` = '".$CurrentUser['id']."';", 'users');
+			doquery("UPDATE game_users SET `current_planet` = '". $SelectPlanet ."' WHERE `id` = '".$CurrentUser['id']."';");
 		}
 	}
 }
-
-?>

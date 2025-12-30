@@ -35,7 +35,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
     includeLang('galaxy');
-    $lunarow       = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_luna'] ."';", 'lunas', true);
+    $lunarow       = doquery("SELECT * FROM game_lunas WHERE `id` = '". $user['current_luna'] ."';", null, true);
 
     $user = MergeUserTechnology($user);
     $fleetmax      = $user['computer_tech'] + 1;
@@ -48,7 +48,7 @@ require_once dirname(__FILE__) .'/common.php';
     $CurrentGalaxy = $planetrow['galaxy'];
     $CanDestroy    = $planetrow[$resource[213]] + $planetrow[$resource[214]];
 
-    $maxfleet       = doquery("SELECT * FROM {{table}} WHERE `fleet_owner` = '". $user['id'] ."';", 'fleets');
+    $maxfleet       = doquery("SELECT * FROM game_fleets WHERE `fleet_owner` = '". $user['id'] ."';");
     $maxfleet_count = mysqli_num_rows($maxfleet);
 
     CheckPlanetUsedFields($planetrow);

@@ -43,27 +43,27 @@ switch($type){
 	case "playername":
 		$table = gettemplate('search_user_table');
 		$row = gettemplate('search_user_row');
-		$search = doquery("SELECT * FROM {{table}} WHERE username LIKE '%{$searchtext}%' LIMIT 30;","users");
+		$search = doquery("SELECT * FROM game_users WHERE username LIKE '%{$searchtext}%' LIMIT 30;");
 	break;
 	case "planetname":
 		$table = gettemplate('search_user_table');
 		$row = gettemplate('search_user_row');
-		$search = doquery("SELECT * FROM {{table}} WHERE name LIKE '%{$searchtext}%' LIMIT 30",'planets');
+		$search = doquery("SELECT * FROM game_planets WHERE name LIKE '%{$searchtext}%' LIMIT 30");
 	break;
 	case "allytag":
 		$table = gettemplate('search_ally_table');
 		$row = gettemplate('search_ally_row');
-		$search = doquery("SELECT * FROM {{table}} WHERE ally_tag LIKE '%{$searchtext}%' LIMIT 30","alliance");
+		$search = doquery("SELECT * FROM game_alliance WHERE ally_tag LIKE '%{$searchtext}%' LIMIT 30");
 	break;
 	case "allyname":
 		$table = gettemplate('search_ally_table');
 		$row = gettemplate('search_ally_row');
-		$search = doquery("SELECT * FROM {{table}} WHERE ally_name LIKE '%{$searchtext}%' LIMIT 30","alliance");
+		$search = doquery("SELECT * FROM game_alliance WHERE ally_name LIKE '%{$searchtext}%' LIMIT 30");
 	break;
 	default:
 		$table = gettemplate('search_user_table');
 		$row = gettemplate('search_user_row');
-		$search = doquery("SELECT * FROM {{table}} WHERE username LIKE '%{$searchtext}%' LIMIT 30","users");
+		$search = doquery("SELECT * FROM game_users WHERE username LIKE '%{$searchtext}%' LIMIT 30");
 }
 /*
   Esta es la tecnica de, "el ahorro de queries".
@@ -80,19 +80,19 @@ if(isset($searchtext) && isset($type)){
 			//para obtener el nombre del planeta
 			if ($type == "planetname")
 			{
-			$pquery = doquery("SELECT * FROM {{table}} WHERE id = {$s['id_owner']}","users",true);
+			$pquery = doquery("SELECT * FROM game_users WHERE id = {$s['id_owner']}",null,true);
 /*			$farray = mysqli_fetch_array($pquery);*/
 			$s['planet_name'] = $s['name'];
 			$s['username'] = $pquery['username'];
 			$s['ally_name'] = ($pquery['ally_name']!='')?"<a href=\"alliance.php?mode=ainfo&tag={$pquery['ally_name']}\">{$pquery['ally_name']}</a>":'';
 			}else{
-			$pquery = doquery("SELECT name FROM {{table}} WHERE id = {$s['id_planet']}","planets",true);
+			$pquery = doquery("SELECT name FROM game_planets WHERE id = {$s['id_planet']}",null,true);
 			$s['planet_name'] = $pquery['name'];
 			$s['ally_name'] = (isset($aquery) && isset($aquery['ally_name']) && $aquery['ally_name']!='')?"<a href=\"alliance.php?mode=ainfo&tag={$aquery['ally_name']}\">{$aquery['ally_name']}</a>":'';
 			}
 			//ahora la alianza
 			if($s['ally_id']!=0&&$s['ally_request']==0){
-				$aquery = doquery("SELECT ally_name FROM {{table}} WHERE id = {$s['ally_id']}","alliance",true);
+				$aquery = doquery("SELECT ally_name FROM game_alliance WHERE id = {$s['ally_id']}",null,true);
 			}else{
 				$aquery = array();
 			}

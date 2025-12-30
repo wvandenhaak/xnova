@@ -35,7 +35,7 @@ function SendSimpleMessage ( $Owner, $Sender, $Time, $Type, $From, $Subject, $Me
 		$Time = time();
 	}
 
-	$QryInsertMessage  = "INSERT INTO {{table}} SET ";
+	$QryInsertMessage  = "INSERT INTO game_messages SET ";
 	$QryInsertMessage .= "`message_owner` = '". $Owner ."', ";
 	$QryInsertMessage .= "`message_sender` = '". $Sender ."', ";
 	$QryInsertMessage .= "`message_time` = '" . $Time . "', ";
@@ -43,14 +43,14 @@ function SendSimpleMessage ( $Owner, $Sender, $Time, $Type, $From, $Subject, $Me
 	$QryInsertMessage .= "`message_from` = '". addslashes( $From ) ."', ";
 	$QryInsertMessage .= "`message_subject` = '". addslashes( $Subject ) ."', ";
 	$QryInsertMessage .= "`message_text` = '". addslashes( $Message ) ."';";
-	doquery( $QryInsertMessage, 'messages');
+    doquery($QryInsertMessage);
 
-	$QryUpdateUser  = "UPDATE {{table}} SET ";
+	$QryUpdateUser  = "UPDATE game_users SET ";
 	$QryUpdateUser .= "`".$messfields[$Type]."` = `".$messfields[$Type]."` + 1, ";
 	$QryUpdateUser .= "`".$messfields[100]."` = `".$messfields[100]."` + 1 ";
 	$QryUpdateUser .= "WHERE ";
 	$QryUpdateUser .= "`id` = '". $Owner ."';";
-	doquery( $QryUpdateUser, 'users');
+    doquery($QryUpdateUser);
 
 }
 
@@ -59,5 +59,3 @@ function SendSimpleMessage ( $Owner, $Sender, $Time, $Type, $From, $Subject, $Me
 // 1.1 - Ajout gestion des messages par type pour le module de messages
 // 1.2 - Correction bug (addslashes pour les zone texte pouvant contenir une apostrophe)
 // 1.3 - Correction bug (integration de la variable $Time pour afficher l'heure exacte de l'evenement pour les flottes)
-
-?>

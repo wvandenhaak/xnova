@@ -40,9 +40,9 @@ require_once dirname(__FILE__) .'/common.php';
 	$parse   = $lang;
 
 	$QrySelectUser  = "SELECT `username`, `email`, `authlevel` ";
-	$QrySelectUser .= "FROM {{table}} ";
+	$QrySelectUser .= "FROM game_users ";
 	$QrySelectUser .= "WHERE `authlevel` != '0' ORDER BY `authlevel` DESC;";
-	$GameOps = doquery ( $QrySelectUser, 'users');
+    $GameOps = doquery($QrySelectUser);
 
 	$parse['ctc_admin_list'] = "";
 	while( $Ops = mysqli_fetch_assoc($GameOps) ) {

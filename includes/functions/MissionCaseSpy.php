@@ -32,20 +32,20 @@ function MissionCaseSpy ( $FleetRow ) {
 	global $lang, $resource;
 
 	if ($FleetRow['fleet_start_time'] <= time()) {
-		$CurrentUser         = doquery("SELECT * FROM {{table}} WHERE `id` = '".$FleetRow['fleet_owner']."';", 'users', true);
+		$CurrentUser         = doquery("SELECT * FROM game_users WHERE `id` = '".$FleetRow['fleet_owner']."';", null, true);
 		$CurrentUser 		 = MergeUserTechnology($CurrentUser);
 		$CurrentUserID       = $FleetRow['fleet_owner'];
-		$QryGetTargetPlanet  = "SELECT * FROM {{table}} ";
+		$QryGetTargetPlanet  = "SELECT * FROM game_planets ";
 		$QryGetTargetPlanet .= "WHERE ";
 		$QryGetTargetPlanet .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
 		$QryGetTargetPlanet .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
 		$QryGetTargetPlanet .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' AND ";
 		$QryGetTargetPlanet .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."';";
-		$TargetPlanet        = doquery( $QryGetTargetPlanet, 'planets', true);
+		$TargetPlanet        = doquery($QryGetTargetPlanet, null, true);
 		$TargetUserID        = $TargetPlanet['id_owner'];
-		$CurrentPlanet       = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."';", 'planets', true);
+		$CurrentPlanet       = doquery("SELECT * FROM game_planets WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."';", null, true);
 		$CurrentSpyLvl       = $CurrentUser['spy_tech'];
-		$TargetUser          = doquery("SELECT * FROM {{table}} WHERE `id` = '".$TargetUserID."';", 'users', true);
+		$TargetUser          = doquery("SELECT * FROM game_users WHERE `id` = '".$TargetUserID."';", null, true);
 		$TargetUser			 = MergeUserTechnology($TargetUser);
 		$TargetSpyLvl        = $TargetUser['spy_tech'];
 
@@ -61,11 +61,11 @@ function MissionCaseSpy ( $FleetRow ) {
 				if ($FleetRow["fleet_mess"] != "1") {
 					if ($a[0] == "210") {
 						$LS    = $a[1];
-						$QryTargetGalaxy  = "SELECT * FROM {{table}} WHERE ";
+						$QryTargetGalaxy  = "SELECT * FROM game_galaxy WHERE ";
 						$QryTargetGalaxy .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
 						$QryTargetGalaxy .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
 						$QryTargetGalaxy .= "`planet` = '". $FleetRow['fleet_end_planet'] ."';";
-						$TargetGalaxy     = doquery( $QryTargetGalaxy, 'galaxy', true);
+						$TargetGalaxy     = doquery($QryTargetGalaxy, null, true);
 						$CristalDebris    = $TargetGalaxy['crystal'];
 						$SpyToolDebris    = $LS * 300;
 
@@ -149,25 +149,23 @@ function MissionCaseSpy ( $FleetRow ) {
 
 					}
 					if ($TargetChances >= $SpyerChances) {
-						$QryUpdateGalaxy  = "UPDATE {{table}} SET ";
+						$QryUpdateGalaxy  = "UPDATE game_galaxy SET ";
 						$QryUpdateGalaxy .= "`crystal` = `crystal` + '". (0 + $SpyToolDebris) ."' ";
 						$QryUpdateGalaxy .= "WHERE `id_planet` = '". $TargetPlanet['id'] ."';";
-						doquery( $QryUpdateGalaxy, 'galaxy');
+                        doquery($QryUpdateGalaxy);
 
-						doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+						doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
 					} else {
-						doquery("UPDATE {{table}} SET `fleet_mess` = '1' WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+						doquery("UPDATE game_fleets SET `fleet_mess` = '1' WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
 					}
 				}
 			} else {
 				// Retour de sondes
 				if ($FleetRow['fleet_end_time'] <= time()) {
 					RestoreFleetToPlanet ( $FleetRow, true );
-					doquery("DELETE FROM {{table}} WHERE `fleet_id` = ". $FleetRow["fleet_id"], 'fleets');
+					doquery("DELETE FROM game_fleets WHERE `fleet_id` = ". $FleetRow["fleet_id"]);
 				}
 			}
 		}
 	}
 }
-
-?>

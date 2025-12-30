@@ -30,7 +30,7 @@
 
 use Xmke\Xnova\Common\Language;
 
-$QryTableAks         = "CREATE TABLE `{{table}}` ( ";
+$QryTableAks         = "CREATE TABLE `game_aks` ( ";
 	$QryTableAks        .= "`id` bigint(20) unsigned NOT NULL auto_increment, ";
 	$QryTableAks        .= "`name` varchar(50) collate latin1_general_ci default NULL, ";
 	$QryTableAks        .= "`teilnehmer` text collate latin1_general_ci, ";
@@ -44,7 +44,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableAks        .= ") ENGINE=InnoDB;";
 
 	// Table annonce
-	$QryTableAnnonce     = "CREATE TABLE `{{table}}` ( ";
+	$QryTableAnnonce     = "CREATE TABLE `game_annonce` ( ";
 	$QryTableAnnonce    .= "`id` int(11) NOT NULL auto_increment, ";
 	$QryTableAnnonce    .= "`user` text collate latin1_general_ci NOT NULL, ";
 	$QryTableAnnonce    .= "`galaxie` int(11) NOT NULL, ";
@@ -59,7 +59,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableAnnonce    .= ") ENGINE=InnoDB;";
 
 	// Table alliance
-	$QryTableAlliance    = "CREATE TABLE `{{table}}` ( ";
+	$QryTableAlliance    = "CREATE TABLE `game_alliance` ( ";
 	$QryTableAlliance   .= "`id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableAlliance   .= "`ally_name` varchar(32) character set latin1 default '', ";
 	$QryTableAlliance   .= "`ally_tag` varchar(8) character set latin1 default '', ";
@@ -79,7 +79,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableAlliance   .= ") ENGINE=InnoDB;";
 
 	// Table banned
-	$QryTableBanned      = "CREATE TABLE `{{table}}` ( ";
+	$QryTableBanned      = "CREATE TABLE `game_banned` ( ";
 	$QryTableBanned     .= "`id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableBanned     .= "`who` varchar(11) character set latin1 NOT NULL default '', ";
 	$QryTableBanned     .= "`theme` text character set latin1 NOT NULL, ";
@@ -92,7 +92,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableBanned     .= ") ENGINE=InnoDB;";
 
 	// Table buddy
-	$QryTableBuddy       = "CREATE TABLE `{{table}}` ( ";
+	$QryTableBuddy       = "CREATE TABLE `game_buddy` ( ";
 	$QryTableBuddy      .= "`id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableBuddy      .= "`sender` int(11) NOT NULL default '0', ";
 	$QryTableBuddy      .= "`owner` int(11) NOT NULL default '0', ";
@@ -102,13 +102,13 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableBuddy      .= ") ENGINE=InnoDB;";
 
 	// Table config
-	$QryTableConfig      = "CREATE TABLE `{{table}}` ( ";
+	$QryTableConfig      = "CREATE TABLE `game_config` ( ";
 	$QryTableConfig     .= "`config_name` varchar(64) character set latin1 NOT NULL default '', ";
 	$QryTableConfig     .= "`config_value` text character set latin1 NOT NULL ";
 	$QryTableConfig     .= ") ENGINE=InnoDB;";
 
 	// Valeurs de base de la config
-	$QryInsertConfig     = "INSERT INTO `{{table}}` ";
+	$QryInsertConfig     = "INSERT INTO `game_config` ";
 	$QryInsertConfig    .= "(`config_name`           , `config_value`) VALUES ";
 	$QryInsertConfig    .= "('users_amount'          , '0'), ";
 	$QryInsertConfig    .= "('game_speed'            , '2500'), ";
@@ -160,7 +160,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 
 
 	// Table declared (multicomptes)
-	$QryTabledeclared         = "CREATE TABLE `{{table}}` ( ";
+	$QryTabledeclared         = "CREATE TABLE `game_declared` ( ";
 	$QryTabledeclared        .= "`declarator`TEXT NOT NULL, ";
 	$QryTabledeclared        .= "`declared_1`TEXT NOT NULL, ";
 	$QryTabledeclared        .= "`declared_2`TEXT NOT NULL, ";
@@ -171,7 +171,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTabledeclared       .= ") ENGINE=InnoDB;";
 
 	// Table errors
-	$QryTableErrors      = "CREATE TABLE `{{table}}` ( ";
+	$QryTableErrors      = "CREATE TABLE `game_errors` ( ";
 	$QryTableErrors     .= "`error_id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableErrors     .= "`error_sender` varchar(32) character set latin1 NOT NULL default '0', ";
 	$QryTableErrors     .= "`error_time` int(11) NOT NULL default '0', ";
@@ -181,7 +181,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableErrors     .= ") ENGINE=InnoDB;";
 
 	// Table fleets
-	$QryTableFleets      = "CREATE TABLE `{{table}}` ( ";
+	$QryTableFleets      = "CREATE TABLE `game_fleets` ( ";
 	$QryTableFleets     .= "`fleet_id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableFleets     .= "`fleet_owner` int(11) NOT NULL default '0', ";
 	$QryTableFleets     .= "`fleet_mission` int(11) NOT NULL default '0', ";
@@ -210,7 +210,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableFleets     .= ") ENGINE=InnoDB;";
 
 	// Table galaxy
-	$QryTableGalaxy      = "CREATE TABLE `{{table}}` ( ";
+	$QryTableGalaxy      = "CREATE TABLE `game_galaxy` ( ";
 	$QryTableGalaxy     .= "`galaxy` int(2) NOT NULL default '0', ";
 	$QryTableGalaxy     .= "`system` int(3) NOT NULL default '0', ";
 	$QryTableGalaxy     .= "`planet` int(2) NOT NULL default '0', ";
@@ -225,7 +225,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableGalaxy     .= ") ENGINE=InnoDB;";
 
 	// Table iraks
-	$QryTableIraks       = "CREATE TABLE `{{table}}` ( ";
+	$QryTableIraks       = "CREATE TABLE `game_iraks` ( ";
 	$QryTableIraks      .= "`id` bigint(20) unsigned NOT NULL auto_increment, ";
 	$QryTableIraks      .= "`zeit` int(32) default NULL, ";
 	$QryTableIraks      .= "`galaxy` int(2) default NULL, ";
@@ -242,7 +242,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableIraks      .= ") ENGINE=InnoDB;";
 
 	// Table lunas
-	$QryTableLunas       = "CREATE TABLE `{{table}}` ( ";
+	$QryTableLunas       = "CREATE TABLE `game_lunas` ( ";
 	$QryTableLunas      .= "`id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableLunas      .= "`id_luna` int(11) NOT NULL default '0', ";
 	$QryTableLunas      .= "`name` varchar(11) character set latin1 NOT NULL default 'Lune', ";
@@ -259,7 +259,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableLunas      .= ") ENGINE=InnoDB;";
 
 	// Table messages
-	$QryTableMessages    = "CREATE TABLE `{{table}}` ( ";
+	$QryTableMessages    = "CREATE TABLE `game_messages` ( ";
 	$QryTableMessages   .= "`message_id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableMessages   .= "`message_owner` int(11) NOT NULL default '0', ";
 	$QryTableMessages   .= "`message_sender` int(11) NOT NULL default '0', ";
@@ -272,7 +272,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableMessages   .= ") ENGINE=InnoDB;";
 
 	// Table notes
-	$QryTableNotes       = "CREATE TABLE `{{table}}` ( ";
+	$QryTableNotes       = "CREATE TABLE `game_notes` ( ";
 	$QryTableNotes      .= "`id` bigint(11) NOT NULL auto_increment, ";
 	$QryTableNotes      .= "`owner` int(11) default NULL, ";
 	$QryTableNotes      .= "`time` int(11) default NULL, ";
@@ -283,7 +283,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableNotes      .= ") ENGINE=InnoDB;";
 
 	// Table planets
-	$QryTablePlanets     = "CREATE TABLE `{{table}}` ( ";
+	$QryTablePlanets     = "CREATE TABLE `game_planets` ( ";
 	$QryTablePlanets    .= "`id` bigint(11) NOT NULL auto_increment, ";
 	$QryTablePlanets    .= "`name` varchar(255) character set latin1 default NULL, ";
 	$QryTablePlanets    .= "`id_owner` int(11) default NULL, ";
@@ -371,7 +371,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTablePlanets    .= ") ENGINE=InnoDB;";
 
 	// Table rw
-	$QryTableRw          = "CREATE TABLE `{{table}}` ( ";
+	$QryTableRw          = "CREATE TABLE `game_rw` ( ";
 	$QryTableRw         .= "`id_owner1` int(11) NOT NULL default '0', ";
 	$QryTableRw         .= "`id_owner2` int(11) NOT NULL default '0', ";
 	$QryTableRw         .= "`rid` varchar(72) character set latin1 NOT NULL, ";
@@ -386,7 +386,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableRw         .= ") ENGINE=InnoDB;";
 
 	// Table statpoints
-	$QryTableStatPoints  = "CREATE TABLE `{{table}}` ( ";
+	$QryTableStatPoints  = "CREATE TABLE `game_statpoints` ( ";
 	$QryTableStatPoints .= "`id_owner` int(11) NOT NULL, ";
 	$QryTableStatPoints .= "`id_ally` int(11) NOT NULL, ";
 	$QryTableStatPoints .= "`stat_type` int(2) NOT NULL, ";
@@ -420,7 +420,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableStatPoints .= ") ENGINE=InnoDB;";
 
 	// Table users
-	$QryTableUsers       = "CREATE TABLE `{{table}}` ( ";
+	$QryTableUsers       = "CREATE TABLE `game_users` ( ";
 	$QryTableUsers      .= "`id` bigint(11) unsigned NOT NULL auto_increment PRIMARY KEY, ";
 	$QryTableUsers      .= "`username` varchar(64) character set latin1 NOT NULL default '', ";
 	$QryTableUsers      .= "`password` varchar(64) character set latin1 NOT NULL default '', ";
@@ -501,8 +501,8 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 
 	
 	//$QryTriggersUsers[0] = "SET GLOBAL log_bin_trust_function_creators = 1;";
-	$QryTriggersUsers[0]  = "CREATE TRIGGER `planets_rem_record` BEFORE DELETE ON `{{table}}users` FOR EACH ROW DELETE FROM {{table}}planets WHERE id_owner = OLD.id; ";
-	$QryTriggersUsers[1]  = "CREATE TRIGGER `stats_add_record` AFTER INSERT ON `{{table}}users` FOR EACH ROW INSERT INTO {{table}}statpoints SET ";
+	$QryTriggersUsers[0]  = "CREATE TRIGGER `planets_rem_record` BEFORE DELETE ON `game_users` FOR EACH ROW DELETE FROM game_planets WHERE id_owner = OLD.id; ";
+	$QryTriggersUsers[1]  = "CREATE TRIGGER `stats_add_record` AFTER INSERT ON `game_users` FOR EACH ROW INSERT INTO game_statpoints SET ";
 	$QryTriggersUsers[1] .= "`id_owner` = NEW.id, ";
 	$QryTriggersUsers[1] .= "`id_ally` = '0', ";
 	$QryTriggersUsers[1] .= "`stat_type` = '1', ";
@@ -528,14 +528,14 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTriggersUsers[1] .= "`total_rank` = '0', ";
 	$QryTriggersUsers[1] .= "`total_old_rank` = '0', ";
 	$QryTriggersUsers[1] .= "`stat_date` = UNIX_TIMESTAMP(); ";
-	$QryTriggersUsers[2] = "CREATE TRIGGER `stats_rem_record` BEFORE DELETE ON `{{table}}users` FOR EACH ROW DELETE FROM {{table}}statpoints WHERE id_owner = OLD.id AND stat_type = 1; ";
-	$QryTriggersUsers[3] = "CREATE TRIGGER `tech_add_record` AFTER INSERT ON `{{table}}users` FOR EACH ROW INSERT INTO {{table}}users_tech SET uid = NEW.id; ";	
-	$QryTriggersUsers[4] = "CREATE TRIGGER `tech_rem_record` BEFORE DELETE ON `{{table}}users` FOR EACH ROW DELETE FROM {{table}}users_tech WHERE `uid` = OLD.id; ";
+	$QryTriggersUsers[2] = "CREATE TRIGGER `stats_rem_record` BEFORE DELETE ON `game_users` FOR EACH ROW DELETE FROM game_statpoints WHERE id_owner = OLD.id AND stat_type = 1; ";
+	$QryTriggersUsers[3] = "CREATE TRIGGER `tech_add_record` AFTER INSERT ON `game_users` FOR EACH ROW INSERT INTO game_users_tech SET uid = NEW.id; ";
+	$QryTriggersUsers[4] = "CREATE TRIGGER `tech_rem_record` BEFORE DELETE ON `game_users` FOR EACH ROW DELETE FROM game_users_tech WHERE `uid` = OLD.id; ";
 
 
 
 	// Multi
-	$QryTableMulti       = "CREATE TABLE `{{table}}` ( ";
+	$QryTableMulti       = "CREATE TABLE `game_multi` ( ";
 	$QryTableMulti      .= "`id` int(11) NOT NULL auto_increment, ";
 	$QryTableMulti      .= "`player` bigint(11) unsigned NOT NULL, ";
 	$QryTableMulti      .= "`sharer` bigint(11) unsigned NOT NULL, ";
@@ -544,7 +544,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableMulti      .= ") ENGINE=InnoDB;";
 
 	//Table users_tech (technologies séparées)
-	$QryTableUsersTech = "CREATE TABLE `{{table}}` (";
+	$QryTableUsersTech = "CREATE TABLE `game_users_tech` (";
 	$QryTableUsersTech .= "`uid` bigint UNSIGNED NOT NULL, ";
 	$QryTableUsersTech .= "`spy_tech` int NOT NULL DEFAULT '0', ";
 	$QryTableUsersTech .= "`computer_tech` int NOT NULL DEFAULT '0', ";
@@ -565,7 +565,7 @@ $QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableUsersTech .= "PRIMARY KEY  (`uid`) ";
 	$QryTableUsersTech .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci; ";
 
-	$QryFKUsersTech  = "ALTER TABLE `{{table}}users_tech` ";
-	$QryFKUsersTech .= "ADD CONSTRAINT `{{table}}users_tech_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `{{table}}users` (`id`); ";
+	$QryFKUsersTech  = "ALTER TABLE `game_users_tech` ";
+	$QryFKUsersTech .= "ADD CONSTRAINT `game_users_tech_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `game_users` (`id`); ";
 
 ?>

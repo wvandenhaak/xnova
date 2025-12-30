@@ -35,7 +35,7 @@ function GalaxyRowPlanet ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy
 	$Result  = "<th width=30>";
 	if(isset($GalaxyRowPlanet) && isset($GalaxyRowPlanet['id_owner'])){
 
-		$GalaxyRowUser = doquery("SELECT * FROM {{table}} WHERE id='".$GalaxyRowPlanet['id_owner']."';", 'users', true);
+		$GalaxyRowUser = doquery("SELECT * FROM game_users WHERE id='".$GalaxyRowPlanet['id_owner']."';", null, true);
 		if ($GalaxyRow && $GalaxyRowPlanet["destruyed"] == 0 && $GalaxyRow["id_planet"] != 0) {
 			if ($HavePhalanx <> 0) {
 				if ($GalaxyRowUser['id'] != $user['id']) {

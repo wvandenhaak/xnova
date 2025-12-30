@@ -102,13 +102,14 @@ function ModuleMarchand ( &$CurrentPlanet ) {
 				$CurrentPlanet['deuterium'] += $Deuterium;
 			}
 
-			$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+			$QryUpdatePlanet  = "UPDATE game_planets SET ";
 			$QryUpdatePlanet .= "`metal` = '".     $CurrentPlanet['metal']     ."', ";
 			$QryUpdatePlanet .= "`crystal` = '".   $CurrentPlanet['crystal']   ."', ";
 			$QryUpdatePlanet .= "`deuterium` = '". $CurrentPlanet['deuterium'] ."' ";
 			$QryUpdatePlanet .= "WHERE ";
 			$QryUpdatePlanet .= "`id` = '".        $CurrentPlanet['id']        ."';";
-			doquery ( $QryUpdatePlanet , 'planets');
+            doquery($QryUpdatePlanet);
+
 			$Message = $lang['mod_ma_done'];
 		}
 		if ($Error == true) {

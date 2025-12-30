@@ -74,7 +74,7 @@ include(ROOT_PATH . 'includes/vars.php');
 include(ROOT_PATH . 'includes/db.php');
 include(ROOT_PATH . 'includes/strings.php');
 
-$query = doquery('SELECT * FROM {{table}}', 'config');
+$query = doquery('SELECT * FROM game_config');
 while($row = mysqli_fetch_assoc($query)) {
     $game_config[$row['config_name']] = $row['config_value'];
 }
@@ -102,7 +102,7 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
       fleet_start_system AS sys,
       fleet_start_planet AS planet,
       fleet_start_type AS planet_type
-        FROM {{table}}
+        FROM game_fleets
         WHERE `fleet_start_time` <= {$now}
     UNION
     SELECT
@@ -110,11 +110,11 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
       fleet_end_system AS sys,
       fleet_end_planet AS planet,
       fleet_end_type AS planet_type
-        FROM {{table}}
+        FROM game_fleets
         WHERE `fleet_end_time` <= {$now}
     SQL_EOF;
     
-    $_fleets = doquery($sql, 'fleets');
+    $_fleets = doquery($sql);
     while ($row = mysqli_fetch_array($_fleets)) {
         FlyingFleetHandler($row);
     }

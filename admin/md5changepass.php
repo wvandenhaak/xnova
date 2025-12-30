@@ -41,13 +41,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		if (isset($_POST['md5q']) && $_POST['md5q'] != "") {
 
-			doquery ("UPDATE {{table}} SET `password` = '" . md5 ($_POST['md5q']) . "' WHERE `username` = '".$_POST['user']."';", 'users');
+			doquery ("UPDATE game_users SET `password` = '" . md5 ($_POST['md5q']) . "' WHERE `username` = '".$_POST['user']."';");
 			message("OK !", 'Information');
-			//$QueryUpdatePass = "UPDATE {{table}} SET ";
+			//$QueryUpdatePass = "UPDATE game_users SET ";
 			//$QueryUpdatePass .= "`password` = '" . md5 ($_POST['md5q']) . "', ";
 			//$QueryUpdatePass = "WHERE ";
 	        //$QueryUpdatePass .= "`username`=" . $_POST['user'] . "";
-      //  doquery($QueryUpdatePass, 'users');
+            //doquery($QueryUpdatePass);
 		} else {
 
 		}
@@ -59,5 +59,3 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}
-
-?>

@@ -105,7 +105,7 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	}else{
 		$db_deaktjava = "0";
 	}
-	doquery("UPDATE {{table}} SET
+	doquery("UPDATE game_users SET
 	`email` = '$db_email',
 	`spio_anz` = '$spio_anz',
 	`settings_tooltiptime` = '$settings_tooltiptime',
@@ -117,14 +117,14 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	`settings_mis` = '$settings_mis',
 	`urlaubs_modus` = '$urlaubs_modus',
 	`db_deaktjava` = '$db_deaktjava' 
-	WHERE `id` = '$iduser' LIMIT 1","users");
+	WHERE `id` = '$iduser' LIMIT 1");
 
 
 	if(isset($_POST["db_password"]) && md5($_POST["db_password"]) == $user["password"]){
 
 		if($_POST["newpass1"] == $_POST["newpass2"]){
 			$newpass = md5($_POST["newpass1"]);
-			doquery("UPDATE {{table}} SET `password` = '{$newpass}' WHERE `id` = '{$user['id']}' LIMIT 1","users");
+			doquery("UPDATE game_users SET `password` = '{$newpass}' WHERE `id` = '{$user['id']}' LIMIT 1");
 			setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);//le da el expire
 			message($lang['succeful_changepass'],$lang['changue_pass']);
 		}
@@ -132,9 +132,9 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	}
 	if($user['username']!=$_POST["db_character"]){
 
-		$query = doquery("SELECT id FROM {{table}} WHERE username='{$_POST["db_character"]}'",'users',true);
+		$query = doquery("SELECT id FROM game_users WHERE username='{$_POST["db_character"]}'",null,true);
 		if(!$query){
-			doquery("UPDATE {{table}} SET username='{$username}' WHERE id='{$user['id']}' LIMIT 1","users");
+			doquery("UPDATE game_users SET username='{$username}' WHERE id='{$user['id']}' LIMIT 1");
 			setcookie($game_config['COOKIE_NAME'], "", time()-100000, "/", "", 0);//le da el expire
 			message($lang['succeful_changename'],$lang['changue_name']);
 		}

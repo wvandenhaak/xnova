@@ -38,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR))) {
 
 		$parse = $lang;
-		$query = doquery("SELECT `id`,`name`,`galaxy`,`system`,`planet`,`last_update` FROM {{table}} WHERE planet_type='1'", "planets");
+		$query = doquery("SELECT `id`,`name`,`galaxy`,`system`,`planet`,`last_update` FROM game_planets WHERE planet_type='1'");
 		$i = 0;
 		$parse['planetes'] = "";
 		while ($u = mysqli_fetch_array($query)) {

@@ -39,8 +39,8 @@ $Galaxy    = $_GET['galaxy'];
 $System    = $_GET['system'];
 $Planet    = $_GET['planet'];
 
-$PlaneteAttaquant = doquery("SELECT * FROM {{table}} WHERE `id`='" . $Attaquant . "'", "planets", true);
-$PlaneteAdverse   = doquery("SELECT * FROM {{table}} WHERE galaxy = " . $Galaxy . " AND system = " . $System . " AND planet = " . $Planet . "", "planets", true);
+$PlaneteAttaquant = doquery("SELECT * FROM game_planets WHERE `id`='" . $Attaquant . "'", null, true);
+$PlaneteAdverse   = doquery("SELECT * FROM game_planets WHERE galaxy = " . $Galaxy . " AND system = " . $System . " AND planet = " . $Planet . "", null, true);
 
 $MipAttaquant = $PlaneteAttaquant['interplanetary_misil'];
 if ($MipAttaquant < $NbreMip) {
@@ -55,8 +55,8 @@ echo $MipRestant;
 echo $AntiMipRestant;
 // L'attaquant se fait exploser tout ses MIP
 if ($MipRestant <= 0) {
-    doquery("UPDATE {{table}} SET `interplanetary_misil`='0' WHERE `id`='" . $Attaquant . "'", "planets");
-    doquery("UPDATE {{table}} SET `interceptor_misil`='" . $AntiMipRestant . "' WHERE `id`='" . $PlaneteAdverse['id_owner'] . "'", "planets");
+    doquery("UPDATE game_planets SET `interplanetary_misil`='0' WHERE `id`='" . $Attaquant . "'");
+    doquery("UPDATE game_planets SET `interceptor_misil`='" . $AntiMipRestant . "' WHERE `id`='" . $PlaneteAdverse['id_owner'] . "'");
     // Message � l'attaquant
     $Owner    = $user['id'];
     $Sender   = "0";

@@ -32,7 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$planet    = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
+$planet    = doquery("SELECT * FROM game_planets WHERE `id` = '".$user['current_planet']."';", null, true);
 $user = MergeUserTechnology($user);
 $iraks = $planet['interplanetary_misil'];
 
@@ -45,16 +45,15 @@ $anz = intval($_POST['SendMI']);
 $pziel = $_POST['Target'];
 
 
-$currentplanet = doquery("SELECT * FROM {{table}} WHERE id={$user['current_planet']}",'planets',true);
+$currentplanet = doquery("SELECT * FROM game_planets WHERE id={$user['current_planet']}",null,true);
 
 $tempvar1 = (($s-$currentplanet['system'])*-1);
 $tempvar2 = ($user['impulse_motor_tech'] * 2) - 1;
-$tempvar3 = doquery("SELECT * FROM {{table}} WHERE galaxy = ".$g." AND
+$tempvar3 = doquery("SELECT * FROM game_planets WHERE galaxy = ".$g." AND
 			system = ".$s." AND
 			planet = ".$i." AND
-			planet_type = 1", 'planets');
-
-
+			planet_type = 1"
+);
 
 if ($planet['silo'] < 4) {
 	$error = 1;
@@ -93,14 +92,14 @@ else
 
 
 
-$planet = doquery("SELECT * FROM {{table}} WHERE galaxy = ".$g." AND
+$planet = doquery("SELECT * FROM game_planets WHERE galaxy = ".$g." AND
 			system = ".$s." AND
 			planet = ".$i." AND
-			planet_type = 1", 'planets', true);
+			planet_type = 1", null, true);
 
 $ziel_id = $planet['id_owner'];
 
-$select = doquery("SELECT * FROM {{table}} WHERE id = ".$ziel_id, 'users', true);
+$select = doquery("SELECT * FROM game_users WHERE id = ".$ziel_id, null, true);
 $select = MergeUserTechnology($select);
 
 
@@ -148,46 +147,7 @@ $select = MergeUserTechnology($select);
 
 $flugzeit = round(((30 + (60 * $tempvar1)) * 2500) / $game_config['game_speed']);
 
-
-
-/*
-include("./includes/raketenangriff.php");
-
-
-$irak = raketenangriff($verteidiger_panzerung, $angreifer_waffen, $iraks, $def, $primaerziel);
-
- $ids = array(
-		0 => 401,
-		1 => 402,
-		2 => 403,
-		3 => 404,
-		4 => 405,
-		5 => 406,
-		6 => 407,
-		7 => 408,
-		8 => 502,
-		9 => 503
-	);
-
-
-
-
-
-foreach ($irak['verbleibt'] as $id => $anzahl) {
-	if ($id < 10) {
-
-		$x = $resource[$ids[$id]];
-
-		doquery("UPDATE {{table}} SET ".$x." = '".$anzahl."' WHERE id = ".$ziel_id, 'planets');
-
-
-	}
-
-
-}
-*/
-
-doquery("INSERT INTO {{table}} SET
+doquery("INSERT INTO game_iraks SET
 		`zeit` = '".(time() + $flugzeit)."',
 		`galaxy` = '".$g."',
 		`system` = '".$s."',
@@ -198,10 +158,11 @@ doquery("INSERT INTO {{table}} SET
 		`owner` = '".$user['id']."',
 		`zielid` = '".$ziel_id."',
 		`anzahl` = '".$anz."',
-		`primaer` = '".$primaerziel."'", 'iraks');
+		`primaer` = '".$primaerziel."'"
+);
 
 
-doquery("UPDATE {{table}} SET interplanetary_misil = '".($iraks_anzahl - $anz)."' WHERE id = '".$user['current_planet']."'", 'planets');
+doquery("UPDATE game_planets SET interplanetary_misil = '".($iraks_anzahl - $anz)."' WHERE id = '".$user['current_planet']."'");
 
 
 if ($anz == 1)

@@ -53,8 +53,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
         switch ($_GET['result']){
             case 'usr_search':
                 $pattern = mysqli_real_escape_string (Database::$dbHandle, $_GET['player']);
-                $SelUser = doquery("SELECT * FROM {{table}} WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", 'users', true);
-                $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $SelUser['id_planet'] ."';", 'planets', true);
+                $SelUser = doquery("SELECT * FROM game_users WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", null, true);
+                $UsrMain = doquery("SELECT `name` FROM game_planets WHERE `id` = '". $SelUser['id_planet'] ."';", null, true);
 
                 $bloc                   = $lang;
                 $bloc['answer1']        = $SelUser['id'];
@@ -70,8 +70,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
             case 'usr_data':
                 $pattern = mysqli_real_escape_string (Database::$dbHandle, $_GET['player']);
-                $SelUser = doquery("SELECT * FROM {{table}} WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", 'users', true);
-                $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $SelUser['id_planet'] ."';", 'planets', true);
+                $SelUser = doquery("SELECT * FROM game_users WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", null, true);
+                $UsrMain = doquery("SELECT `name` FROM game_planets WHERE `id` = '". $SelUser['id_planet'] ."';", null, true);
 
                 $bloc                    = $lang;
                 $bloc['answer1']         = $SelUser['id'];
@@ -86,7 +86,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
                 $parse['adm_sub_form2']  = "<table><tbody>";
                 $parse['adm_sub_form2'] .= "<tr><td colspan=\"4\" class=\"c\">".$lang['adm_colony']."</td></tr>";
-                $UsrColo = doquery("SELECT * FROM {{table}} WHERE `id_owner` = '". $SelUser['id'] ." ORDER BY `galaxy` ASC, `planet` ASC, `system` ASC, `planet_type` ASC';", 'planets');
+                $UsrColo = doquery("SELECT * FROM game_planets WHERE `id_owner` = '". $SelUser['id'] ." ORDER BY `galaxy` ASC, `planet` ASC, `system` ASC, `planet_type` ASC';");
                 while ( $Colo = mysqli_fetch_assoc($UsrColo) ) {
                     if ($Colo['id'] != $SelUser['id_planet']) {
                         $parse['adm_sub_form2'] .= "<tr><th>".$Colo['id']."</th>";
@@ -124,13 +124,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                     break;
                 }
 
-                $userData = doquery("SELECT id FROM {{table}} WHERE `username` = '".$player."';", 'users', true);
+                $userData = doquery("SELECT id FROM game_users WHERE `username` = '".$player."';", null, true);
                 if (empty($user)) {
                     AdminMessage('No such user.', $lang['adm_mod_level']);
                     break;
                 }
 
-                doquery("UPDATE {{table}} SET `authlevel` = '{$level}' WHERE id={$userData['id']}", 'users');
+                doquery("UPDATE game_users SET `authlevel` = '{$level}' WHERE id={$userData['id']}");
                 $message    = $lang['adm_mess_lvl1']. " ". $player ." ".$lang['adm_mess_lvl2'];
                 $message   .= "<font color=\"red\">".$lang['adm_usr_level'][$level]."</font>!";
 
@@ -139,12 +139,12 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
             case 'ip_search':
                 $pattern = isset($_GET['ip']) ? mysqli_real_escape_string (Database::$dbHandle, $_GET['ip']) : '';
-                $SelUser    = doquery("SELECT * FROM {{table}} WHERE `user_lastip` = '". $pattern ."' LIMIT 10;", 'users');
+                $SelUser    = doquery("SELECT * FROM game_users WHERE `user_lastip` = '". $pattern ."' LIMIT 10;");
                 $bloc                   = $lang;
                 $bloc['adm_this_ip']    = $pattern;
                 $bloc['adm_plyer_lst'] = "";
                 while ( $Usr = mysqli_fetch_assoc($SelUser) ) {
-                    $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $Usr['id_planet'] ."';", 'planets', true);
+                    $UsrMain = doquery("SELECT `name` FROM game_planets WHERE `id` = '". $Usr['id_planet'] ."';", null, true);
                     $bloc['adm_plyer_lst'] .= "<tr><th>".$Usr['username']."</th><th>[".$Usr['galaxy'].":".$Usr['system'].":".$Usr['planet']."] ".$UsrMain['name']."</th></tr>";
                 }
                 $SubPanelTPL            = gettemplate('admin/admin_panel_asw2');

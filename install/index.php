@@ -123,31 +123,31 @@ EOF;
             fwrite($dz, $fileData);
             fclose($dz);
 
-            doquery ( $QryTableAks              , 'aks'        );
-            doquery ( $QryTableAnnonce          , 'annonce'    );
-            doquery ( $QryTableAlliance         , 'alliance'   );
-            doquery ( $QryTableBanned           , 'banned'     );
-            doquery ( $QryTableBuddy            , 'buddy'      );
-            doquery ( $QryTableConfig           , 'config'     );
-            doquery ( $QryInsertConfig          , 'config'     );
-            doquery ( $QryTabledeclared         , 'declared'   );
-            doquery ( $QryTableErrors           , 'errors'     );
-            doquery ( $QryTableFleets           , 'fleets'     );
-            doquery ( $QryTableGalaxy           , 'galaxy'     );
-            doquery ( $QryTableIraks            , 'iraks'      );
-            doquery ( $QryTableLunas            , 'lunas'      );
-            doquery ( $QryTableMessages         , 'messages'   );
-            doquery ( $QryTableNotes            , 'notes'      );
-            doquery ( $QryTablePlanets          , 'planets'    );
-            doquery ( $QryTableRw               , 'rw'         );
-            doquery ( $QryTableStatPoints       , 'statpoints' );
-            doquery ( $QryTableUsers            , 'users'      );
-            doquery ( $QryTableUsersTech        , 'users_tech' );
-            foreach($QryTriggersUsers as $UserTrigger){
-                doquery($UserTrigger, '');
+            doquery($QryTableAks);
+            doquery($QryTableAnnonce);
+            doquery($QryTableAlliance);
+            doquery($QryTableBanned);
+            doquery($QryTableBuddy);
+            doquery($QryTableConfig);
+            doquery($QryInsertConfig);
+            doquery($QryTabledeclared);
+            doquery($QryTableErrors);
+            doquery($QryTableFleets);
+            doquery($QryTableGalaxy);
+            doquery($QryTableIraks);
+            doquery($QryTableLunas);
+            doquery($QryTableMessages);
+            doquery($QryTableNotes);
+            doquery($QryTablePlanets);
+            doquery($QryTableRw);
+            doquery($QryTableStatPoints);
+            doquery($QryTableUsers);
+            doquery($QryTableUsersTech);
+            foreach ($QryTriggersUsers as $UserTrigger) {
+                doquery($UserTrigger);
             }
-            doquery ( $QryFKUsersTech           , ''      );
-            doquery ( $QryTableMulti            , 'multi'      );
+            doquery($QryFKUsersTech);
+            doquery($QryTableMulti);
 
             $subTpl = gettemplate ('install/ins_form_done');
             $bloc   = $lang;
@@ -204,7 +204,7 @@ EOF;
                 exit();
                 }
 
-            $QryInsertAdm  = "INSERT INTO {{table}} SET ";
+            $QryInsertAdm  = "INSERT INTO game_users SET ";
             $QryInsertAdm .= "`id`                = '1', ";
             $QryInsertAdm .= "`username`          = '". $adm_user ."', ";
             $QryInsertAdm .= "`email`             = '". $adm_email ."', ";
@@ -216,9 +216,9 @@ EOF;
             $QryInsertAdm .= "`current_planet`    = '1', ";
             $QryInsertAdm .= "`register_time`     = '". time() ."', ";
             $QryInsertAdm .= "`password`          = '". $md5pass ."';";
-            doquery($QryInsertAdm, 'users');
+            doquery($QryInsertAdm);
 
-            $QryAddAdmPlt  = "INSERT INTO {{table}} SET ";
+            $QryAddAdmPlt  = "INSERT INTO game_planets SET ";
             $QryAddAdmPlt .= "`name`              = '". $adm_planet ."', ";
             $QryAddAdmPlt .= "`id_owner`          = '1', ";
             $QryAddAdmPlt .= "`galaxy`            = '1', ";
@@ -240,19 +240,19 @@ EOF;
             $QryAddAdmPlt .= "`deuterium`         = '500', ";
             $QryAddAdmPlt .= "`deuterium_perhour` = '0', ";
             $QryAddAdmPlt .= "`deuterium_max`     = '1000000';";
-            doquery($QryAddAdmPlt, 'planets');
+            doquery($QryAddAdmPlt);
 
-            $QryAddAdmGlx  = "INSERT INTO {{table}} SET ";
+            $QryAddAdmGlx  = "INSERT INTO game_galaxy SET ";
             $QryAddAdmGlx .= "`galaxy`            = '1', ";
             $QryAddAdmGlx .= "`system`            = '1', ";
             $QryAddAdmGlx .= "`planet`            = '1', ";
             $QryAddAdmGlx .= "`id_planet`         = '1'; ";
-            doquery($QryAddAdmGlx, 'galaxy');
+            doquery($QryAddAdmGlx);
 
-            doquery("UPDATE {{table}} SET `config_value` = '1' WHERE `config_name` = 'LastSettedGalaxyPos';", 'config');
-            doquery("UPDATE {{table}} SET `config_value` = '1' WHERE `config_name` = 'LastSettedSystemPos';", 'config');
-            doquery("UPDATE {{table}} SET `config_value` = '1' WHERE `config_name` = 'LastSettedPlanetPos';", 'config');
-            doquery("UPDATE {{table}} SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount' LIMIT 1;", 'config');
+            doquery("UPDATE game_config SET `config_value` = '1' WHERE `config_name` = 'LastSettedGalaxyPos';");
+            doquery("UPDATE game_config SET `config_value` = '1' WHERE `config_name` = 'LastSettedSystemPos';");
+            doquery("UPDATE game_config SET `config_value` = '1' WHERE `config_name` = 'LastSettedPlanetPos';");
+            doquery("UPDATE game_config SET `config_value` = `config_value` + '1' WHERE `config_name` = 'users_amount' LIMIT 1;");
 
             $subTpl = gettemplate ('install/ins_acc_done');
             $bloc   = $lang;

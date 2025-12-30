@@ -40,7 +40,7 @@ function RestoreFleetToPlanet ( $FleetRow, $Start = true ) {
 		}
 	}
 
-	$QryUpdatePlanet   = "UPDATE {{table}} SET ";
+	$QryUpdatePlanet   = "UPDATE game_planets SET ";
 	if ($QryUpdFleet != "") {
 		$QryUpdatePlanet  .= $QryUpdFleet;
 	}
@@ -60,8 +60,5 @@ function RestoreFleetToPlanet ( $FleetRow, $Start = true ) {
 		$QryUpdatePlanet  .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."' ";
 	}
 	$QryUpdatePlanet  .= "LIMIT 1;";
-	doquery( $QryUpdatePlanet, 'planets');
-
+	doquery( $QryUpdatePlanet);
 }
-
-?>

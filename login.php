@@ -49,16 +49,16 @@ SELECT
     users.banaday,
     (CASE WHEN MD5("{$userData['password']}")=users.password THEN 1 ELSE 0 END) AS login_success,
     CONCAT((@salt:=MID(MD5(RAND()), 0, 4)), SHA1(CONCAT(users.username, users.password, @salt))) AS login_rememberme
-    FROM {{table}}users AS users
+    FROM game_users AS users
         WHERE users.username="{$userData['username']}"
         LIMIT 1
 EOF;
 
-    $login = doquery($sql, '', true);
+    $login = doquery($sql, null, true);
 
     if($login['banaday'] <= time() & $login['banaday'] !='0' ){
-        doquery("UPDATE {{table}} SET `banaday` = '0', `bana` = '0', `urlaubs_modus` ='0'  WHERE `username` = '".$login['username']."' LIMIT 1;", 'users');
-        doquery("DELETE FROM {{table}} WHERE `who` = '".$login['username']."'",'banned');
+        doquery("UPDATE game_users SET `banaday` = '0', `bana` = '0', `urlaubs_modus` ='0'  WHERE `username` = '".$login['username']."' LIMIT 1;");
+        doquery("DELETE FROM game_banned WHERE `who` = '".$login['username']."'");
     }
 
     if ($login) {
@@ -68,11 +68,11 @@ EOF;
             }
 
             $sql =<<<EOF
-UPDATE {{table}} AS users
+UPDATE game_users AS users
   SET users.onlinetime=UNIX_TIMESTAMP()
   WHERE users.id={$login['id']}
 EOF;
-            doquery($sql, 'users');
+            doquery($sql);
 
             $_SESSION['user_id'] = $login['id'];
             header("Location: frames.php");
@@ -91,10 +91,10 @@ EOF;
 
 
     $parse                 = $lang;
-    $Count                 = doquery('SELECT COUNT(DISTINCT users.id) AS `players` FROM {{table}} AS users WHERE users.authlevel < 3', 'users', true);
-    $LastPlayer            = doquery('SELECT users.`username` FROM {{table}} AS users ORDER BY `register_time` DESC LIMIT 1', 'users', true);
+    $Count                 = doquery('SELECT COUNT(DISTINCT users.id) AS `players` FROM game_users AS users WHERE users.authlevel < 3', null, true);
+    $LastPlayer            = doquery('SELECT users.`username` FROM game_users AS users ORDER BY `register_time` DESC LIMIT 1', null, true);
     $parse['last_user']    = $LastPlayer['username'];
-    $PlayersOnline         = doquery("SELECT COUNT(DISTINCT id) AS `onlinenow` FROM {{table}} AS users WHERE `onlinetime` > (UNIX_TIMESTAMP()-900) AND users.authlevel < 3", 'users', true);
+    $PlayersOnline         = doquery("SELECT COUNT(DISTINCT id) AS `onlinenow` FROM game_users AS users WHERE `onlinetime` > (UNIX_TIMESTAMP()-900) AND users.authlevel < 3", null, true);
     $parse['online_users'] = $PlayersOnline['onlinenow'];
     $parse['users_amount'] = $Count['players'];
     $parse['servername']   = $game_config['game_name'];

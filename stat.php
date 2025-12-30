@@ -84,7 +84,7 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 
 	if ($who == 2) {
-		$MaxAllys = doquery ("SELECT COUNT(*) AS `count` FROM {{table}} WHERE 1;", 'alliance', true);
+		$MaxAllys = doquery ("SELECT COUNT(*) AS `count` FROM game_alliance WHERE 1;", null, true);
 		if ($MaxAllys['count'] > 100) {
 			$LastPage = floor($MaxAllys['count'] / 100);
 		}
@@ -98,7 +98,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$parse['stat_header'] = $MustacheEngine->render(gettemplate('stat_alliancetable_header'), $parse);
 
 		$start = floor($range / 100 % 100) * 100;
-		$query = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '2' AND `stat_code` = '1' ORDER BY `". $Order ."` DESC LIMIT ". $start .",100;", 'statpoints');
+		$query = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '2' AND `stat_code` = '1' ORDER BY `". $Order ."` DESC LIMIT ". $start .",100;");
 
 		$start++;
 		$parse['stat_date']   = $game_config['stats'];
@@ -106,14 +106,14 @@ require_once dirname(__FILE__) .'/common.php';
 		while ($StatRow = mysqli_fetch_assoc($query)) {
 			$parse['ally_rank']       = $start;
 
-			$AllyRow                  = doquery("SELECT * FROM {{table}} WHERE `id` = '". $StatRow['id_owner'] ."';", 'alliance',true);
+			$AllyRow                  = doquery("SELECT * FROM game_alliance WHERE `id` = '". $StatRow['id_owner'] ."';", null,true);
 
 			$rank_old                 = $StatRow[ $OldRank ];
 			if ( $rank_old == 0) {
 				$rank_old             = $start;
-				$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."', `".$OldRank."` = '".$start."' WHERE `stat_type` = '2' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
+				$QryUpdRank           = doquery("UPDATE game_statpoints SET `".$Rank."` = '".$start."', `".$OldRank."` = '".$start."' WHERE `stat_type` = '2' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';");
 			} else {
-				$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."' WHERE `stat_type` = '2' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
+				$QryUpdRank           = doquery("UPDATE game_statpoints SET `".$Rank."` = '".$start."' WHERE `stat_type` = '2' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';");
 			}
 			$rank_new                 = $start;
 			$ranking                  = $rank_old - $rank_new;
@@ -178,9 +178,9 @@ SQL_EOF;
 			$rank_old                 = $StatRow[ $OldRank ];
 			if ( $rank_old == 0) {
 				$rank_old             = $start;
-				//$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."', `".$OldRank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
+				//$QryUpdRank           = doquery("UPDATE game_statpoints SET `".$Rank."` = '".$start."', `".$OldRank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';");
 			} else {
-				//$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
+				//$QryUpdRank           = doquery("UPDATE game_statpoints SET `".$Rank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';");
 			}
 			$rank_new                 = $start;
 			$ranking                  = $rank_old - $rank_new;

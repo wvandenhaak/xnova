@@ -45,7 +45,7 @@ function DoFleetJump ( $CurrentUser, $CurrentPlanet ) {
 		if ( $NextJumpTime == 0 ) {
 			// Dit monsieur, ou je veux aller ca existe ???
 			$TargetPlanet = $_POST['jmpto'];
-			$TargetGate   = doquery ( "SELECT `id`, `sprungtor`, `last_jump_time` FROM {{table}} WHERE `id` = '". $TargetPlanet ."';", 'planets', true);
+			$TargetGate   = doquery ( "SELECT `id`, `sprungtor`, `last_jump_time` FROM game_planets WHERE `id` = '". $TargetPlanet ."';", null, true);
 			// Dit monsieur, ou je veux aller y a une porte de saut ???
 			if ($TargetGate['sprungtor'] > 0) {
 				$RestString   = GetNextJumpWaitTime ( $TargetGate );
@@ -71,27 +71,27 @@ function DoFleetJump ( $CurrentUser, $CurrentPlanet ) {
 					// Dit monsieur, y avait quelque chose a envoyer ???
 					if ($SubQueryOri != "") {
 						// Soustraction de la lune de depart !
-						$QryUpdateOri  = "UPDATE {{table}} SET ";
+						$QryUpdateOri  = "UPDATE game_planets SET ";
 						$QryUpdateOri .= $SubQueryOri;
 						$QryUpdateOri .= "`last_jump_time` = '". $JumpTime ."' ";
 						$QryUpdateOri .= "WHERE ";
 						$QryUpdateOri .= "`id` = '". $CurrentPlanet['id'] ."';";
-						doquery ( $QryUpdateOri, 'planets');
+						doquery($QryUpdateOri);
 
 						// Addition à la lune d'arrivée !
-						$QryUpdateDes  = "UPDATE {{table}} SET ";
+						$QryUpdateDes  = "UPDATE game_planets SET ";
 						$QryUpdateDes .= $SubQueryDes;
 						$QryUpdateDes .= "`last_jump_time` = '". $JumpTime ."' ";
 						$QryUpdateDes .= "WHERE ";
 						$QryUpdateDes .= "`id` = '". $TargetGate['id'] ."';";
-						doquery ( $QryUpdateDes, 'planets');
+						doquery($QryUpdateDes);
 
 						// Deplacement vers la lune d'arrivée
-						$QryUpdateUsr  = "UPDATE {{table}} SET ";
+						$QryUpdateUsr  = "UPDATE game_users SET ";
 						$QryUpdateUsr .= "`current_planet` = '". $TargetGate['id'] ."' ";
 						$QryUpdateUsr .= "WHERE ";
 						$QryUpdateUsr .= "`id` = '". $CurrentUser['id'] ."';";
-						doquery ( $QryUpdateUsr, 'users');
+                        doquery($QryUpdateUsr);
 
 						$CurrentPlanet['last_jump_time'] = $JumpTime;
 						$RestString    = GetNextJumpWaitTime ( $CurrentPlanet );

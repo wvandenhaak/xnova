@@ -33,13 +33,13 @@ function MissionCaseStay ( $FleetRow ) {
 
 	if ($FleetRow['fleet_mess'] == 0) {
 		if ($FleetRow['fleet_start_time'] <= time()) {
-			$QryGetTargetPlanet   = "SELECT * FROM {{table}} ";
+			$QryGetTargetPlanet   = "SELECT * FROM game_planets ";
 			$QryGetTargetPlanet  .= "WHERE ";
 			$QryGetTargetPlanet  .= "`galaxy` = '". $FleetRow['fleet_end_galaxy'] ."' AND ";
 			$QryGetTargetPlanet  .= "`system` = '". $FleetRow['fleet_end_system'] ."' AND ";
 			$QryGetTargetPlanet  .= "`planet` = '". $FleetRow['fleet_end_planet'] ."' AND ";
 			$QryGetTargetPlanet  .= "`planet_type` = '". $FleetRow['fleet_end_type'] ."';";
-			$TargetPlanet         = doquery( $QryGetTargetPlanet, 'planets', true);
+			$TargetPlanet         = doquery($QryGetTargetPlanet, null, true);
 			$TargetUserID         = $TargetPlanet['id_owner'];
 
 			$TargetAdress         = sprintf ($lang['sys_adress_planet'], $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']);
@@ -53,7 +53,7 @@ function MissionCaseStay ( $FleetRow ) {
 
 			SendSimpleMessage ( $TargetUserID, '', $FleetRow['fleet_start_time'], 5, $lang['sys_mess_qg'], $lang['sys_stay_mess_stay'], $TargetMessage);
 			RestoreFleetToPlanet ( $FleetRow, false );
-			doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+			doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
 		}
 	} else {
 		if ($FleetRow['fleet_end_time'] <= time()) {
@@ -68,7 +68,7 @@ function MissionCaseStay ( $FleetRow ) {
 
 			SendSimpleMessage ( $FleetRow['fleet_owner'], '', $FleetRow['fleet_end_time'], 5, $lang['sys_mess_qg'], $lang['sys_mess_fleetback'], $TargetMessage);
 			RestoreFleetToPlanet ( $FleetRow, true );
-			doquery("DELETE FROM {{table}} WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';", 'fleets');
+			doquery("DELETE FROM game_fleets WHERE `fleet_id` = '". $FleetRow["fleet_id"] ."';");
 		}
 	}
 }
@@ -77,4 +77,3 @@ function MissionCaseStay ( $FleetRow ) {
 // History version
 // 1.0 Mise en module initiale
 // 1.1 FIX permet un retour de flotte coh�rant
-?>

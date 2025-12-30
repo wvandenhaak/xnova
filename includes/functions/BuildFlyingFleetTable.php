@@ -31,11 +31,11 @@
 function BuildFlyingFleetTable () {
 	global $lang, $MustacheEngine;
 	$TableTPL     = gettemplate('admin/fleet_rows');
-	$FlyingFleets = doquery ("SELECT * FROM {{table}} ORDER BY `fleet_end_time` ASC;", 'fleets');
+	$FlyingFleets = doquery ("SELECT * FROM game_fleets ORDER BY `fleet_end_time` ASC;");
 	$table = "";
 	while ( $CurrentFleet = mysqli_fetch_assoc( $FlyingFleets ) ) {
-		$FleetOwner       = doquery("SELECT `username` FROM {{table}} WHERE `id` = '". $CurrentFleet['fleet_owner'] ."';", 'users', true);
-		$TargetOwner      = doquery("SELECT `username` FROM {{table}} WHERE `id` = '". $CurrentFleet['fleet_target_owner'] ."';", 'users', true);
+		$FleetOwner       = doquery("SELECT `username` FROM game_users WHERE `id` = '". $CurrentFleet['fleet_owner'] ."';", null, true);
+		$TargetOwner      = doquery("SELECT `username` FROM game_users WHERE `id` = '". $CurrentFleet['fleet_target_owner'] ."';", null, true);
 		$Bloc['Id']       = $CurrentFleet['fleet_id'];
 		$Bloc['Mission']  = CreateFleetPopupedMissionLink ( $CurrentFleet, $lang['type_mission'][ $CurrentFleet['fleet_mission'] ], '' );
 		$Bloc['Mission'] .= "<br>". (($CurrentFleet['fleet_mess'] == 1) ? "R" : "A" );
@@ -61,6 +61,3 @@ function BuildFlyingFleetTable () {
 	}
 	return $table;
 }
-
-
-?>

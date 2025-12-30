@@ -35,19 +35,19 @@ function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $Moon
 
 	$PlanetName            = "";
 
-	$QryGetMoonPlanetData  = "SELECT * FROM {{table}} ";
+	$QryGetMoonPlanetData  = "SELECT * FROM game_planets ";
 	$QryGetMoonPlanetData .= "WHERE ";
 	$QryGetMoonPlanetData .= "`galaxy` = '". $Galaxy ."' AND ";
 	$QryGetMoonPlanetData .= "`system` = '". $System ."' AND ";
 	$QryGetMoonPlanetData .= "`planet` = '". $Planet ."';";
-	$MoonPlanet = doquery ( $QryGetMoonPlanetData, 'planets', true);
+	$MoonPlanet = doquery ( $QryGetMoonPlanetData, null, true);
 
-	$QryGetMoonGalaxyData  = "SELECT * FROM {{table}} ";
+	$QryGetMoonGalaxyData  = "SELECT * FROM game_galaxy ";
 	$QryGetMoonGalaxyData .= "WHERE ";
 	$QryGetMoonGalaxyData .= "`galaxy` = '". $Galaxy ."' AND ";
 	$QryGetMoonGalaxyData .= "`system` = '". $System ."' AND ";
 	$QryGetMoonGalaxyData .= "`planet` = '". $Planet ."';";
-	$MoonGalaxy = doquery ( $QryGetMoonGalaxyData, 'galaxy', true);
+	$MoonGalaxy = doquery ( $QryGetMoonGalaxyData, null, true);
 
 	if ($MoonGalaxy['id_luna'] == 0) {
 		if ($MoonPlanet['id'] != 0) {
@@ -60,7 +60,7 @@ function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $Moon
 			$mintemp                = $MoonPlanet['temp_min'] - rand(10, 45);
 			$size                   = rand ($SizeMin, $SizeMax);
 
-			$QryInsertMoonInLunas   = "INSERT INTO {{table}} SET ";
+			$QryInsertMoonInLunas   = "INSERT INTO game_lunas SET ";
 			$QryInsertMoonInLunas  .= "`name` = '". ( ($MoonName == '') ? $lang['sys_moon'] : $MoonName ) ."', ";
 			$QryInsertMoonInLunas  .= "`galaxy` = '".   $Galaxy  ."', ";
 			$QryInsertMoonInLunas  .= "`system` = '".   $System  ."', ";
@@ -70,25 +70,25 @@ function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $Moon
 			$QryInsertMoonInLunas  .= "`temp_min` = '". $mintemp ."', ";
 			$QryInsertMoonInLunas  .= "`diameter` = '". $size    ."', ";
 			$QryInsertMoonInLunas  .= "`id_luna` = '".  $MoonID  ."';";
-			doquery( $QryInsertMoonInLunas , 'lunas' );
+            doquery($QryInsertMoonInLunas);
 
-			$QryGetMoonIdFromLunas  = "SELECT * FROM {{table}} ";
+			$QryGetMoonIdFromLunas  = "SELECT * FROM game_lunas ";
 			$QryGetMoonIdFromLunas .= "WHERE ";
 			$QryGetMoonIdFromLunas .= "`galaxy` = '".  $Galaxy ."' AND ";
 			$QryGetMoonIdFromLunas .= "`system` = '".  $System ."' AND ";
 			$QryGetMoonIdFromLunas .= "`lunapos` = '". $Planet ."';";
-			$lunarow = doquery( $QryGetMoonIdFromLunas , 'lunas', true);
+            $lunarow = doquery($QryGetMoonIdFromLunas, null, true);
 
-			$QryUpdateMoonInGalaxy  = "UPDATE {{table}} SET ";
+			$QryUpdateMoonInGalaxy  = "UPDATE game_galaxy SET ";
 			$QryUpdateMoonInGalaxy .= "`id_luna` = '". $lunarow['id'] ."', ";
 			$QryUpdateMoonInGalaxy .= "`luna` = '0' ";
 			$QryUpdateMoonInGalaxy .= "WHERE ";
 			$QryUpdateMoonInGalaxy .= "`galaxy` = '". $Galaxy ."' AND ";
 			$QryUpdateMoonInGalaxy .= "`system` = '". $System ."' AND ";
 			$QryUpdateMoonInGalaxy .= "`planet` = '". $Planet ."';";
-			doquery( $QryUpdateMoonInGalaxy , 'galaxy');
+            doquery($QryUpdateMoonInGalaxy);
 
-			$QryInsertMoonInPlanet  = "INSERT INTO {{table}} SET ";
+			$QryInsertMoonInPlanet  = "INSERT INTO game_planets SET ";
 			$QryInsertMoonInPlanet .= "`name` = '" .$lang['sys_moon'] ."', ";
 			$QryInsertMoonInPlanet .= "`id_owner` = '". $Owner ."', ";
 			$QryInsertMoonInPlanet .= "`galaxy` = '". $Galaxy ."', ";
@@ -110,7 +110,7 @@ function CreateOneMoonRecord ( $Galaxy, $System, $Planet, $Owner, $MoonID, $Moon
 			$QryInsertMoonInPlanet .= "`deuterium` = '0', ";
 			$QryInsertMoonInPlanet .= "`deuterium_perhour` = '0', ";
 			$QryInsertMoonInPlanet .= "`deuterium_max` = '". Constants::BASE_STORAGE_SIZE."';";
-			doquery( $QryInsertMoonInPlanet , 'planets');
+            doquery($QryInsertMoonInPlanet);
 		}
 	}
 

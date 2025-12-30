@@ -37,8 +37,8 @@ require_once dirname(__FILE__) .'/common.php';
 	$user = MergeUserTechnology($user);
 	includeLang('fleet');
 
-	$CurrentPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_planet'] ."'", 'planets', true);
-	$TargetPlanet  = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '". $_POST['galaxy'] ."' AND `system` = '". $_POST['system'] ."' AND `planet` = '". $_POST['planet'] ."' AND `planet_type` = '". $_POST['planettype'] ."';", 'planets', true);
+	$CurrentPlanet = doquery("SELECT * FROM game_planets WHERE `id` = '". $user['current_planet'] ."'", null, true);
+	$TargetPlanet  = doquery("SELECT * FROM game_planets WHERE `galaxy` = '". $_POST['galaxy'] ."' AND `system` = '". $_POST['system'] ."' AND `planet` = '". $_POST['planet'] ."' AND `planet_type` = '". $_POST['planettype'] ."';", null, true);
 
 	$protection      = $game_config['noobprotection'];
 	$protectiontime  = $game_config['noobprotectiontime'];
@@ -74,11 +74,11 @@ require_once dirname(__FILE__) .'/common.php';
 	if ($fleetmission == 8) {
 		$YourPlanet = false;
 		$UsedPlanet = false;
-		$select     = doquery("SELECT * FROM {{table}} WHERE galaxy = '". $galaxy ."' AND `system` = '". $system ."' AND planet = '". $planet ."'", "planets", true);
+		$select     = doquery("SELECT * FROM game_planets WHERE galaxy = '". $galaxy ."' AND `system` = '". $system ."' AND planet = '". $planet ."'", null, true);
 	} else {
 		$YourPlanet = false;
 		$UsedPlanet = false;
-		$select     = doquery("SELECT * FROM {{table}} WHERE galaxy = '". $galaxy ."' AND `system` = '". $system ."' AND planet = '". $planet ."' AND planet_type = '". $planettype ."'", "planets", true);
+		$select     = doquery("SELECT * FROM game_planets WHERE galaxy = '". $galaxy ."' AND `system` = '". $system ."' AND planet = '". $planet ."' AND planet_type = '". $planettype ."'", null, true);
 	}
 
 	if ($CurrentPlanet['galaxy'] == $galaxy &&
@@ -193,13 +193,13 @@ require_once dirname(__FILE__) .'/common.php';
 		if ($TargetPlanet['id_owner'] == '') {
 			$HeDBRec = $user;
 		} elseif ($TargetPlanet['id_owner'] != '') {
-			$HeDBRec = doquery("SELECT * FROM {{table}} WHERE `id` = '". $TargetPlanet['id_owner'] ."';", 'users', true);
+			$HeDBRec = doquery("SELECT * FROM game_users WHERE `id` = '". $TargetPlanet['id_owner'] ."';", null, true);
 			$HeDBRec = MergeUserTechnology($HeDBRec);
 		}
 
 
-		$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", 'statpoints', true);
-		$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", 'statpoints', true);
+		$UserPoints    = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", null, true);
+		$User2Points   = doquery("SELECT * FROM game_statpoints WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", null, true);
 
 		$MyGameLevel  = $UserPoints['total_points'];
 		$HeGameLevel  = $User2Points['total_points'];
@@ -257,7 +257,7 @@ require_once dirname(__FILE__) .'/common.php';
 			message("<font color=\"lime\"><b>".$lang['fl_vacation_pla']."</b></font>", $lang['fl_vacation_ttl'], "fleet.php", 2);
 		}
 	}
-	$FlyingFleets = doquery("SELECT COUNT(fleet_id) as Number FROM {{table}} WHERE `fleet_owner`='{$user['id']}'", 'fleets', true);
+	$FlyingFleets = doquery("SELECT COUNT(fleet_id) as Number FROM game_fleets WHERE `fleet_owner`='{$user['id']}'", null, true);
 	$ActualFleets = $FlyingFleets["Number"];
 	if (($user[$resource[108]] + 1) <= $ActualFleets) {
 		message("Pas de slot disponible", "Erreur", "fleet.php", 1);
@@ -318,7 +318,7 @@ require_once dirname(__FILE__) .'/common.php';
 		message ("<font color=\"red\"><b>". $lang['fl_cheat_speed'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
-	$CurrentPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
+	$CurrentPlanet = doquery("SELECT * FROM game_planets WHERE `id` = '".$user['current_planet']."';", null, true);
 
 	if ($MaxFleetSpeed != $_POST['speedallsmin']) {
 		message ("<font color=\"red\"><b>". $lang['fl_cheat_speed'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
@@ -431,7 +431,7 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 
 	// ecriture de l'enregistrement de flotte (a partir de l�, y a quelque chose qui vole et c'est toujours sur la planete d'origine)
-	$QryInsertFleet  = "INSERT INTO {{table}} SET ";
+	$QryInsertFleet  = "INSERT INTO game_fleets SET ";
 	$QryInsertFleet .= "`fleet_owner` = '". $user['id'] ."', ";
 	$QryInsertFleet .= "`fleet_mission` = '". $_POST['mission'] ."', ";
 	$QryInsertFleet .= "`fleet_amount` = '". $FleetShipCount ."', ";
@@ -452,7 +452,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$QryInsertFleet .= "`fleet_resource_deuterium` = '". intval($TransDeuterium) ."', ";
 	$QryInsertFleet .= "`fleet_target_owner` = '". $user['id'] ."', ";
 	$QryInsertFleet .= "`start_time` = '". time() ."';";
-	doquery( $QryInsertFleet, 'fleets');
+    doquery($QryInsertFleet);
 
 
 	$CurrentPlanet["metal"]     = $CurrentPlanet["metal"] - $TransMetal;
@@ -460,7 +460,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$CurrentPlanet["deuterium"] = $CurrentPlanet["deuterium"] - $TransDeuterium;
 	$CurrentPlanet["deuterium"] = $CurrentPlanet["deuterium"] - $consumption;
 
-	$QryUpdatePlanet  = "UPDATE {{table}} SET ";
+	$QryUpdatePlanet  = "UPDATE game_planets SET ";
 	$QryUpdatePlanet .= $FleetSubQRY;
 	$QryUpdatePlanet .= "`metal` = '". $CurrentPlanet["metal"] ."', ";
 	$QryUpdatePlanet .= "`crystal` = '". $CurrentPlanet["crystal"] ."', ";
@@ -469,9 +469,9 @@ require_once dirname(__FILE__) .'/common.php';
 	$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."'";
 
 	// Mise a jours de l'enregistrement de la planete de depart (a partir de là, y a quelque chose qui vole et ce n'est plus sur la planete de depart)
-	doquery("LOCK TABLE {{table}} WRITE", 'planets');
-	doquery ($QryUpdatePlanet, "planets");
-	doquery("UNLOCK TABLES", '');
+	doquery("LOCK TABLE game_planets WRITE");
+	doquery ($QryUpdatePlanet);
+	doquery("UNLOCK TABLES");
 //	doquery("FLUSH TABLES", '');
 
 	// Un peu de blabla pour l'utilisateur, affichage d'un joli tableau de la flotte expedi�e
@@ -516,7 +516,7 @@ require_once dirname(__FILE__) .'/common.php';
 	// Provisoire
 	sleep (1);
 
-	$planetrow = doquery ("SELECT * FROM {{table}} WHERE `id` = '". $CurrentPlanet['id'] ."';", 'planets', true);
+	$planetrow = doquery ("SELECT * FROM game_planets WHERE `id` = '". $CurrentPlanet['id'] ."';", null, true);
 
 	display($page, $lang['fl_title']);
 
