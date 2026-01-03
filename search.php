@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 $searchtext = isset($_POST['searchtext']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['searchtext']) : "";
-$type = isset($_POST['type']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['type']) : ""; ;
+$type = isset($_POST['type']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['type']) : "";
 
 includeLang('search');
 $i = 0;

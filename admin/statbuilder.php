@@ -121,7 +121,7 @@ SQL_EOF;
 			$TBuildPoints    += ($Points['BuildPoint'] / $game_config['stat_settings']);
 
 			$Points           = GetDefensePoints ( $CurPlanet );
-			$TDefsCount      += $Points['DefenseCount'];;
+			$TDefsCount      += $Points['DefenseCount'];
 			$GCount          += $Points['DefenseCount'];
 			$PlanetPoints    += ($Points['DefensePoint'] / $game_config['stat_settings']);
 			$TDefsPoints     += ($Points['DefensePoint'] / $game_config['stat_settings']);

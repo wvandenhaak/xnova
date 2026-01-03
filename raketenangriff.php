@@ -59,7 +59,7 @@ if ($planet['silo'] < 4) {
 	$error = 1;
 
 }
-elseif ($user['impulse_motor_tech'] == 0) {;
+elseif ($user['impulse_motor_tech'] == 0) {
 	$error = 1;
 
 }
