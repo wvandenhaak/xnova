@@ -104,5 +104,3 @@ function AddBuildingToQueue ( &$CurrentPlanet, $CurrentUser, $Element, $AddMode 
 	}
 	return $QueueID;
 }
-
-?>

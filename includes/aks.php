@@ -1322,5 +1322,3 @@ All rights reserved
 Code by MoF
 Open-Source
 */
-
-?>

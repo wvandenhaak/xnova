@@ -129,5 +129,3 @@ function InsertGalaxyScripts ( $CurrentPlanet ) {
 
 	return $Script;
 }
-
-?>

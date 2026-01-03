@@ -51,5 +51,3 @@ includeLang('leftmenu');
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}
-
-?>

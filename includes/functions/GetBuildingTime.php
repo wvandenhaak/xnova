@@ -81,5 +81,3 @@ function GetBuildingTime ($user, $planet, $Element, $ResearchMode = false) {
 
 	return max(1, $time);
 }
-
-?>

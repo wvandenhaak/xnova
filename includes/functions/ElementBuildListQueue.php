@@ -72,5 +72,3 @@ change `unbau` `unbau` varchar (100) NULL COLLATE latin1_general_ci;
 //
 //	return $text;
 }
-
-?>

@@ -567,5 +567,3 @@ $QryTableAks         = "CREATE TABLE `game_aks` ( ";
 
 	$QryFKUsersTech  = "ALTER TABLE `game_users_tech` ";
 	$QryFKUsersTech .= "ADD CONSTRAINT `game_users_tech_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `game_users` (`id`); ";
-
-?>

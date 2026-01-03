@@ -95,5 +95,3 @@ function ShowGalaxyRows ($Galaxy, $System) {
 
 	return $Result;
 }
-
-?>

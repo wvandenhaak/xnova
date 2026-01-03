@@ -75,5 +75,3 @@ function GetBuildingTimeLevel ($user, $planet, $Element, $level) {
 
 	return $time;
 }
-
-?>

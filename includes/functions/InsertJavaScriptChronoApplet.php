@@ -71,5 +71,3 @@ function InsertJavaScriptChronoApplet ( $Type, $Ref, $Value, $Init ) {
 
 	return $JavaString;
 }
-
-?>

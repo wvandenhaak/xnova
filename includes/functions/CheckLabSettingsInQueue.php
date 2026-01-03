@@ -53,5 +53,3 @@ function CheckLabSettingsInQueue ( $CurrentPlanet ) {
 
 	return $return;
 }
-
-?>

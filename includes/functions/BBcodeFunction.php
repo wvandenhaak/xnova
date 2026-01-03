@@ -121,4 +121,3 @@ function urlfix($url, $title) {
     $title = stripslashes($title);
     return '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
 }
-?>

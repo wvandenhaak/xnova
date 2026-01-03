@@ -78,5 +78,3 @@ function GalaxyRowAlly ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, 
 
 	return $Result;
 }
-
-?>

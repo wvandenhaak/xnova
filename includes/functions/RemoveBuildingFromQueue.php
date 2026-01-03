@@ -59,4 +59,3 @@ function RemoveBuildingFromQueue ( &$CurrentPlanet, $CurrentUser, $QueueID ) {
 	return $QueueID;
 
 }
-?>

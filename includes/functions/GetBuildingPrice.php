@@ -63,5 +63,3 @@ function GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, $Incremental 
 
 	return $cost;
 }
-
-?>

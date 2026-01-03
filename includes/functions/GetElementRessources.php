@@ -37,5 +37,3 @@ function GetElementRessources ( $Element, $Count ) {
 
 	return $ResType;
 }
-
-?>

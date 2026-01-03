@@ -90,5 +90,3 @@ function GalaxyRowDebris ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy
 
 	return $Result;
 }
-
-?>

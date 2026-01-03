@@ -48,5 +48,3 @@ function IsTechnologieAccessible($user, $planet, $element)
 		return true;
 	}
 }
-
-?>

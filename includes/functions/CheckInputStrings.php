@@ -32,5 +32,3 @@ function CheckInputStrings ( $String ) {
 
 	return htmlspecialchars($String, ENT_QUOTES, 'UTF-8');
 }
-
-?>

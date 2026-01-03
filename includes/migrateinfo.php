@@ -142,5 +142,3 @@ KEY `TOTAL` (`total_points`)
 `reason` text character set latin1 NOT NULL,
 PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-?>

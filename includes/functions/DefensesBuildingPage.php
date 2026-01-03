@@ -145,4 +145,3 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
 // - 1.1 Correction mise en place d'une limite max d'elements constructibles par ligne
 // - 1.2 Correction limitation bouclier meme si en queue de fabrication
 //
-?>

@@ -87,5 +87,3 @@ function GalaxyRowPlanetName ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Ga
 
 	return $Result;
 }
-
-?>

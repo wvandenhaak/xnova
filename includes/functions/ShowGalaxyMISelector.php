@@ -63,5 +63,3 @@ function ShowGalaxyMISelector ( $Galaxy, $System, $Planet, $Current, $MICount ) 
 
 	return $Result;
 }
-
-?>

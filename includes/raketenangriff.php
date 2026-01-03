@@ -157,5 +157,3 @@ function raketenangriff($verteidiger_panzerung, $angreifer_waffen, $iraks, $def,
 // Copyright (c) 2007 by -= MoF =- for Deutsches UGamela Forum
 // Date N/A
 // Open Source
-
-?>

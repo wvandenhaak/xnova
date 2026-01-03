@@ -113,5 +113,3 @@ function FlyingFleetHandler (&$planet) {
 
 	doquery("UNLOCK TABLES", "");
 }
-
-?>

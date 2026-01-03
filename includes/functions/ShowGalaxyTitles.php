@@ -47,5 +47,3 @@ function ShowGalaxyTitles ( $Galaxy, $System ) {
 
 	return $Result;
 }
-
-?>

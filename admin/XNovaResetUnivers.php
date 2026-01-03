@@ -133,5 +133,3 @@ function XNovaResetUnivers ( $CurrentUser ) {
 		$Page = $MustacheEngine->render($PageTpl, $parse);
 		display ($Page, $lang['Reset'], false, true);
 	}
-
-?>

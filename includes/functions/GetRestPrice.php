@@ -67,5 +67,3 @@ function GetRestPrice ($user, $planet, $Element, $userfactor = true) {
 
 	return $text;
 }
-
-?>

@@ -104,5 +104,3 @@ function CancelBuildingFromQueue ( &$CurrentPlanet, &$CurrentUser ) {
 
 	return $ReturnValue;
 }
-
-?>

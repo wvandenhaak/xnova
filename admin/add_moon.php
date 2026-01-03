@@ -69,4 +69,3 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	} else {
 		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}
-?>

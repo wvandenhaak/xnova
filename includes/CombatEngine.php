@@ -118,5 +118,3 @@ function GetHullPerType ( $TypeArray, $Tech ) {
 	}
 
 }
-
-?>

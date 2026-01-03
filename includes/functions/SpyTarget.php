@@ -109,5 +109,3 @@ function SpyTarget ( $TargetPlanet, $Mode, $TitleString ) {
 	$return['Count']  = $Count;
 	return $return;
 }
-
-?>

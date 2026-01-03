@@ -68,5 +68,3 @@ function GetElementPrice ($user, $planet, $Element, $userfactor = true) {
 	}
 	return $text;
 }
-
-?>

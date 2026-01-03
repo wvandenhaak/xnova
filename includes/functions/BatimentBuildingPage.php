@@ -207,4 +207,3 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 
 	display($page, $lang['BuildNextLevel']);
 }
-?>

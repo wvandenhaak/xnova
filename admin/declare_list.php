@@ -84,4 +84,3 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	}
 
 // Created by e-Zobar. All rights reversed (C) XNova Team 2008
-?>

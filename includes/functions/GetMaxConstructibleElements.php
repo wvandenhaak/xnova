@@ -71,4 +71,3 @@ function GetMaxConstructibleElements ($Element, $Ressources) {
 // - 1.0 Version initiale (creation)
 // - 1.1 Correction bug ressources n�gatives ...
 // - 1.2 Correction bug quand pas de m�tal
-?>

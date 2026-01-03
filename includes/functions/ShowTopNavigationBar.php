@@ -95,5 +95,3 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
 
 	return $TopBar;
 }
-
-?>

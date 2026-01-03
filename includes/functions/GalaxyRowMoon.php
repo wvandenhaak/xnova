@@ -122,5 +122,3 @@ function GalaxyRowMoon ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, 
 
 	return $Result;
 }
-
-?>

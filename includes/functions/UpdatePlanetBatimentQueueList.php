@@ -51,5 +51,3 @@ function UpdatePlanetBatimentQueueList ( &$CurrentPlanet, &$CurrentUser ) {
 // - 1.0 Mise en module initiale
 // - 1.1 Mise a jour des ressources sur la planete verifi�e (pour prendre en compte les ressources produites
 //       pendant la construction et avant l'evolution evantuel d'une mine ou d'en batiment
-
-?>

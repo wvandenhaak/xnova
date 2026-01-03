@@ -89,5 +89,3 @@ function InsertBuildListScript ( $CallProgram, $languageStrings) {
 
 	return $BuildListScript;
 }
-
-?>

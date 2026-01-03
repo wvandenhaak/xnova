@@ -77,5 +77,3 @@ function ShowGalaxySelector ( $Galaxy, $System ) {
 	return $Result;
 
 }
-
-?>

@@ -39,5 +39,3 @@ function GetMissileRange () {
 
 	return $MissileRange;
 }
-
-?>

@@ -48,5 +48,3 @@ function IsOfficierAccessible ($CurrentUser, $Officier) {
 		return -1;
 	}
 }
-
-?>

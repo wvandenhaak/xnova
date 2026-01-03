@@ -60,5 +60,3 @@ function ElementBuildListBox ( $CurrentUser, $CurrentPlanet ) {
 //
 //	return $text;
 }
-
-?>

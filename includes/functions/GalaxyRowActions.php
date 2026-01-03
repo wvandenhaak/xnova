@@ -93,5 +93,3 @@ function GalaxyRowActions ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowPlayer, $Gal
 
 	return $Result;
 }
-
-?>

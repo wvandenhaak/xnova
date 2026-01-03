@@ -41,5 +41,3 @@ function GetPhalanxRange ( $PhalanxLevel ) {
 	}
 	return $PhalanxRange;
 }
-
-?>

@@ -88,5 +88,3 @@ function ShowGalaxyFooter ( $Galaxy, $System,  $CurrentMIP, $CurrentRC, $Current
 */
 	return $Result;
 }
-
-?>

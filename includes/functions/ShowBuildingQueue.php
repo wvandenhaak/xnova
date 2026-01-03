@@ -100,5 +100,3 @@ function ShowBuildingQueue ( $CurrentPlanet, $CurrentUser ) {
 
 	return $RetValue;
 }
-
-?>

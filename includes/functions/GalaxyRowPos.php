@@ -40,5 +40,3 @@ function GalaxyRowPos ( $Planet, $GalaxyRow ) {
 
 	return $Result;
 }
-
-?>

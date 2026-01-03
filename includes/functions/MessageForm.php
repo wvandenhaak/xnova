@@ -51,4 +51,3 @@ function MessageForm ($Title, $Message, $Goto = '', $Button = ' ok ', $TwoLines 
 }
 // Release History
 // - 1.0 Mise en fonction, Documentation
-?>
