@@ -28,7 +28,8 @@
  *
  */
 
-function SetNextQueueElementOnTop ( &$CurrentPlanet, $CurrentUser ) {
+function SetNextQueueElementOnTop(&$CurrentPlanet, $CurrentUser): void
+{
 	global $lang, $resource;
 
 	// Garde fou ... Si le temps de construction n'est pas 0 on ne fait rien !!!
@@ -114,8 +115,5 @@ function SetNextQueueElementOnTop ( &$CurrentPlanet, $CurrentUser ) {
 		$QryUpdatePlanet .= "WHERE ";
 		$QryUpdatePlanet .= "`id` = '" .           $CurrentPlanet['id']            . "';";
         doquery($QryUpdatePlanet);
-
 	}
-
-	return;
 }

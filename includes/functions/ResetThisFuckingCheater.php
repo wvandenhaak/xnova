@@ -28,7 +28,8 @@
  *
  */
 
-function ResetThisFuckingCheater ( $UserID ) {
+function ResetThisFuckingCheater($UserID): void
+{
 	global $lang;
 	//$lang['user_reset_cheater']
 	$TheUser        = doquery ("SELECT * FROM game_users WHERE `id` = '". $UserID ."';", null, true);
@@ -82,7 +83,4 @@ function ResetThisFuckingCheater ( $UserID ) {
 
 		}
 	}
-	
-
-	return;
 }

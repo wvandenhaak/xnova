@@ -28,8 +28,8 @@
  *
  */
 
-function BuildingSavePlanetRecord ( $CurrentPlanet ) {
-
+function BuildingSavePlanetRecord($CurrentPlanet): void
+{
 	// Enregistrement des divers changements dans les tables
 	$QryUpdatePlanet  = "UPDATE game_planets SET ";
 	$QryUpdatePlanet .= "`b_building_id` = '". $CurrentPlanet['b_building_id'] ."', ";
@@ -37,6 +37,4 @@ function BuildingSavePlanetRecord ( $CurrentPlanet ) {
 	$QryUpdatePlanet .= "WHERE ";
 	$QryUpdatePlanet .= "`id` = '".            $CurrentPlanet['id']            ."';";
     doquery($QryUpdatePlanet);
-
-	return;
 }
