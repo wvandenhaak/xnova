@@ -61,9 +61,9 @@ require_once dirname(__FILE__) .'/common.php';
                 doquery("UPDATE game_users SET multi_validated ='1' WHERE username='{$user['username']}'");
 	
 				//@todo : translate
-				Message ( "Merci, votre demande a ete prise en compte. Les autres joueurs que vous avez implique doivent egalement et imperativement suivre cette procedure aussi.", "Ajout" );
+				message ( "Merci, votre demande a ete prise en compte. Les autres joueurs que vous avez implique doivent egalement et imperativement suivre cette procedure aussi.", "Ajout" );
 			}else{
-				Message ( "Votre demande n'est pas correctement formulée.", "Erreur" );
+				message ( "Votre demande n'est pas correctement formulée.", "Erreur" );
 			}
 			
 		}

@@ -72,10 +72,10 @@ switch ($mode) {
     case 'ins':
         if ($page == 1) {
             if (isset($_GET['error']) && intval($_GET['error']) == 1) {
-	            adminMessage ($lang['ins_error1'], $lang['ins_error']);
+	            AdminMessage ($lang['ins_error1'], $lang['ins_error']);
             }
             elseif (isset($_GET['error']) && intval($_GET['error']) == 2) {
-	            adminMessage ($lang['ins_error2'], $lang['ins_error']);
+	            AdminMessage ($lang['ins_error2'], $lang['ins_error']);
             }
 
             $subTpl = gettemplate('install/ins_form');
@@ -154,7 +154,7 @@ EOF;
             $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         } elseif ($page == 3) {
             if (isset($_GET['error']) && intval($_GET['error']) == 3) {
-            adminMessage($lang['ins_error3'], $lang['ins_error']);
+                AdminMessage($lang['ins_error3'], $lang['ins_error']);
             }
 
             $subTpl = gettemplate ('install/ins_acc');
@@ -267,10 +267,10 @@ EOF;
             $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         } elseif ($page == 2) {
             if ($_GET['error'] == 1) {
-            adminMessage ($lang['ins_error1'], $lang['ins_error']);
+                AdminMessage ($lang['ins_error1'], $lang['ins_error']);
             }
             elseif ($_GET['error'] == 2) {
-            adminMessage ($lang['ins_error2'], $lang['ins_error']);
+                AdminMessage ($lang['ins_error2'], $lang['ins_error']);
             }
 
             $subTpl = gettemplate ('install/ins_goto_form');

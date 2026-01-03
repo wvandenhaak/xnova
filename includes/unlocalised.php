@@ -235,7 +235,7 @@ function parsetemplate($template, $array){
 	return $template;
 }
 
-function getTemplate($templateName) {
+function gettemplate($templateName) {
 
     $filename = TEMPLATE_DIR . '/' . Constants::TEMPLATE_NAME . "/{$templateName}.tpl";
     $cacheFile = ROOT_PATH . 'cache/' . $templateName . '.tpl.cache';
