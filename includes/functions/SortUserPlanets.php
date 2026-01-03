@@ -40,7 +40,6 @@ function SortUserPlanets ( $CurrentUser ) {
 	} elseif ( $Sort == 2 ) {
 		$QryPlanets .= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
 	}
-    $Planets = doquery($QryPlanets);
 
-	return $Planets;
+    return doquery($QryPlanets);
 }

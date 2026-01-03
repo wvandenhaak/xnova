@@ -70,25 +70,22 @@ function bbcode($string) {
 
 
 
-function image($string)
-        {
-		//On va pas se casser le fion a lire les accents quand meme !!!!!!!
-        $string = str_replace("&#39;", "'", $string);
+function image($string) {
+    //On va pas se casser le fion a lire les accents quand meme !!!!!!!
+    $string = str_replace("&#39;", "'", $string);
 
 
-		//Emoticones.... COPIEZ COLLEZ CES LIGNES POUR RAJOUTER LES VOTRES !
-        $string = str_replace("Smile", "[img]../emoticones/Smile.png[/img]", $string);
-		$string = str_replace("cool", "[img]../emoticones/cool.png[/img]", $string);
-        $string = str_replace("grrr", "[img]../emoticones/grrr.png[/img]", $string);
-        $string = str_replace("love", "[img]../emoticones/love.png[/img]", $string);
-        $string = str_replace("msn", "[img]../emoticones/msn.png[/img]", $string);
-        $string = str_replace("Oo", "[img]../emoticones/Oo.png[/img]", $string);
-        $string = str_replace("perdu", "[img]../emoticones/perdu.png[/img]", $string);
-        $string = str_replace("wink", "[img]../emoticones/wink.png[/img]", $string);
-        $string = str_replace("wow", "[img]../emoticones/wow.png[/img]", $string);
-
-        return $string;
-        }
+    //Emoticones.... COPIEZ COLLEZ CES LIGNES POUR RAJOUTER LES VOTRES !
+    $string = str_replace("Smile", "[img]../emoticones/Smile.png[/img]", $string);
+    $string = str_replace("cool", "[img]../emoticones/cool.png[/img]", $string);
+    $string = str_replace("grrr", "[img]../emoticones/grrr.png[/img]", $string);
+    $string = str_replace("love", "[img]../emoticones/love.png[/img]", $string);
+    $string = str_replace("msn", "[img]../emoticones/msn.png[/img]", $string);
+    $string = str_replace("Oo", "[img]../emoticones/Oo.png[/img]", $string);
+    $string = str_replace("perdu", "[img]../emoticones/perdu.png[/img]", $string);
+    $string = str_replace("wink", "[img]../emoticones/wink.png[/img]", $string);
+    return str_replace("wow", "[img]../emoticones/wow.png[/img]", $string);
+}
 
 
 

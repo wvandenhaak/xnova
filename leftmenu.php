@@ -70,12 +70,11 @@ function ShowLeftMenu ( $Level , $Template = 'left_menu') {
 	$parse["enable_notes"] = $game_config['enable_notes'] == 1;
 	
 	$parse['servername']   = $game_config['game_name'];
-	$Menu                  = $MustacheEngine->render( $MenuTPL, $parse);
-
-	return $Menu;
+    return $MustacheEngine->render( $MenuTPL, $parse);
 }
-	$Menu = ShowLeftMenu ( $user['authlevel'] );
-	display ( $Menu, "Menu", '', false );
+
+$Menu = ShowLeftMenu ( $user['authlevel'] );
+display ( $Menu, "Menu", '', false );
 
 // -----------------------------------------------------------------------------------------------------------
 // History version

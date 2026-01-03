@@ -45,8 +45,7 @@ function sendpassemail($emailaddress, $password)
     $parse['gameurl'] = GAMEURL;
     $parse['password'] = $password;
     $email = $MustacheEngine->render($lang['mail_welcome'], $parse);
-    $status = mymail($emailaddress, $lang['mail_title'], $email);
-    return $status;
+    return mymail($emailaddress, $lang['mail_title'], $email);
 }
 
 function mymail($to, $title, $body, $from = '')

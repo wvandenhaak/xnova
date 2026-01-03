@@ -143,12 +143,11 @@ function ModuleMarchand ( &$CurrentPlanet ) {
 		}
 	}
 
-	$Page    = $MustacheEngine->render ( $PageTPL, $parse );
-	return  $Page;
+    return $MustacheEngine->render ( $PageTPL, $parse );
 }
 
-	$Page = ModuleMarchand ( $planetrow );
-	display ( $Page, $lang['mod_marchand'], true, '', false );
+$Page = ModuleMarchand ( $planetrow );
+display ( $Page, $lang['mod_marchand'], true, '', false );
 
 // -----------------------------------------------------------------------------------------------------------
 // History version

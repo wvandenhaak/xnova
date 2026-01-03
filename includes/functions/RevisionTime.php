@@ -52,6 +52,5 @@ function RevisionTime ($seconds) {
 	$hours   = ($hours < 10 ? "0" . $hours : $hours);
 	$minutes = ($minutes < 10 ? "0" . $minutes : $minutes);
 	$secs    = ($secs < 10 ? "0" . $secs : $secs);
-	$ret     = ($seconds > 0 ? "$year-$month-$days<br>GMT $hours:$minutes:$secs" : "");
-	return $ret;
+	return ($seconds > 0 ? "$year-$month-$days<br>GMT $hours:$minutes:$secs" : "");
 }

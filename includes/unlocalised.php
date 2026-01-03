@@ -59,11 +59,9 @@ function GetTargetDistance($OrigGalaxy, $DestGalaxy, $OrigSystem, $DestSystem, $
 }
 
 // Calcul de la durée de vol d'une flotte par rapport a sa vitesse max
-function GetMissionDuration ($GameSpeed, $MaxFleetSpeed, $Distance, $SpeedFactor) {
-    $Duration = 0;
-    $Duration = round(((35000 / $GameSpeed * sqrt($Distance * 10 / $MaxFleetSpeed) + 10) / $SpeedFactor));
-
-    return $Duration;
+function GetMissionDuration ($GameSpeed, $MaxFleetSpeed, $Distance, $SpeedFactor): float
+{
+    return round(((35000 / $GameSpeed * sqrt($Distance * 10 / $MaxFleetSpeed) + 10) / $SpeedFactor));
 }
 
 // Retourne la valeur ajustée de vitesse des flottes
@@ -146,9 +144,7 @@ function GetFleetConsumption ($FleetArray, $SpeedFactor, $MissionDuration, $Miss
         }
     }
 
-    $consumption = round($consumption) + 1;
-
-    return $consumption;
+    return round($consumption) + 1;
 }
 
 // ----------------------------------------------------------------------------------------------------------------
@@ -216,8 +212,7 @@ function get_userdata () {
 // Fonction de lecture / ecriture / exploitation de templates
 //
 function ReadFromFile($filename) {
-    $content = @file_get_contents ($filename);
-    return $content;
+    return @file_get_contents ($filename);
 }
 
 function saveToFile($filename, $content) {

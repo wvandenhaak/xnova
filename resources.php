@@ -268,13 +268,11 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 	$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."';";
     doquery($QryUpdatePlanet);
 
-	$page = $MustacheEngine->render( $RessBodyTPL, $parse );
-
-	return $page;
+    return $MustacheEngine->render( $RessBodyTPL, $parse );
 }
 
-	$Page = BuildRessourcePage ( $user, $planetrow );
-	display( $Page, $lang['Production_of_resources_in_the_planet'] );
+$Page = BuildRessourcePage ( $user, $planetrow );
+display( $Page, $lang['Production_of_resources_in_the_planet'] );
 
 // -----------------------------------------------------------------------------------------------------------
 // History version
