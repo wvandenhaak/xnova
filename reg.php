@@ -60,8 +60,7 @@ function mymail($to, $title, $body, $from = '')
 
     $rp = Constants::ADMINEMAIL;
 
-    $head = '';
-    $head .= "Content-Type: text/plain \r\n";
+    $head = "Content-Type: text/plain \r\n";
     $head .= "Date: " . date('r') . " \r\n";
     $head .= "Return-Path: $rp \r\n";
     $head .= "From: $from \r\n";
