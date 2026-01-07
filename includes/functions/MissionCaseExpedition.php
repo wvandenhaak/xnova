@@ -28,7 +28,8 @@
  *
  */
 
-function MissionCaseExpedition ( $FleetRow ) {
+function MissionCaseExpedition ( $FleetRow ): void
+{
 	global $lang, $resource, $pricelist;
 
 	$FleetOwner = $FleetRow['fleet_owner'];

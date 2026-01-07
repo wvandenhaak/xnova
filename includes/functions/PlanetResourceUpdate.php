@@ -32,7 +32,8 @@ use Xmke\Xnova\Common\Constants;
 
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
-function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simul = false ) {
+function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Simul = false ): void
+{
     global $ProdGrid, $resource, $reslist, $game_config;
 
     // Mise a jour de l'espace de stockage

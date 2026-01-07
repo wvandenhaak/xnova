@@ -28,7 +28,8 @@
  *
  */
 
-function GalaxyRowPlanet ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ) {
+function GalaxyRowPlanet ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ): string
+{
 	global $lang, $user, $HavePhalanx, $CurrentSystem, $CurrentGalaxy;
 
 	// Planete (Image)

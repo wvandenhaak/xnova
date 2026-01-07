@@ -28,9 +28,8 @@
  *
  */
 
-function InsertBuildListScript ( $CallProgram, $languageStrings) {
-
-
+function InsertBuildListScript ( $CallProgram, $languageStrings): string
+{
 	$BuildListScript  = "<script type=\"text/javascript\">\n";
 	$BuildListScript .= "<!--\n";
 	$BuildListScript .= "function t() {\n";

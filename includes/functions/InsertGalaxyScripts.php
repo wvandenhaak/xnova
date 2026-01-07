@@ -28,7 +28,8 @@
  *
  */
 
-function InsertGalaxyScripts ( $CurrentPlanet ) {
+function InsertGalaxyScripts ( $CurrentPlanet ): string
+{
 	global $lang;
 	$Script  = "<div style=\"top: 10px;\" id=\"content\">";
 	$Script .= "<script language=\"JavaScript\">\n";

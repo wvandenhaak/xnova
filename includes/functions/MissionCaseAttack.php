@@ -28,7 +28,7 @@
  *
  */
 
-function MissionCaseAttack ($FleetRow)
+function MissionCaseAttack ($FleetRow): void
 {
     global $user, $xnova_root_path, $pricelist, $lang, $resource, $CombatCaps;
 

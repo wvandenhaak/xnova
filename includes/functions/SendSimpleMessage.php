@@ -28,7 +28,8 @@
  *
  */
 
-function SendSimpleMessage ( $Owner, $Sender, $Time, $Type, $From, $Subject, $Message) {
+function SendSimpleMessage ( $Owner, $Sender, $Time, $Type, $From, $Subject, $Message): void
+{
 	global $messfields;
 
 	if ($Time == '') {

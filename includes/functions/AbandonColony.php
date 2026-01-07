@@ -28,7 +28,8 @@
  *
  */
 
-    function AbandonColony($user,$planetrow) {
+    function AbandonColony($user,$planetrow): void
+    {
        $destruyed = time() + 3600; //Temps avant la suppression dans la galaxie
        $DeleteMoon = false;
        if ($planetrow["planet_type"]==1){
@@ -89,8 +90,8 @@
 
     }
 
-    function CheckFleets($planetrow){
-
+    function CheckFleets($planetrow): bool
+    {
        $QryFleet = "SELECT * FROM game_fleets WHERE ";
        $QryFleet .= "(`fleet_start_galaxy` = '".$planetrow["galaxy"]."' AND ";
        $QryFleet .= "`fleet_start_system` = '".$planetrow["system"]."' AND ";

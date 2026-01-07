@@ -28,7 +28,7 @@
  *
  */
 
-function MissionCaseDestruction($FleetRow)
+function MissionCaseDestruction($FleetRow): void
 {
    global $user, $pricelist, $lang, $resource, $CombatCaps, $game_config;
 

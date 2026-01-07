@@ -28,7 +28,8 @@
  *
  */
 
-function GalaxyLegendPopup () {
+function GalaxyLegendPopup (): string
+{
 	global $lang;
 
 	$Result  = "<a href=# style=\"cursor: pointer;\"";
@@ -55,9 +56,6 @@ function GalaxyLegendPopup () {
 	$Result .= "</table>";
 	$Result .= "\");' onmouseout='return nd();'>";
 	$Result .= $lang['Legend']."</a>";
-
-
-
 
 	return $Result;
 }

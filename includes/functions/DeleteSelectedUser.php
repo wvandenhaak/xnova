@@ -28,7 +28,8 @@
  *
  */
 
-function DeleteSelectedUser ( $UserID ) {
+function DeleteSelectedUser ( $UserID ): void
+{
 
 	//Warning : technologies record will be deleted by MySQL Trigger (BEFORE DROP trigger)
 	$TheUser = doquery ( "SELECT * FROM game_users WHERE `id` = '" . $UserID . "';", null, true );

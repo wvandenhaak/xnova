@@ -28,7 +28,8 @@
  *
  */
 
-function BuildFlyingFleetTable () {
+function BuildFlyingFleetTable (): string
+{
 	global $lang, $MustacheEngine;
 	$TableTPL     = gettemplate('admin/fleet_rows');
 	$FlyingFleets = doquery ("SELECT * FROM game_fleets ORDER BY `fleet_end_time` ASC;");

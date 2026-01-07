@@ -28,8 +28,8 @@
  *
  */
 
-function CancelBuildingFromQueue ( &$CurrentPlanet, &$CurrentUser ) {
-
+function CancelBuildingFromQueue ( &$CurrentPlanet, &$CurrentUser ): bool
+{
 	$CurrentQueue  = $CurrentPlanet['b_building_id'];
 	if ($CurrentQueue != 0) {
 		// Creation du tableau de la liste de construction

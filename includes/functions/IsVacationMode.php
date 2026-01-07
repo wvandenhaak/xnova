@@ -28,7 +28,8 @@
  *
  */
 
-    function IsVacationMode($CurrentUser){
+    function IsVacationMode($CurrentUser): bool
+    {
        global $game_config;
 
        if($CurrentUser['urlaubs_modus'] == 1){

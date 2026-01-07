@@ -28,7 +28,8 @@
  *
  */
 
-function ShowGalaxyMISelector ( $Galaxy, $System, $Planet, $Current, $MICount ) {
+function ShowGalaxyMISelector ( $Galaxy, $System, $Planet, $Current, $MICount ): string
+{
 	global $lang;
 
 	$Result  = "<form action=\"raketenangriff.php?c=".$Current."&mode=2&galaxy=".$Galaxy."&system=".$System."&planet=".$Planet."\" method=\"POST\">";

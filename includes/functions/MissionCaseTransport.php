@@ -28,7 +28,8 @@
  *
  */
 
-function MissionCaseTransport ( $FleetRow ) {
+function MissionCaseTransport ( $FleetRow ): void
+{
 	global $lang;
 
 	$QryStartPlanet   = "SELECT * FROM game_planets ";

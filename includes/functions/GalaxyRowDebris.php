@@ -28,7 +28,8 @@
  *
  */
 
-function GalaxyRowDebris ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ) {
+function GalaxyRowDebris ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ): string
+{
 	global $lang, $CurrentRC, $user, $pricelist;
 	// Cdr
 	$Result  = "<th style=\"white-space: nowrap;\" width=30>";

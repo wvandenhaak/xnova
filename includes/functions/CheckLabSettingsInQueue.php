@@ -28,7 +28,8 @@
  *
  */
 
-function CheckLabSettingsInQueue ( $CurrentPlanet ) {
+function CheckLabSettingsInQueue ( $CurrentPlanet ): bool
+{
 	global $lang, $game_config;
 
 	if ($CurrentPlanet['b_building_id'] != "0") {

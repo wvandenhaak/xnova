@@ -28,7 +28,8 @@
  *
  */
 
-function MissionCaseSpy ( $FleetRow ) {
+function MissionCaseSpy ( $FleetRow ): void
+{
 	global $lang, $resource;
 
 	if ($FleetRow['fleet_start_time'] <= time()) {

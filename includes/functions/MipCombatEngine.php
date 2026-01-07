@@ -28,7 +28,8 @@
  *
  */
 
-function MipAttack ($NbreMip, $IDAversaire) {
+function MipAttack ($NbreMip, $IDAversaire): void
+{
     global $user;
     $user = MergeUserTechnology($user);
     $TechnoArme = doquery("SELECT * FROM game_users WHERE `id`='" . $user['id'] . "'");

@@ -28,7 +28,7 @@
  *
  */
 
-function CheckInputStrings ( $String ) {
-
+function CheckInputStrings ( $String ): string
+{
 	return htmlspecialchars($String, ENT_QUOTES, 'UTF-8');
 }

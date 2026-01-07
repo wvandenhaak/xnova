@@ -28,14 +28,16 @@
  *
  */
 
-function CheckAbandonMoonState ($lunarow) {
+function CheckAbandonMoonState ($lunarow): void
+{
 	if (($lunarow['destruyed'] + 172800) <= time() && $lunarow['destruyed'] != 0) {
 		$query = doquery("DELETE FROM game_lunas WHERE id = '" . $lunarow['id'] . "'");
 	}
 }
 
 // Suppression complete d'une planete
-function CheckAbandonPlanetState (&$planet) {
+function CheckAbandonPlanetState (&$planet): void
+{
 	if ($planet['destruyed'] <= time()) {
 		$id = $planet['id'];
 		doquery("DELETE FROM game_planets WHERE id={$id}");

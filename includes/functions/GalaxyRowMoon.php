@@ -28,7 +28,8 @@
  *
  */
 
-function GalaxyRowMoon ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ) {
+function GalaxyRowMoon ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ): string
+{
 	global $lang, $user, $HavePhalanx, $CurrentSystem, $CurrentGalaxy, $CanDestroy;
 
 	// Lune

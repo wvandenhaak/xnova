@@ -28,7 +28,8 @@
  *
  */
 
-function GetElementPrice ($user, $planet, $Element, $userfactor = true) {
+function GetElementPrice ($user, $planet, $Element, $userfactor = true): string
+{
 	global $pricelist, $resource, $lang;
 
 	if (isset($userfactor)) {

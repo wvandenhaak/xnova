@@ -32,7 +32,7 @@ use Xmke\Xnova\Common\Constants;
 
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
-function FleetBuildingPage(&$currentPlanet, &$currentUser)
+function FleetBuildingPage(&$currentPlanet, &$currentUser): void
 {
     global $lang, $resource, $MustacheEngine;
 

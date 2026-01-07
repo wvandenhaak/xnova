@@ -28,7 +28,8 @@
  *
  */
 
-function UpdatePlanetBatimentQueueList ( &$CurrentPlanet, &$CurrentUser ) {
+function UpdatePlanetBatimentQueueList ( &$CurrentPlanet, &$CurrentUser ): bool
+{
 	$RetValue = false;
 	if ( $CurrentPlanet['b_building_id'] != 0 ) {
 		while ( $CurrentPlanet['b_building_id'] != 0 ) {

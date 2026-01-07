@@ -28,7 +28,8 @@
  *
  */
 
-function ShowBuildingQueue ( $CurrentPlanet, $CurrentUser ) {
+function ShowBuildingQueue ( $CurrentPlanet, $CurrentUser ): array
+{
 	global $lang;
 
 	$CurrentQueue  = $CurrentPlanet['b_building_id'];

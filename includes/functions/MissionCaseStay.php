@@ -28,7 +28,8 @@
  *
  */
 
-function MissionCaseStay ( $FleetRow ) {
+function MissionCaseStay ( $FleetRow ): void
+{
 	global $lang, $resource;
 
 	if ($FleetRow['fleet_mess'] == 0) {

@@ -28,7 +28,8 @@
  *
  */
 
-function ShowGalaxyTitles ( $Galaxy, $System ) {
+function ShowGalaxyTitles ( $Galaxy, $System ): string
+{
 	global $lang;
 
 	$Result  = "\n";

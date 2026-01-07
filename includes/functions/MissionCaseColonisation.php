@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function MissionCaseColonisation ( $FleetRow ) {
+function MissionCaseColonisation ( $FleetRow ): void
+{
 	global $lang, $resource;
 
 	$iPlanetCount = doquery ("SELECT count(*) AS PlanetCount FROM game_planets WHERE `id_owner` = '". $FleetRow['fleet_owner'] ."' AND `planet_type` = '1'", null, true);

@@ -28,7 +28,7 @@
  *
  */
 
-function IsTechnologieAccessible($user, $planet, $element)
+function IsTechnologieAccessible($user, $planet, $element): bool
 {
 	global $requirements, $resource;
 

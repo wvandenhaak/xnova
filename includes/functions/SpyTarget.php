@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function SpyTarget ( $TargetPlanet, $Mode, $TitleString ) {
+function SpyTarget ( $TargetPlanet, $Mode, $TitleString ): array
+{
 	global $lang, $resource;
 
 	$LookAtLoop = true;

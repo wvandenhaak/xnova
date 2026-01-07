@@ -28,7 +28,8 @@
  *
  */
 
-function FlyingFleetHandler (&$planet) {
+function FlyingFleetHandler (&$planet): void
+{
 	global $resource;
 
 	doquery("LOCK TABLE game_lunas WRITE, game_rw WRITE, game_errors WRITE, game_messages WRITE, game_fleets WRITE, game_planets WRITE, game_galaxy WRITE ,game_users WRITE");

@@ -28,7 +28,8 @@
  *
  */
 
-function RestoreFleetToPlanet ( $FleetRow, $Start = true ) {
+function RestoreFleetToPlanet ( $FleetRow, $Start = true ): void
+{
 	global $resource;
 
 	$FleetRecord         = explode(";", $FleetRow['fleet_array']);

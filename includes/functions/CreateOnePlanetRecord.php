@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function PlanetSizeRandomiser ($Position, $HomeWorld = false) {
+function PlanetSizeRandomiser ($Position, $HomeWorld = false): array
+{
 	global $game_config;
 
 	if (!$HomeWorld) {
@@ -56,7 +57,8 @@ function PlanetSizeRandomiser ($Position, $HomeWorld = false) {
 	return $return;
 }
 
-function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false) {
+function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false): bool
+{
 	global $lang, $game_config;
 
 	// Avant tout, on verifie s'il existe deja une planete a cet endroit

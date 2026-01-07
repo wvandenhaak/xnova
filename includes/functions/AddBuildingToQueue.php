@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function AddBuildingToQueue ( &$CurrentPlanet, $CurrentUser, $Element, $AddMode = true) {
+function AddBuildingToQueue ( &$CurrentPlanet, $CurrentUser, $Element, $AddMode = true): bool|int
+{
 	global $lang, $resource;
 
 	$CurrentQueue  = $CurrentPlanet['b_building_id'];

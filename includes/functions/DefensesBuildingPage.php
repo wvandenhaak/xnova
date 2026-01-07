@@ -32,7 +32,8 @@ use Xmke\Xnova\Common\Constants;
 
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
-function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
+function DefensesBuildingPage ( &$currentPlanet, $currentUser ): void
+{
     global $lang, $resource, $MustacheEngine;
 
     // S'il n'y a pas de Chantier

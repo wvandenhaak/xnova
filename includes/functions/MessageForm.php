@@ -28,7 +28,8 @@
  *
  */
 
-function MessageForm ($Title, $Message, $Goto = '', $Button = ' ok ', $TwoLines = false) {
+function MessageForm ($Title, $Message, $Goto = '', $Button = ' ok ', $TwoLines = false): string
+{
 	$Form  = "<center>";
 	$Form .= "<form action=\"". $Goto ."\" method=\"post\">";
 	$Form .= "<table width=\"519\">";

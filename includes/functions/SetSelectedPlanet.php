@@ -28,7 +28,7 @@
  *
  */
 
-function SetSelectedPlanet ( &$CurrentUser )
+function SetSelectedPlanet ( &$CurrentUser ): void
 {
     if (!isset($_GET['cp']) || !isset($_GET['re'])) {
         return;

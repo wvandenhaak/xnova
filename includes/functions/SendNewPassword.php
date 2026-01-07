@@ -28,7 +28,8 @@
  *
  */
 
-  function sendnewpassword($mail){
+  function sendnewpassword($mail): void
+  {
 
   	$ExistMail = doquery("SELECT `email` FROM game_users WHERE `email` = '". $mail ."' LIMIT 1;", null, true);
 

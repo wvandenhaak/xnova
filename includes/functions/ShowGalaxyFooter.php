@@ -28,7 +28,8 @@
  *
  */
 
-function ShowGalaxyFooter ( $Galaxy, $System,  $CurrentMIP, $CurrentRC, $CurrentSP) {
+function ShowGalaxyFooter ( $Galaxy, $System,  $CurrentMIP, $CurrentRC, $CurrentSP): string
+{
 	global $lang, $maxfleet_count, $fleetmax, $planetcount;
 
 	$Result  = "";

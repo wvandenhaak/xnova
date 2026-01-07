@@ -28,7 +28,8 @@
  *
  */
 
-function GetRestPrice ($user, $planet, $Element, $userfactor = true) {
+function GetRestPrice ($user, $planet, $Element, $userfactor = true): string
+{
 	global $pricelist, $resource, $lang;
 
 	if ($userfactor) {

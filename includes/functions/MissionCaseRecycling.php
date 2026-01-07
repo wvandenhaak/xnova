@@ -28,7 +28,8 @@
  *
  */
 
-function MissionCaseRecycling ($FleetRow) {
+function MissionCaseRecycling ($FleetRow): void
+{
 	global $pricelist, $lang;
 
 	if ($FleetRow["fleet_mess"] == "0") {

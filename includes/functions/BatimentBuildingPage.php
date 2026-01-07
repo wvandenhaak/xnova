@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
+function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser): void
+{
 	global $lang, $resource, $reslist, $game_config, $_GET, $MustacheEngine;
 
 	CheckPlanetUsedFields ( $CurrentPlanet );

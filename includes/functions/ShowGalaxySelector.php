@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function ShowGalaxySelector ( $Galaxy, $System ) {
+function ShowGalaxySelector ( $Galaxy, $System ): string
+{
 	global $lang;
 
 	if ($Galaxy > Constants::MAX_GALAXY_IN_WORLD) {

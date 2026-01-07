@@ -28,7 +28,8 @@
  *
  */
 
-function GalaxyRowPos ( $Planet, $GalaxyRow ) {
+function GalaxyRowPos ( $Planet, $GalaxyRow ): string
+{
 	// Pos
 	$Result  = "<th width=30>";
 	$Result .= "<a href=\"#\"";

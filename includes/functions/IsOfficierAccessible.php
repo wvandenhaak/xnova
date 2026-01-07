@@ -28,7 +28,8 @@
  *
  */
 
-function IsOfficierAccessible ($CurrentUser, $Officier) {
+function IsOfficierAccessible ($CurrentUser, $Officier): int
+{
 	global $requirements, $resource, $pricelist;
 
 	if (isset($requirements[$Officier])) {

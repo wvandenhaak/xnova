@@ -28,7 +28,8 @@
  *
  */
 
-function MissionCaseStayAlly ( $FleetRow ) {
+function MissionCaseStayAlly ( $FleetRow ): void
+{
 	global $lang;
 
 	$QryStartPlanet   = "SELECT * FROM game_planets ";

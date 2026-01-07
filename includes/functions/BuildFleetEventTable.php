@@ -28,7 +28,8 @@
  *
  */
 
-function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
+function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ): string
+{
 	global $lang, $MustacheEngine;
 
 	$FleetStyle  = array (

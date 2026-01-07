@@ -28,7 +28,7 @@
  *
  */
 
-function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
+function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet): void
 {
 	global $lang, $resource, $reslist, $_GET, $MustacheEngine;
 

@@ -28,7 +28,8 @@
  *
  */
 
-function GetElementRessources ( $Element, $Count ) {
+function GetElementRessources ( $Element, $Count ): array
+{
 	global $pricelist;
 
 	$ResType['metal']     = ($pricelist[$Element]['metal']     * $Count);

@@ -28,7 +28,8 @@
  *
  */
 
-function IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, $Incremental = true, $ForDestroy = false) {
+function IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, $Incremental = true, $ForDestroy = false): bool
+{
     global $pricelist, $resource;
 
     if (IsVacationMode($CurrentUser)) {

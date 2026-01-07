@@ -28,7 +28,8 @@
  *
  */
 
-function ShowGalaxyRows ($Galaxy, $System) {
+function ShowGalaxyRows ($Galaxy, $System): string
+{
 	global $lang, $planetcount, $CurrentRC, $user;
 
 	$Result = "";

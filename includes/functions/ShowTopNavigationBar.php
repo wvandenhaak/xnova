@@ -28,7 +28,8 @@
  *
  */
 
-function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) { 
+function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ): string
+{
 	global $lang, $_GET, $MustacheEngine;
 
 //	debug_print_backtrace();

@@ -30,7 +30,8 @@
 
 use Xmke\Xnova\Common\Constants;
 
-function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ) {
+function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ): bool
+{
 	global $lang, $resource;
 
 	// Table des batiments donnant droit de l'experience minier

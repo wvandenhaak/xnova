@@ -28,7 +28,8 @@
  *
  */
 
-function CheckPlanetUsedFields ( &$planet ) {
+function CheckPlanetUsedFields ( &$planet ): void
+{
 	global $resource;
 
 	if(isset($planet)){

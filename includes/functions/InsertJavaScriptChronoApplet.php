@@ -28,7 +28,8 @@
  *
  */
 
-function InsertJavaScriptChronoApplet ( $Type, $Ref, $Value, $Init ) {
+function InsertJavaScriptChronoApplet ( $Type, $Ref, $Value, $Init ): string
+{
 	if ($Init == true) {
 		$JavaString  = "<script type=\"text/javascript\">\n";
 		$JavaString .= "function t". $Type . $Ref ."() {\n";

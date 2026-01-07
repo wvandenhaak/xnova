@@ -28,7 +28,8 @@
  *
  */
 
-function StoreGoodsToPlanet ( $FleetRow, $Start = false ) {
+function StoreGoodsToPlanet ( $FleetRow, $Start = false ): void
+{
 	global $resource;
 
 

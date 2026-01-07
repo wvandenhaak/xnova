@@ -28,7 +28,8 @@
  *
  */
 
-function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser ) {
+function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser ): array
+{
 	global $resource;
 
 	if ($CurrentUser['b_tech_planet'] != 0) {

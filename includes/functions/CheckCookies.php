@@ -28,7 +28,7 @@
  *
  */
 
-function CheckCookies($IsUserChecked)
+function CheckCookies($IsUserChecked): array
 {
     global $lang, $game_config, $user;
 
