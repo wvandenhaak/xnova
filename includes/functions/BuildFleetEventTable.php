@@ -32,7 +32,7 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ): s
 {
 	global $lang, $MustacheEngine;
 
-	$FleetStyle  = array (
+	$FleetStyle  = [
 		 1 => 'attack',
 		 2 => 'federation',
 		 3 => 'transport',
@@ -44,8 +44,8 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ): s
 		 9 => 'destroy',
 		10 => 'missile',
 		15 => 'transport',
-	);
-	$FleetStatus = array ( 0 => 'flight', 1 => 'holding', 2 => 'return' );
+    ];
+	$FleetStatus = [0 => 'flight', 1 => 'holding', 2 => 'return'];
 	if ( $Owner == true ) {
 		$FleetPrefix = 'own';
 	} else {

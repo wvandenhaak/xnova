@@ -48,7 +48,7 @@ if ($Sort == 0) {
 }
 $planetsrow = doquery($QryPlanets);
 
-$planet = array();
+$planet = [];
 $parse  = $lang;
 
 while ($p = mysqli_fetch_array($planetsrow)) {

@@ -42,12 +42,12 @@ function GetElementPrice ($user, $planet, $Element, $userfactor = true): string
 	}
 
 	$is_buyeable = true;
-	$array = array(
+	$array = [
 		'metal'      => $lang["Metal"],
 		'crystal'    => $lang["Crystal"],
 		'deuterium'  => $lang["Deuterium"],
 		'energy_max' => $lang["Energy"]
-		);
+    ];
 
 	$text = $lang['Requires'] . ": ";
 	foreach ($array as $ResType => $ResTitle) {

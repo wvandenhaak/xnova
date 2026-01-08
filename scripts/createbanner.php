@@ -73,7 +73,7 @@ class Legacies_Block_Image_Png
 
     const POSITION_DEFAULT = 0x11;
 
-    private $_texts = array();
+    private $_texts = [];
     private $_background = NULL;
     private $_font = NULL;
 
@@ -109,20 +109,20 @@ class Legacies_Block_Image_Png
 
     public function getHeaders()
     {
-        return array(
+        return [
             'Content-Type' => $this->_getMime()
-            );
+        ];
     }
 
     public function addText($content, $fontSize, $fontFile, $positionAbscix, $positionOrdinates, $angle, Array $color, $alignment = self::POSITION_DEFAULT)
     {
-        $this->_texts[] = array(
+        $this->_texts[] = [
             'content' => $content,
             'color' => $color,
             'sizes' => $this->_getTextPositions($content, $fontSize, $fontFile, $positionAbscix, $positionOrdinates, $angle, $alignment),
             'font_size' => $fontSize,
             'font_file' => $fontFile,
-            );
+        ];
 
         return $this;
     }
@@ -164,14 +164,14 @@ class Legacies_Block_Image_Png
         }
 
 
-        return array(
+        return [
             'abscix' => $positionAbscix,
             'ordinate' => $positionOrdinates,
             'alignment' => $alignment,
             'width' => $width,
             'height' => $height,
             'angle' => $angle
-            );
+        ];
     }
 
     public function setBackground($backgroundImage)
@@ -248,11 +248,11 @@ if (isset($_GET['id'])) {
     die();
 }
 
-$textColor = array(
+$textColor = [
     Legacies_Block_Image_Png::COLOR_RED   => 0xEF,
     Legacies_Block_Image_Png::COLOR_GREEN => 0xEF,
     Legacies_Block_Image_Png::COLOR_BLUE  => 0xEF
-    );
+];
 
 $sql = <<<EOF
 SELECT
@@ -270,10 +270,10 @@ EOF;
 
 
 $data = array_merge(
-    array(
+    [
         'game_name' => 'XNova:Legacies',
         'date' => date('d M Y')
-        ),
+    ],
     doquery($sql, null, true)
     );
 

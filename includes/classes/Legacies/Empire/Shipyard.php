@@ -44,13 +44,13 @@ class Legacies_Empire_Shipyard
 
     private $_now = 0;
 
-    protected $_resourcesTypes = array(
+    protected $_resourcesTypes = [
         Legacies_Empire::RESOURCE_METAL,
         Legacies_Empire::RESOURCE_CRISTAL,
         Legacies_Empire::RESOURCE_DEUTERIUM
-        );
+    ];
 
-    protected static $_instances = array();
+    protected static $_instances = [];
 
     public static function factory($currentPlanet, $currentUser)
     {
@@ -71,7 +71,7 @@ class Legacies_Empire_Shipyard
 
         $this->_queue = unserialize($this->_currentPlanet['b_hangar_id']);
         if (!is_array($this->_queue)) {
-            $this->_queue = array();
+            $this->_queue = [];
         }
 
         $this->_now = time();
@@ -137,12 +137,12 @@ SQL_EOF;
         $resourcesUsed = $this->_updateResources($shipId, $qty);
         $buildTime = $this->getBuildTime($shipId, $qty);
 
-        $this->_queue[] = array(
+        $this->_queue[] = [
             'ship_id'    => $shipId,
             'qty'        => $qty,
             'created_at' => $this->_now(),
             'updated_at' => $this->_now()
-            );
+        ];
 
         foreach ($this->_resourcesTypes as $resourceType) {
             if(isset($this->_currentPlanet[$resourceType]) && isset($resourcesUsed[$resourceType])){
@@ -234,12 +234,12 @@ SQL_EOF;
     {
         global $pricelist, $resource;
 
-        $resources = array(
+        $resources = [
             Legacies_Empire::RESOURCE_METAL,
             Legacies_Empire::RESOURCE_CRISTAL,
             Legacies_Empire::RESOURCE_DEUTERIUM,
             Legacies_Empire::RESOURCE_ENERGY
-            );
+        ];
 
         $qty = 0;
         foreach ($resources as $resourceId) {
@@ -252,28 +252,28 @@ SQL_EOF;
             }
         }
 
-        $limitedElementsQty = array(
-            Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME      => array(
+        $limitedElementsQty = [
+            Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME      => [
                 'current'   => $this->_currentPlanet[$resource[Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME]],
                 'requested' => $this->_currentPlanet[$resource[Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME]],
                 'limit'     => 1
-                ),
-            Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME      => array(
+            ],
+            Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME      => [
                 'current'   => $this->_currentPlanet[$resource[Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME]],
                 'requested' => $this->_currentPlanet[$resource[Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME]],
                 'limit'     => 1
-                ),
-            Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE  => array(
+            ],
+            Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE  => [
                 'current'   => $this->_currentPlanet[$resource[Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE]],
                 'requested' => $this->_currentPlanet[$resource[Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE]],
                 'limit'     => $this->_currentPlanet[$resource[Legacies_Empire::ID_BUILDING_MISSILE_SILO]] * 10
-                ),
-            Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE => array(
+            ],
+            Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE => [
                 'current'   => $this->_currentPlanet[$resource[Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE]],
                 'requested' => $this->_currentPlanet[$resource[Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE]],
                 'limit'     => $this->_currentPlanet[$resource[Legacies_Empire::ID_BUILDING_MISSILE_SILO]] * 5
-                )
-            );
+            ]
+        ];
 
         if (in_array($shipId, array_keys($limitedElementsQty))) {
             foreach ($this->_queue as $element) {
@@ -301,7 +301,7 @@ SQL_EOF;
     {
         global $pricelist;
 
-        $resourcesUsed = array();
+        $resourcesUsed = [];
         foreach ($this->_resourcesTypes as $resourceId) {
             if (isset($pricelist[$shipId]) && isset($pricelist[$shipId][$resourceId]) && $pricelist[$shipId][$resourceId] > 0) {
                 $resourcesUsed[$resourceId] = bcmul($pricelist[$shipId][$resourceId], $qty);

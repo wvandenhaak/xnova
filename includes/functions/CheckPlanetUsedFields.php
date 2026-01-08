@@ -35,7 +35,7 @@ function CheckPlanetUsedFields ( &$planet ): void
 	if(isset($planet)){
 
 		// Tous les batiments	
-		$CountedParcels = array(1,2,3,4,12,14,15,21,22,23,24,31,33,34,44,41,42,43);
+		$CountedParcels = [1,2,3,4,12,14,15,21,22,23,24,31,33,34,44,41,42,43];
 			
 		$cfc = 0;
 		if(isset($resource)){

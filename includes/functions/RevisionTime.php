@@ -34,7 +34,7 @@ function RevisionTime ($seconds): string
 	$hours     = (floor(($seconds % 86400) / 3600));
 	$minutes   = floor(($seconds % 3600) / 60);
 	$secs      = $seconds % 60;
-	$month_len = array(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+	$month_len = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	$year      = 1970;
 	$done      = 0;
 	$month_id  = 1;

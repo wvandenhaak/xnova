@@ -63,7 +63,8 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 				$angreifer = mysqli_fetch_array($select_owner);
 				$planet = mysqli_fetch_array($planetrow);
 
-				$ids = array(0 => 401,
+				$ids = [
+                    0 => 401,
 					1 => 402,
 					2 => 403,
 					3 => 404,
@@ -73,10 +74,11 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 					7 => 408,
 					8 => 502,
 					9 => 503
-					);
+                ];
 
 				$def =
-				array(0 => $planet['misil_launcher'], // Raketenwerfer
+				[
+                    0 => $planet['misil_launcher'], // Raketenwerfer
 					1 => $planet['small_laser'], // Leichtes Lasergesch�tz
 					2 => $planet['big_laser'], // Schweres Lasergesch�tz
 					3 => $planet['gauss_canyon'], // Gau�kanone
@@ -86,10 +88,11 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 					7 => $planet['big_protection_shield'], // Gro�e Schildkuppel
 					8 => $planet['interplanetary_misil'], // Interplanetarrakete
 					9 => $planet['interceptor_misil'], // Abfangrakete
-					);
+                ];
 
 				$lang =
-				array(0 => "Lanceur Missile",
+				[
+                    0 => "Lanceur Missile",
 					1 => "Canon Magn&eacute;tique",
 					2 => "Batterie Electromagn&eacute;tique",
 					3 => "Canon de Gauss",
@@ -101,7 +104,7 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 					9 => "Missiles Interplanetaire",
 					10 => "Missiles Intercepteur"
 
-					);
+                ];
 
 				$irak = raketenangriff($verteidiger['defence_tech'], $angreifer['military_tech'], $selected_row['anzahl'], $def, $selected_row['primaer']);
 

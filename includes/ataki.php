@@ -30,9 +30,9 @@
 
 function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno, $CurrentPlayer, $TargetPlayer) {
 	global $pricelist, $CombatCaps, $game_config;
-	$runda       = array();
-	$atakujacy_n = array();
-	$wrog_n      = array();
+	$runda       = [];
+	$atakujacy_n = [];
+	$wrog_n      = [];
 
 	// Calcul des points de Structure de l'attaquant
 	if (!is_null($CurrentSet)) {
@@ -273,5 +273,5 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno, $Current
 
 	$zlom["atakujacy"] = (($atakujacy_zlom_poczatek['metal'] - $atakujacy_zlom_koniec['metal']) + ($atakujacy_zlom_poczatek['crystal'] - $atakujacy_zlom_koniec['crystal']));
 	$zlom["wrog"]      = (($wrog_zlom_poczatek['metal']      - $wrog_zlom_koniec['metal'])      + ($wrog_zlom_poczatek['crystal']      - $wrog_zlom_koniec['crystal']) + $straty_obrona_wrog);
-	return array("atakujacy" => $CurrentSet, "wrog" => $TargetSet, "wygrana" => $wygrana, "dane_do_rw" => $runda, "zlom" => $zlom);
+	return ["atakujacy" => $CurrentSet, "wrog" => $TargetSet, "wygrana" => $wygrana, "dane_do_rw" => $runda, "zlom" => $zlom];
 }

@@ -1,8 +1,8 @@
-<?php return array(
+<?php return [
 //
 // Buildings type
 // {{{
-    Legacies_Empire::TYPE_BUILDING => array(
+    Legacies_Empire::TYPE_BUILDING => [
         Legacies_Empire::ID_BUILDING_METAL_MINE,
         Legacies_Empire::ID_BUILDING_CRISTAL_MINE,
         Legacies_Empire::ID_BUILDING_DEUTERIUM_SYNTHETISER,
@@ -21,13 +21,13 @@
         Legacies_Empire::ID_BUILDING_SENSOR_PHALANX,
         Legacies_Empire::ID_BUILDING_JUMP_GATE,
         Legacies_Empire::ID_BUILDING_MISSILE_SILO
-        ),
+    ],
 // }}}
 
 //
 // Research types
 // {{{
-    Legacies_Empire::TYPE_RESEARCH => array(
+    Legacies_Empire::TYPE_RESEARCH => [
         Legacies_Empire::ID_RESEARCH_ESPIONAGE_TECHNOLOGY,
         Legacies_Empire::ID_RESEARCH_COMPUTER_TECHNOLOGY,
         Legacies_Empire::ID_RESEARCH_WEAPON_TECHNOLOGY,
@@ -44,13 +44,13 @@
         Legacies_Empire::ID_RESEARCH_INTERGALACTIC_RESEARCH_NETWORK,
         Legacies_Empire::ID_RESEARCH_EXPEDITION_TECHNOLOGY,
         Legacies_Empire::ID_RESEARCH_GRAVITON_TECHNOLOGY
-        ),
+    ],
 // }}}
 
 //
 // Ship types
 // {{{
-    Legacies_Empire::TYPE_SHIP => array(
+    Legacies_Empire::TYPE_SHIP => [
         Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT,
         Legacies_Empire::ID_SHIP_LARGE_TRANSPORT,
         Legacies_Empire::ID_SHIP_LIGHT_FIGHTER,
@@ -66,13 +66,13 @@
         Legacies_Empire::ID_SHIP_DEATH_STAR,
         Legacies_Empire::ID_SHIP_BATTLECRUISER,
         Legacies_Empire::ID_SHIP_SUPERNOVA
-        ),
+    ],
 // }}}
 
 //
 // Defense types
 // {{{
-    Legacies_Empire::TYPE_DEFENSE => array(
+    Legacies_Empire::TYPE_DEFENSE => [
         Legacies_Empire::ID_DEFENSE_ROCKET_LAUNCHER,
         Legacies_Empire::ID_DEFENSE_LIGHT_LASER,
         Legacies_Empire::ID_DEFENSE_HEAVY_LASER,
@@ -83,40 +83,40 @@
         Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME,
         Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE,
         Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE
-        ),
+    ],
 // }}}
 
 //
 // Special defenses types
 // {{{
-    Legacies_Empire::TYPE_SPECIAL => array(
+    Legacies_Empire::TYPE_SPECIAL => [
         Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE,
         Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE
-        ),
+    ],
 // }}}
 
 //
 // Officers type
 // {{{
-    Legacies_Empire::TYPE_OFFICER => array(
+    Legacies_Empire::TYPE_OFFICER => [
         601, 602, 603,
         604, 605, 606,
         607, 608, 609,
         610, 611, 612,
         613, 614, 615
-        ),
+    ],
 // }}}
 
 //
 // Production-able elements
 // {{{
-    Legacies_Empire::TYPE_PRODUCTION => array(
+    Legacies_Empire::TYPE_PRODUCTION => [
         Legacies_Empire::ID_BUILDING_METAL_MINE,
         Legacies_Empire::ID_BUILDING_CRISTAL_MINE,
         Legacies_Empire::ID_BUILDING_DEUTERIUM_SYNTHETISER,
         Legacies_Empire::ID_BUILDING_SOLAR_PLANT,
         Legacies_Empire::ID_BUILDING_FUSION_REACTOR,
         Legacies_Empire::ID_SHIP_SOLAR_SATELLITE
-        )
+    ]
 // }}}
-    );
+];

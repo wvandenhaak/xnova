@@ -41,12 +41,12 @@ function GetRestPrice ($user, $planet, $Element, $userfactor = true): string
         }
 	}
 
-	$array = array(
+	$array = [
 		'metal'      => $lang["Metal"],
 		'crystal'    => $lang["Crystal"],
 		'deuterium'  => $lang["Deuterium"],
 		'energy_max' => $lang["Energy"]
-		);
+    ];
 
 	$text  = "<br><font color=\"#7f7f7f\">". $lang['Rest_ress'] .": ";
 	foreach ($array as $ResType => $ResTitle) {

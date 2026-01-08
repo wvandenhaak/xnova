@@ -45,14 +45,14 @@ function IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, $Incremental 
         }
     }
 
-    $array = array(
+    $array = [
         Legacies_Empire::RESOURCE_METAL,
         Legacies_Empire::RESOURCE_CRISTAL,
         Legacies_Empire::RESOURCE_DEUTERIUM,
         'energy_max'
-        );
+    ];
 
-    $cost = array();
+    $cost = [];
     foreach ($array as $ResType) {
         if (isset($pricelist) && isset($pricelist[$Element]) && isset($pricelist[$Element][$ResType]) && $pricelist[$Element][$ResType] != 0) {
             if ($Incremental) {

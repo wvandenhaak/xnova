@@ -43,9 +43,9 @@ function ShowGalaxyRows ($Galaxy, $System): string
 
 		$Result .= "\n";
 		$Result .= "<tr>"; // Depart de ligne
-		$GalaxyRowPlayer = array();
-		$GalaxyRowPlanet = array();
-		$GalaxyRowMoon = array();
+		$GalaxyRowPlayer = [];
+		$GalaxyRowPlanet = [];
+		$GalaxyRowMoon = [];
 		if ($GalaxyRow) {
 			// Il existe des choses sur cette ligne de planete
 			if ($GalaxyRow["id_planet"] != 0) {
@@ -70,7 +70,7 @@ function ShowGalaxyRows ($Galaxy, $System): string
 				if ($GalaxyRowPlanet['id_owner'] <> 0) {
 					$GalaxyRowUser     = doquery("SELECT * FROM game_users WHERE `id` = '". $GalaxyRowPlanet['id_owner'] ."';", null, true);
 				} else {
-					$GalaxyRowUser     = array();
+					$GalaxyRowUser     = [];
 				}
 			}
 		}

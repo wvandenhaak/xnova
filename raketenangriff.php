@@ -109,7 +109,7 @@ $select = MergeUserTechnology($select);
  $primaerziel = $pziel;
  $iraks = $anz;
  $def =
-		array(
+		[
 			0 => $planet['misil_launcher'], // Raketenwerfer
 			1 => $planet['small_laser'], // Leichtes Lasergesch�tz
 			2 => $planet['big_laser'], // Schweres Lasergesch�tz
@@ -121,10 +121,10 @@ $select = MergeUserTechnology($select);
 			8 => $planet['interplanetary_misil'], // Interplanetarrakete
 			9 => $planet['interceptor_misil'], // Abfangrakete
 
-		);
+        ];
 
  $lang =
-	array(
+	[
         0 => "Lanceur Missile",
 		1 => "Canon Magn&eacute;tique",
 		2 => "Batterie Electromagn&eacute;tique",
@@ -137,7 +137,7 @@ $select = MergeUserTechnology($select);
 		9 => "Missiles Interplanetaire",
 		10 => "Missiles Intercepteur"
 
- 	);
+    ];
 
 
 

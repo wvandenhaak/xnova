@@ -38,8 +38,8 @@ function PlanetSizeRandomiser ($Position, $HomeWorld = false): array
 		$ClassicBase      = 163;
 		$SettingSize      = $game_config['initial_fields'];
 		$PlanetRatio      = floor ( ($ClassicBase / $SettingSize) * 10000 ) / 100;
-		$RandomMin        = array (  40,  50,  55, 100,  95,  80, 115, 120, 125,  75,  80,  85,  60,  40,  50);
-		$RandomMax        = array (  90,  95,  95, 240, 240, 230, 180, 180, 190, 125, 120, 130, 160, 300, 150);
+		$RandomMin        = [40,  50,  55, 100,  95,  80, 115, 120, 125,  75,  80,  85,  60,  40,  50];
+		$RandomMax        = [90,  95,  95, 240, 240, 230, 180, 180, 190, 125, 120, 130, 160, 300, 150];
 		$CalculMin        = floor ( $RandomMin[$Position - 1] + ( $RandomMin[$Position - 1] * $PlanetRatio ) / 100 );
 		$CalculMax        = floor ( $RandomMax[$Position - 1] + ( $RandomMax[$Position - 1] * $PlanetRatio ) / 100 );
 		$RandomSize       = mt_rand($CalculMin, $CalculMax);
@@ -96,39 +96,39 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 		$planet['planet'] = $Position;
 
 		if ($Position == 1 || $Position == 2 || $Position == 3) {
-			$PlanetType         = array('trocken');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10');
+			$PlanetType         = ['trocken'];
+			$PlanetClass        = ['planet'];
+			$PlanetDesign       = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
 			$planet['temp_min'] = rand(0, 100);
 			$planet['temp_max'] = $planet['temp_min'] + 40;
 		} elseif ($Position == 4 || $Position == 5 || $Position == 6) {
-			$PlanetType         = array('dschjungel');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10');
+			$PlanetType         = ['dschjungel'];
+			$PlanetClass        = ['planet'];
+			$PlanetDesign       = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
 			$planet['temp_min'] = rand(-25, 75);
 			$planet['temp_max'] = $planet['temp_min'] + 40;
 		} elseif ($Position == 7 || $Position == 8 || $Position == 9) {
-			$PlanetType         = array('normaltemp');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('01', '02', '03', '04', '05', '06', '07');
+			$PlanetType         = ['normaltemp'];
+			$PlanetClass        = ['planet'];
+			$PlanetDesign       = ['01', '02', '03', '04', '05', '06', '07'];
 			$planet['temp_min'] = rand(-50, 50);
 			$planet['temp_max'] = $planet['temp_min'] + 40;
 		} elseif ($Position == 10 || $Position == 11 || $Position == 12) {
-			$PlanetType         = array('wasser');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('01', '02', '03', '04', '05', '06', '07', '08', '09');
+			$PlanetType         = ['wasser'];
+			$PlanetClass        = ['planet'];
+			$PlanetDesign       = ['01', '02', '03', '04', '05', '06', '07', '08', '09'];
 			$planet['temp_min'] = rand(-75, 25);
 			$planet['temp_max'] = $planet['temp_min'] + 40;
 		} elseif ($Position == 13 || $Position == 14 || $Position == 15) {
-			$PlanetType         = array('eis');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10');
+			$PlanetType         = ['eis'];
+			$PlanetClass        = ['planet'];
+			$PlanetDesign       = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
 			$planet['temp_min'] = rand(-100, 10);
 			$planet['temp_max'] = $planet['temp_min'] + 40;
 		} else {
-			$PlanetType         = array('dschjungel', 'gas', 'normaltemp', 'trocken', 'wasser', 'wuesten', 'eis');
-			$PlanetClass        = array('planet');
-			$PlanetDesign       = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '00',);
+			$PlanetType         = ['dschjungel', 'gas', 'normaltemp', 'trocken', 'wasser', 'wuesten', 'eis'];
+			$PlanetClass        = ['planet'];
+			$PlanetDesign       = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '00',];
 			$planet['temp_min'] = rand(-120, 10);
 			$planet['temp_max'] = $planet['temp_min'] + 40;
 		}

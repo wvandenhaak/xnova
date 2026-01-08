@@ -37,8 +37,8 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser): void
 	CheckPlanetUsedFields ( $CurrentPlanet );
 
 	// Tables des batiments possibles par type de planete
-	$Allowed['1'] = array(  1,  2,  3,  4, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44);
-	$Allowed['3'] = array( 12, 14, 21, 22, 23, 24, 34, 41, 42, 43);
+	$Allowed['1'] = [1,  2,  3,  4, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44];
+	$Allowed['3'] = [12, 14, 21, 22, 23, 24, 34, 41, 42, 43];
 
 	// Boucle d'interpretation des eventuelles commandes
 	if (isset($_GET['cmd'])) {
@@ -124,7 +124,7 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser): void
 
 			if (IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Element)) {
 				$HaveRessources        = IsElementBuyable ($CurrentUser, $CurrentPlanet, $Element, true, false);
-				$parse                 = array();
+				$parse                 = [];
 				$parse['i']            = $Element;
 				$BuildingLevel         = $CurrentPlanet[$resource[$Element]];
 				$parse['nivel']        = ($BuildingLevel == 0) ? "" : " (". $lang['level'] ." ". $BuildingLevel .")";

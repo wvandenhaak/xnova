@@ -34,7 +34,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 $testID = 216;
 
-$reqarray = array();
+$reqarray = [];
 
 function buildRequirementsTree($tree, $depth = 0)
 {

@@ -38,10 +38,10 @@ require_once dirname(__FILE__) .'/common.php';
 includeLang('login');
 
 if (!empty($_POST)) {
-    $userData = array(
+    $userData = [
         'username' => mysqli_real_escape_string (Database::$dbHandle, $_POST['username']),
         'password' => mysqli_real_escape_string (Database::$dbHandle, $_POST['password'])
-    );
+    ];
     $sql =<<<EOF
 SELECT
     users.id,
@@ -64,7 +64,7 @@ EOF;
     if ($login) {
         if (intval($login['login_success'])) {
             if (isset($_POST["rememberme"])) {
-                setcookie('nova-cookie', serialize(array('id' => $login['id'], 'key' => $login['login_rememberme'])), time() + 2592000);
+                setcookie('nova-cookie', serialize(['id' => $login['id'], 'key' => $login['login_rememberme']]), time() + 2592000);
             }
 
             $sql =<<<EOF

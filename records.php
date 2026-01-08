@@ -74,7 +74,7 @@ if(!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > $timeDelay)
     {
         if(!empty($elementName) && !empty($resource[$element]))
         {
-            $data = array();
+            $data = [];
             if($element >= 0 && $element <  100 || $element >= 200 && $element < 600)
             {
               

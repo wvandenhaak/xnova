@@ -35,10 +35,10 @@ includeLang('changelog');
 
 $template = gettemplate('changelog_table');
 
-$ChangeList = array();
+$ChangeList = [];
 foreach($lang['changelog'] as $a => $b)
 {
-	$ChangeList[] = array('version_number' => $a, 'description' => $b);
+	$ChangeList[] = ['version_number' => $a, 'description' => $b];
 }
 
 

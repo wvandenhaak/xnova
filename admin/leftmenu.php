@@ -37,7 +37,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 includeLang('leftmenu');
 
-	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
+	if (in_array($user['authlevel'], [Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR])) {
 		$parse                 = $lang;
 		$parse['mf']           = "Hauptframe";
 		$parse['XNovaRelease'] = Constants::VERSION;

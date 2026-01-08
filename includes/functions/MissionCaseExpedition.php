@@ -41,7 +41,7 @@ function MissionCaseExpedition ( $FleetRow ): void
 		if ($FleetRow['fleet_end_stay'] < time()) {
 			// La Flotte vient de finir son exploration
 			// Table de ratio de points par type de vaisseau
-			$PointsFlotte = array(
+			$PointsFlotte = [
 				202 => 1.0,  // 'Petit transporteur'
 				203 => 1.5,  // 'Grand transporteur'
 				204 => 0.5,  // 'Chasseur léger'
@@ -56,10 +56,10 @@ function MissionCaseExpedition ( $FleetRow ): void
 				213 => 3.5,  // 'Destructeur'
 				214 => 5.0,  // 'Etoile de la mort'
 				215 => 3.2,  // 'Traqueur'
-			);
+            ];
 
 			// Table de ratio de gains en nombre par type de vaisseau
-			$RatioGain = array (
+			$RatioGain = [
 				202 => 0.1,     // 'Petit transporteur'
 				203 => 0.1,     // 'Grand transporteur'
 				204 => 0.1,     // 'Chasseur léger'
@@ -74,7 +74,7 @@ function MissionCaseExpedition ( $FleetRow ): void
 				213 => 0.0625,  // 'Destructeur'
 				214 => 0.03125, // 'Etoile de la mort'
 				215 => 0.0625,  // 'Traqueur'
-			);
+            ];
 
 			$FleetStayDuration = ($FleetRow['fleet_end_stay'] - $FleetRow['fleet_start_time']) / 3600;
 

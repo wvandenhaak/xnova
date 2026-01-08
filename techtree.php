@@ -38,7 +38,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$user = MergeUserTechnology($user);
 
 	foreach($lang['tech'] as $Element => $ElementName) {
-		$parse            = array();
+		$parse            = [];
 		$parse['tt_name'] = $ElementName;
 		if (!isset($resource[$Element])) {
 			$parse['Requirements']  = $lang['Requirements'];

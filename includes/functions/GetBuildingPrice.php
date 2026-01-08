@@ -41,8 +41,8 @@ function GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, $Incremental 
         }
 	}
 
-	$array = array('metal', 'crystal', 'deuterium', 'energy_max');
-	$cost = array();
+	$array = ['metal', 'crystal', 'deuterium', 'energy_max'];
+	$cost = [];
 	
     foreach ($array as $ResType) {
             if(isset($pricelist[$Element][$ResType])){

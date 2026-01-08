@@ -35,7 +35,7 @@ function AddBuildingToQueue ( &$CurrentPlanet, $CurrentUser, $Element, $AddMode 
 	global $lang, $resource;
 
 	$CurrentQueue  = $CurrentPlanet['b_building_id'];
-	$QueueArray = array();
+	$QueueArray = [];
 	$ActualCount = 0;
 	if ($CurrentQueue != 0) {
 		$QueueArray    = explode ( ";", $CurrentQueue );

@@ -63,5 +63,5 @@ function mass_message_run($parent){
 }
 
 function mass_message_info(){
-	return array("name" => "Send MassMessages","description"=>"Sends messagess to all players","default_weight"=>"0");
+	return ["name" => "Send MassMessages","description"=>"Sends messagess to all players","default_weight"=>"0"];
 }

@@ -127,19 +127,19 @@ require_once dirname(__FILE__) .'/common.php';
 	// Determinons les type de missions possibles par rapport a la planete cible
 	if ($fleetmission == 15) {
 		// Gestion des Exp�ditions
-		$missiontype = array(15 => $lang['type_mission'][15]);
+		$missiontype = [15 => $lang['type_mission'][15]];
 	} else {
 		if (isset($_POST['planettype']) && $_POST['planettype'] == "2") {
 			if (isset($_POST['ship209']) && $_POST['ship209'] >= 1) {
-				$missiontype = array(8 => $lang['type_mission'][8]);
+				$missiontype = [8 => $lang['type_mission'][8]];
 			} else {
-				$missiontype = array();
+				$missiontype = [];
 			}
 		} elseif ($_POST['planettype'] == "1" || $_POST['planettype'] == "3") {
 			if (isset($_POST['ship208']) && $_POST['ship208'] >= 1 && !$UsedPlanet) {
-				$missiontype = array(7 => $lang['type_mission'][7]);
+				$missiontype = [7 => $lang['type_mission'][7]];
 			} elseif (isset($_POST['ship210']) && $_POST['ship210'] >= 1 && !$YourPlanet) {
-				$missiontype = array(6 => $lang['type_mission'][6]);
+				$missiontype = [6 => $lang['type_mission'][6]];
 			}
 
 			if (isset($_POST['ship202']) && $_POST['ship202'] >= 1 ||
@@ -294,7 +294,7 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 	}
 
-	$missiontype = array(
+	$missiontype = [
 		1 => $lang['type_mission'][1],
 		2 => $lang['type_mission'][2],
 		3 => $lang['type_mission'][3],
@@ -305,9 +305,9 @@ require_once dirname(__FILE__) .'/common.php';
 		8 => $lang['type_mission'][8],
 		9 => $lang['type_mission'][9],
 		15 => $lang['type_mission'][15],
-		);
+    ];
 
-	$speed_possible = array(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+	$speed_possible = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 	$AllFleetSpeed  = GetFleetMaxSpeed ($fleetarray, 0, $user);
 	$GenFleetSpeed  = $_POST['speed'];

@@ -94,7 +94,7 @@ if(isset($searchtext) && isset($type)){
 			if($s['ally_id']!=0&&$s['ally_request']==0){
 				$aquery = doquery("SELECT ally_name FROM game_alliance WHERE id = {$s['ally_id']}",null,true);
 			}else{
-				$aquery = array();
+				$aquery = [];
 			}
 
 

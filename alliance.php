@@ -223,7 +223,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 				$template = gettemplate('alliance_searchresult_row');
 
 				while ($s = mysqli_fetch_array($search)) {
-					$entry = array();
+					$entry = [];
 					$entry['ally_tag'] = "[<a href=\"alliance.php?mode=apply&allyid={$s['id']}\">{$s['ally_tag']}</a>]";
 					$entry['ally_name'] = $s['ally_name'];
 					$entry['ally_members'] = $s['ally_members'];
@@ -547,7 +547,8 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		} elseif (!empty($_POST['newrangname'])) {
 			$name = mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST['newrangname']));
 
-			$allianz_raenge[] = array('name' => $name,
+			$allianz_raenge[] = [
+                'name' => $name,
 				'mails' => 0,
 				'delete' => 0,
 				'kick' => 0,
@@ -557,7 +558,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				'memberlist' => 0,
 				'onlinestatus' => 0,
 				'rechtehand' => 0
-				);
+            ];
 
 			$ranks = serialize($allianz_raenge);
 
@@ -568,7 +569,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			header("Location: " . $goto);
 			exit();
 		} elseif ($_POST['id'] != '' && is_array($_POST['id'])) {
-			$ally_ranks_new = array();
+			$ally_ranks_new = [];
 
 			foreach ($_POST['id'] as $id) {
 				$name = $allianz_raenge[$id]['name'];

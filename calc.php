@@ -30,22 +30,22 @@
 
 $v = '0.6c'; /* Version de la Calculadora */
 
-$edff = array();
-$invv = array();
-$hann = array();
-$deff = array();
+$edff = [];
+$invv = [];
+$hann = [];
+$deff = [];
 
 $edf = GetInFile('edf.txt');
-$edf_v = array_fill(0, count($edf), array(0, 0, 0, 0));
+$edf_v = array_fill(0, count($edf), [0, 0, 0, 0]);
 
 $inv = GetInFile('inv.txt');
-$inv_v = array_fill(0, count($inv), array(0, 0, 0, 0));
+$inv_v = array_fill(0, count($inv), [0, 0, 0, 0]);
 
 $han = GetInFile('han.txt');
-$han_v = array_fill(0, count($han), array(0, 0, 0, 0));
+$han_v = array_fill(0, count($han), [0, 0, 0, 0]);
 
 $def = GetInFile('def.txt');
-$def_v = array_fill(0, count($def), array(0, 0, 0, 0));
+$def_v = array_fill(0, count($def), [0, 0, 0, 0]);
 
 LoadCookies();
 
@@ -54,7 +54,7 @@ if (!empty($_POST['reset'])) {
         setcoookie($elm, '');
     }
 
-    $_POST = array();
+    $_POST = [];
 }
 
 if (!empty($_POST['suma'])) {
@@ -129,10 +129,10 @@ function og_pow($v, $lvl, $x) {
 function GetInFile($f) {
     $f = file($f);
 
-    $ar = array();
+    $ar = [];
 
     foreach ($f as $linea) {
-        $tmp = array();
+        $tmp = [];
 
         $exp = explode(':', $linea);
         $tmp[] = $exp[0];

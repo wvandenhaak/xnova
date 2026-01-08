@@ -50,7 +50,7 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 		$game_config['deuterium_basic_income'] = 0;
 	}
 
-	$ValidList['percent'] = array (  0,  10,  20,  30,  40,  50,  60,  70,  80,  90, 100 );
+	$ValidList['percent'] = [0,  10,  20,  30,  40,  50,  60,  70,  80,  90, 100];
 	$SubQry               = "";
 	if ($_POST) {
 		foreach($_POST as $Field => $Value) {
@@ -121,7 +121,7 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 			$deuterium                           = $deuterium * 0.01 * $post_porcent;
 			$energy                              = $energy    * 0.01 * $post_porcent;
 			$Field                               = $resource[$ProdID] ."_porcent";
-			$CurrRow                             = array();
+			$CurrRow                             = [];
 			$CurrRow['name']                     = $resource[$ProdID];
 			$CurrRow['porcent']                  = $CurrentPlanet[$Field];
 			$CurrRow['option'] = "";

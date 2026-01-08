@@ -55,7 +55,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 	includeLang('fleet');
 
-	$missiontype = array(
+	$missiontype = [
 		1 => $lang['type_mission'][1],
 		2 => $lang['type_mission'][2],
 		3 => $lang['type_mission'][3],
@@ -66,7 +66,7 @@ require_once dirname(__FILE__) .'/common.php';
 		8 => $lang['type_mission'][8],
 		9 => $lang['type_mission'][9],
 		15 => $lang['type_mission'][15]
-	);
+    ];
 
 	// Histoire de recuperer les infos passées par galaxy
 	$galaxy         = isset($_GET['galaxy']) ? intval($_GET['galaxy']) : $planetrow['galaxy'];
@@ -217,7 +217,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$CurrentShipSpeed = "Indisponible";
 	foreach ($reslist['fleet'] as $n => $i) {
 		if ($planetrow[$resource[$i]] > 0) {
-			$CurrentShipSpeed = GetFleetMaxSpeed (array(), $i, $user);
+			$CurrentShipSpeed = GetFleetMaxSpeed ([], $i, $user);
 			$page .= "<tr height=\"20\">";
 			$page .= "<th><a title=\"". $lang['fl_fleetspeed'] . $CurrentShipSpeed ."\">" . $lang['tech'][$i] . "</a></th>";
 			$page .= "<th>". pretty_number ($planetrow[$resource[$i]]);

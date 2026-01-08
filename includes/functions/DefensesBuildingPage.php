@@ -105,9 +105,11 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ): void
                 }
                 //@todo
                 $PageTable .= '<br /><a onclick="document.getElementById(\'fmenge:'.$shipId.'\').value=\''.strval($maxElements).'\';" style="cursor:pointer;">max ('.number_format($maxElements, 0, ',', '.').')</a>';
-            } else if (in_array($shipId, array(Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME, Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME))) {
+            } else if (in_array($shipId, [Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME, Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME]
+            )) {
                 $PageTable .= '<span style="color:red">Limite de construction atteinte.</span>';
-            } else if (in_array($shipId, array(Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME, Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME))) {
+            } else if (in_array($shipId, [Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME, Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME]
+            )) {
                 $PageTable .= '<span style="color:red">Silo plein.</span>';
             }
             $PageTable .= '</td>';
@@ -118,16 +120,16 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ): void
     }
 
     if (!empty($currentPlanet['b_hangar_id'])) { //@todo fix this
-        $data = array();
+        $data = [];
         foreach ($shipyard->getQueue() as $item) {
-            $data[] = array_merge($item, array(
+            $data[] = array_merge($item, [
                 'label' => $lang['tech'][$item['ship_id']],
                 'speed' => $shipyard->getBuildTime($item['ship_id'], 1)
-                ));
+            ]);
         }
-        $parse = array(
+        $parse = [
             'data' => json_encode($data)
-            );
+        ];
         $BuildQueue = $MustacheEngine->render(gettemplate('buildings_script'), $parse);
     }
     $parse = $lang;

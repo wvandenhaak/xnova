@@ -42,8 +42,8 @@ require_once dirname(__FILE__) .'/common.php';
 	$UserDeuterium  = $planetrow['deuterium'];
 	$UserMissiles   = $planetrow['interplanetary_misil'];
 
-	$fleet          = array();
-	$speedalls      = array();
+	$fleet          = [];
+	$speedalls      = [];
 	$PartialFleet   = false; // 610
 	$PartialCount   = 0;
 	$fleet['fleetlist'] = "";

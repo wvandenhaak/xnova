@@ -121,12 +121,12 @@ $GalaxyViewRows = doquery($query, '');
 
 
 //List of planets in db
-$GalaxyPlanetsRows = array();
+$GalaxyPlanetsRows = [];
 while ($results = mysqli_fetch_assoc($GalaxyViewRows)){
     $GalaxyPlanetsRows[$results['planet']] = $results;
 }
 
-$GalaxyViewData = array();
+$GalaxyViewData = [];
 for($pos = 0; $pos < Constants::MAX_PLANET_IN_SYSTEM; $pos++){
     if(isset($GalaxyPlanetsRows[$pos+1])){
 

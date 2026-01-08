@@ -42,7 +42,7 @@ $StartPageGeneration = getmicrotime();
 $SqlQueries = 0;
 session_start();
 
-if (in_array(strtolower(getenv('DEBUG')), array('1', 'on', 'true'))) {
+if (in_array(strtolower(getenv('DEBUG')), ['1', 'on', 'true'])) {
     define('DEBUG', true);
 }
 
@@ -58,9 +58,9 @@ if (0 === filesize(ROOT_PATH . 'config.php')) {
     die();
 }
 
-$game_config   = array();
-$user          = array();
-$lang          = array();
+$game_config   = [];
+$user          = [];
+$lang          = [];
 $IsUserChecked = false;
 
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
@@ -142,5 +142,5 @@ if (!empty($user) && !defined('QRYLESS')) {
     CheckPlanetUsedFields($planetrow);
     
 } else {
-    $planetrow = array();
+    $planetrow = [];
 }

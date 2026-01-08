@@ -41,7 +41,7 @@ includeLang('fleet');
 	$TypePl = $_GET['t'];
 
 	// Cadre liste de flottes ...
-	$missiontype = array(
+	$missiontype = [
 		1 => $lang['type_mission'][1],
 		2 => $lang['type_mission'][2],
 		3 => $lang['type_mission'][3],
@@ -52,7 +52,7 @@ includeLang('fleet');
 		8 => $lang['type_mission'][8],
 		9 => $lang['type_mission'][9],
 		15 => $lang['type_mission'][15]
-		);
+    ];
 
 	if ($Mode == 8) {
 		$QrySelectGalaxy  = "SELECT * FROM game_galaxy ";

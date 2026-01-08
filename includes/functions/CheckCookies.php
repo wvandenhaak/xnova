@@ -34,7 +34,7 @@ function CheckCookies($IsUserChecked): array
 
     includeLang('cookies');
     
-    $userData = array();
+    $userData = [];
     if (isset($_SESSION['user_id'])) {
         if(!defined('QRYLESS')){
             $sql =<<<EOF
@@ -53,10 +53,10 @@ EOF;
         $userData = doquery($sql, null, true);
     } else if (isset($_COOKIE['nova-cookie'])) {
         $cookieData = unserialize(stripslashes($_COOKIE['nova-cookie']));
-        $cookieData = array(
+        $cookieData = [
             'id' => (isset($cookieData['id']) ? (int) $cookieData['id'] : 0),
             'key' => (isset($cookieData['key']) ? (string) $cookieData['key'] : null)
-            );
+        ];
 
         $sql =<<<EOF
 SELECT * FROM game_users AS user
@@ -70,17 +70,17 @@ EOF;
             message($lang['cookies']['Error2'] );
         }
     } else {
-        return array(
+        return [
             'state' => false,
-            'record' => array()
-            );
+            'record' => []
+        ];
     }
 
-    $sessionData = array(
+    $sessionData = [
         'request_uri' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['REQUEST_URI']),
         'remote_addr' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['REMOTE_ADDR']/* . (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? '|' . $_SERVER['HTTP_X_FORWARDED_FOR'] : '')*/),
         'user_agent' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['HTTP_USER_AGENT'])
-        );
+    ];
         if(!defined('QRYLESS')){ //la page chargée s'en chargera
             $now = time();
     $sql =<<<EOF
@@ -97,8 +97,8 @@ EOF;
     
     $IsUserChecked = true;
 
-    return array(
+    return [
         'state' => $IsUserChecked,
         'record' => $userData
-        );
+    ];
 }

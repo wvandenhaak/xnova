@@ -35,7 +35,7 @@ define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR))) {
+if (in_array($user['authlevel'], [Constants::LEVEL_ADMIN, Constants::LEVEL_OPERATOR, Constants::LEVEL_MODERATOR])) {
 	if ($_POST){
 		if(isset($_GET['mode']) && $_GET['mode'] == "change") {
 			if (isset($_POST["tresc"]) && $_POST["tresc"] != '') {

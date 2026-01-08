@@ -106,7 +106,8 @@ require_once dirname(__FILE__) .'/common.php';
 		$aks = mysqli_num_rows($aks);
 	}
 
-	$missiontype = array(1 => 'Attaquer',
+	$missiontype = [
+        1 => 'Attaquer',
 		2 => 'Zerst&ouml;ren',
 		3 => 'Transporter',
 		4 => 'Stationner',
@@ -115,9 +116,10 @@ require_once dirname(__FILE__) .'/common.php';
 		7 => 'Coloniser',
 		8 => 'Recycler',
 		9 => 'Coloniser',
-		);
+    ];
 
-	$speed = array(10 => 100,
+	$speed = [
+        10 => 100,
 		9 => 90,
 		8 => 80,
 		7 => 70,
@@ -127,7 +129,7 @@ require_once dirname(__FILE__) .'/common.php';
 		3 => 30,
 		2 => 20,
 		1 => 10,
-		);
+    ];
 
 	if (!$galaxy) {
 		$galaxy = $planetrow['galaxy'];

@@ -29,7 +29,7 @@
  */
 
 function bbcode($string) {
-    $pattern = array(
+    $pattern = [
         '/\\n/',
         '/\\r/',
         '/\[list\](.*?)\[\/list\]/ise',
@@ -45,9 +45,9 @@ function bbcode($string) {
         '/\[color=(.*?)\](.*?)\[\/color\]/is',
         '/\[quote\](.*?)\[\/quote\]/ise',
         '/\[code\](.*?)\[\/code\]/ise'
-    );
+    ];
 
-    $replace = array(
+    $replace = [
         '',
         '',
         'sList(\'\\1\')',
@@ -63,7 +63,7 @@ function bbcode($string) {
         '<span style="color: \1;">\2</span>',
         'sQuote(\'\1\')',
         'sCode(\'\1\')'
-    );
+    ];
 
     return preg_replace($pattern, $replace, nl2br(htmlspecialchars(stripslashes($string))));
 }

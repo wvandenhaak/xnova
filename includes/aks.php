@@ -31,7 +31,7 @@
 set_time_limit(360);
 
 function getshipids ($array, $pricelist, $techs) {
-	$return = array();
+	$return = [];
 
 	foreach ($array as $id => $arrayx) {
 		foreach ($arrayx as $schiffid => $arrays) {
@@ -176,58 +176,70 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 	$mtime = $mtime[1] + $mtime[0];
 	$starttime = $mtime;
 	// RapidFire Start
-	$rapidfire = array(202 =>
-		array(210 => 5,
+	$rapidfire = [
+        202 =>
+		[
+            210 => 5,
 			212 => 5
-			),
+        ],
 		203 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5
-			),
+        ],
 		204 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5
-			),
+        ],
 		205 =>
-		array(202 => 3,
+		[
+            202 => 3,
 			210 => 5,
 			212 => 5
 
-			),
+        ],
 		206 =>
-		array(204 => 6,
+		[
+            204 => 6,
 			210 => 5,
 			212 => 5,
 			401 => 10
-			),
+        ],
 		207 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5
-			),
+        ],
 		208 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5
-			),
+        ],
 		209 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5
-			),
+        ],
 		211 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5,
 			401 => 20,
 			402 => 20,
 			403 => 10,
 			405 => 10
-			),
+        ],
 		213 =>
-		array(210 => 5,
+		[
+            210 => 5,
 			212 => 5,
 			215 => 2,
 			402 => 10
-			),
+        ],
 		214 =>
-		array(210 => 1250,
+		[
+            210 => 1250,
 			212 => 1250,
 			202 => 250,
 			203 => 250,
@@ -245,17 +257,18 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 			403 => 100,
 			404 => 50,
 			405 => 100
-			),
+        ],
 		215 =>
-		array(202 => 3,
+		[
+            202 => 3,
 			203 => 3,
 			205 => 4,
 			206 => 4,
 			207 => 7,
 			210 => 5,
 			212 => 5
-			)
-		);
+        ]
+    ];
 	// RapidFire ende
 
 	function pretty_number($n, $floor = true) {
@@ -265,12 +278,12 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 		return number_format($n, 0, ",", ".");
 	}
 
-	$runde = array();
-	$angreifer_schilde = array();
-	$verteidiger_schilde = array();
+	$runde = [];
+	$angreifer_schilde = [];
+	$verteidiger_schilde = [];
 
-	$angreifer_huelle = array();
-	$verteidiger_huelle = array();
+	$angreifer_huelle = [];
+	$verteidiger_huelle = [];
 
 	$angreifer_schiffe_start = $angreifer_schiffe;
 
@@ -296,7 +309,7 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 		}
 	}
 
-	$initialisierung = array();
+	$initialisierung = [];
 
 	foreach ($angreifer_schiffe as $id => $arrayx) {
 		foreach ($arrayx as $schiffid => $array) {
@@ -324,8 +337,8 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 
 	for ($i = 1; $i < 8; $i++) {
 		// $i = runde
-		$zufall_angreifer = array();
-		$zufall_verteidiger = array();
+		$zufall_angreifer = [];
+		$zufall_verteidiger = [];
 
 		$parse = getshipids($angreifer_schiffe, $pricelist, $angreifer_techniken);
 		$zufall_angreifer['a'] = $parse['a'];
@@ -362,8 +375,8 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 			break;
 		}
 
-		$delete_angreifer = array();
-		$delete_verteidiger = array();
+		$delete_angreifer = [];
+		$delete_verteidiger = [];
 
 		foreach ($runde[$i]['angreifer']['schiffe'] as $id => $arrayx) {
 			foreach ($arrayx as $schiffid => $array) {
@@ -381,8 +394,8 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 						$rapidfire_vs = 0;
 						$ship_rapidfire = false;
 
-						$temp = array();
-						$ids = array();
+						$temp = [];
+						$ids = [];
 
 						if (count($zufall_verteidiger['a']) == 0) {
 							$killed1 = 1;
@@ -514,8 +527,8 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 						$rapidfire_vs = 0;
 						$ship_rapidfire = false;
 
-						$temp = array();
-						$ids = array();
+						$temp = [];
+						$ids = [];
 
 						if (count($zufall_angreifer['a']) == 0) {
 							$killed1 = 1;
@@ -673,8 +686,8 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 
 	$runde_id = 0;
 
-	$return_angreifer = array();
-	$return_verteidiger = array();
+	$return_angreifer = [];
+	$return_verteidiger = [];
 
 	foreach ($runde as $rundeid) {
 		$runde_id++;
@@ -683,10 +696,10 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 		$verteidiger = $rundeid['verteidiger'];
 
 		$angreifer_komplettvernichtet = true;
-		$angreifer_nicht_vernichtet = array();
+		$angreifer_nicht_vernichtet = [];
 
 		$verteidiger_komplettvernichtet = true;
-		$verteidiger_nicht_vernichtet = array();
+		$verteidiger_nicht_vernichtet = [];
 
 		foreach ($angreifer as $types => $array) {
 			if ($types == "schiffe") {
@@ -869,7 +882,7 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 	<br>
 			";
 
-		$angreifer_kapazitaet = array();
+		$angreifer_kapazitaet = [];
 		$angreifer_gesamt_kapazitaet = 0;
 
 		foreach ($angreifer_schiffe as $id => $arrayx) {
@@ -891,7 +904,7 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 		$angreifer_beute_kristall = 0;
 		$angreifer_beute_deuterium = 0;
 
-		$angreifer_beute = array();
+		$angreifer_beute = [];
 
 		$anzahl = count($angreifer_kapazitaet);
 
@@ -972,10 +985,10 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 	$units_verteidiger_start = 0;
 	$units_verteidiger_end = 0;
 
-	$verlusteangreifer_schiffe = array();
-	$verlusteverteidiger_schiffe = array();
+	$verlusteangreifer_schiffe = [];
+	$verlusteverteidiger_schiffe = [];
 
-	$verluste_verteidigung = array();
+	$verluste_verteidigung = [];
 
 	foreach ($angreifer_schiffe_start as $id => $array) {
 		foreach ($array as $schiffid => $arrayx) {
@@ -988,7 +1001,7 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 		}
 	}
 
-	$fleet_array = array();
+	$fleet_array = [];
 	$angr_schiffe = 0;
 	if (count($angreifer_schiffe) > 0) {
 		foreach ($angreifer_schiffe as $id => $array) {
@@ -1055,7 +1068,7 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 		}
 	}
 
-	$repair = array();
+	$repair = [];
 
 	if (count($verlusteverteidiger_schiffe) > 0) {
 		foreach ($verlusteverteidiger_schiffe as $schiffid => $anzahl) {
@@ -1136,7 +1149,7 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 </BODY>
 </html>";
 
-	$hashes = array();
+	$hashes = [];
 	$hashes['md5_angreifer'] = md5($ausgabe_angreifer);
 	$hashes['sha1_angreifer'] = sha1($ausgabe_angreifer);
 	$hashes['double_angreifer'] = $hashes['sha1_angreifer'] . $hashes['md5_angreifer'];
@@ -1145,15 +1158,15 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 	$hashes['sha1_verteidiger'] = sha1($ausgabe_verteidiger);
 	$hashes['double_verteidiger'] = $hashes['sha1_verteidiger'] . $hashes['md5_verteidiger'];
 
-	$return = array();
+	$return = [];
 	$return['ausgabe_angreifer'] = $ausgabe_angreifer;
 	$return['ausgabe_verteidger'] = $ausgabe_verteidiger;
 	$return['angreifer_schiffe'] = $angreifer_schiffe;
 	$return['verteidiger_schiffe'] = $verteidiger_schiffe;
 	$return['hashes'] = $hashes;
 	$return['delete'] = $return_delete;
-	$return['tf'] = array("m" => $metall, "k" => $kristall);
-	$return['units'] = array("a" => $verluste_angreifer, "v" => $verluste_verteidiger);
+	$return['tf'] = ["m" => $metall, "k" => $kristall];
+	$return['units'] = ["a" => $verluste_angreifer, "v" => $verluste_verteidiger];
 	$return['ausgang'] = $ausgang;
 	$return['beute'] = $angreifer_beute;
 	$return['endrunde'] = $endrunde;
@@ -1165,153 +1178,179 @@ function aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidi
 
 // aks(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 $angreifer_schiffe =
-array("1" =>
-	array(214 => array("id" => 214,
+[
+    "1" =>
+	[
+        214 => [
+            "id" => 214,
 			"anzahl" => 1000,
-			)
-		),
+        ]
+    ],
 	"2" =>
-	array(213 => array("id" => 213,
+	[
+        213 => [
+            "id" => 213,
 			"anzahl" => 1
-			)
-		)
-	);
+        ]
+    ]
+];
 
 $verteidiger_schiffe =
-array("1" =>
-	array(213 => array("id" => 213,
+[
+    "1" =>
+	[
+        213 => [
+            "id" => 213,
 			"anzahl" => 1
-			)
-		),
+        ]
+    ],
 	"2" =>
-	array(213 => array("id" => 213,
+	[
+        213 => [
+            "id" => 213,
 			"anzahl" => 10
-			),
-		401 => array("id" => 401,
+        ],
+		401 => [
+            "id" => 401,
 			"anzahl" => 1
-			),
-		406 => array("id" => 406,
+        ],
+		406 => [
+            "id" => 406,
 			"anzahl" => 1
-			)
-		),
-	);
+        ]
+    ],
+];
 
 $angreifer_techniken =
-array("1" =>
-	array("waffen" => 1,
+[
+    "1" =>
+	[
+        "waffen" => 1,
 		"schilde" => 2,
 		"panzerung" => 3
-		),
+    ],
 	"2" =>
-	array("waffen" => 3,
+	[
+        "waffen" => 3,
 		"schilde" => 2,
 		"panzerung" => 1
-		)
-	);
+    ]
+];
 
-$angreifer_daten = array(1 => array("koords" => "1:1:1",
+$angreifer_daten = [
+    1 => [
+        "koords" => "1:1:1",
 		"name" => "Test1",
 		"id" => 1
-		),
-	2 => array("koords" => "1:1:2",
+    ],
+	2 => [
+        "koords" => "1:1:2",
 		"name" => "Test2",
 		"id" => 2
-		)
-	);
+    ]
+];
 
-$verteidiger_daten = array(1 => array("koords" => "1:1:3",
+$verteidiger_daten = [
+    1 => [
+        "koords" => "1:1:3",
 		"name" => "Test3",
 		"id" => 1
-		),
-	2 => array("koords" => "1:1:4",
+    ],
+	2 => [
+        "koords" => "1:1:4",
 		"name" => "Test4",
 		"id" => 2
-		)
-	);
+    ]
+];
 
 $verteidiger_techniken =
-array("1" =>
-	array("waffen" => 1,
+[
+    "1" =>
+	[
+        "waffen" => 1,
 		"schilde" => 2,
 		"panzerung" => 3
-		),
+    ],
 	"2" =>
-	array("waffen" => 1,
+	[
+        "waffen" => 1,
 		"schilde" => 2,
 		"panzerung" => 3
-		)
-	);
+    ]
+];
 
-$ressis = array("metall" => 10010,
+$ressis = [
+    "metall" => 10010,
 	"kristall" => 111,
-	"deuterium" => 124);
+	"deuterium" => 124
+];
 
-$pricelist = array(
+$pricelist = [
 
-	1 => array('metal' => 60, 'crystal' => 15, 'deuterium' => 0, 'energy' => 0, 'factor' => 3 / 2),
-	2 => array('metal' => 48, 'crystal' => 24, 'deuterium' => 0, 'energy' => 0, 'factor' => 1.6,),
-	3 => array('metal' => 225, 'crystal' => 75, 'deuterium' => 0, 'energy' => 0, 'factor' => 3 / 2),
-	4 => array('metal' => 75, 'crystal' => 30, 'deuterium' => 0, 'energy' => 0, 'factor' => 3 / 2),
-	12 => array('metal' => 900, 'crystal' => 360, 'deuterium' => 180, 'energy' => 0, 'factor' => 1.8),
-	14 => array('metal' => 400, 'crystal' => 120, 'deuterium' => 200, 'energy' => 0, 'factor' => 2),
-	15 => array('metal' => 1000000, 'crystal' => 500000, 'deuterium' => 100000, 'energy' => 0, 'factor' => 2),
-	21 => array('metal' => 400, 'crystal' => 200, 'deuterium' => 100, 'energy' => 0, 'factor' => 2),
-	22 => array('metal' => 2000, 'crystal' => 0, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	23 => array('metal' => 2000, 'crystal' => 1000, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	24 => array('metal' => 2000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	31 => array('metal' => 200, 'crystal' => 400, 'deuterium' => 200, 'energy' => 0, 'factor' => 2),
-	33 => array('metal' => 0, 'crystal' => 50000, 'deuterium' => 100000, 'energy' => 1000, 'factor' => 2),
-	34 => array('metal' => 20000, 'crystal' => 40000, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	44 => array('metal' => 20000, 'crystal' => 20000, 'deuterium' => 1000, 'energy' => 0, 'factor' => 2),
+	1 => ['metal' => 60, 'crystal' => 15, 'deuterium' => 0, 'energy' => 0, 'factor' => 3 / 2],
+	2 => ['metal' => 48, 'crystal' => 24, 'deuterium' => 0, 'energy' => 0, 'factor' => 1.6,],
+	3 => ['metal' => 225, 'crystal' => 75, 'deuterium' => 0, 'energy' => 0, 'factor' => 3 / 2],
+	4 => ['metal' => 75, 'crystal' => 30, 'deuterium' => 0, 'energy' => 0, 'factor' => 3 / 2],
+	12 => ['metal' => 900, 'crystal' => 360, 'deuterium' => 180, 'energy' => 0, 'factor' => 1.8],
+	14 => ['metal' => 400, 'crystal' => 120, 'deuterium' => 200, 'energy' => 0, 'factor' => 2],
+	15 => ['metal' => 1000000, 'crystal' => 500000, 'deuterium' => 100000, 'energy' => 0, 'factor' => 2],
+	21 => ['metal' => 400, 'crystal' => 200, 'deuterium' => 100, 'energy' => 0, 'factor' => 2],
+	22 => ['metal' => 2000, 'crystal' => 0, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	23 => ['metal' => 2000, 'crystal' => 1000, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	24 => ['metal' => 2000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	31 => ['metal' => 200, 'crystal' => 400, 'deuterium' => 200, 'energy' => 0, 'factor' => 2],
+	33 => ['metal' => 0, 'crystal' => 50000, 'deuterium' => 100000, 'energy' => 1000, 'factor' => 2],
+	34 => ['metal' => 20000, 'crystal' => 40000, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	44 => ['metal' => 20000, 'crystal' => 20000, 'deuterium' => 1000, 'energy' => 0, 'factor' => 2],
 
-	106 => array('metal' => 200, 'crystal' => 1000, 'deuterium' => 200, 'energy' => 0, 'factor' => 2),
-	108 => array('metal' => 0, 'crystal' => 400, 'deuterium' => 600, 'energy' => 0, 'factor' => 2),
-	109 => array('metal' => 800, 'crystal' => 200, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	110 => array('metal' => 200, 'crystal' => 600, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	111 => array('metal' => 1000, 'crystal' => 0, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	113 => array('metal' => 0, 'crystal' => 800, 'deuterium' => 400, 'energy' => 0, 'factor' => 2),
-	114 => array('metal' => 0, 'crystal' => 4000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 2),
-	115 => array('metal' => 400, 'crystal' => 0, 'deuterium' => 600, 'energy' => 0, 'factor' => 2),
-	117 => array('metal' => 2000, 'crystal' => 4000, 'deuterium' => 6000, 'energy' => 0, 'factor' => 2),
-	118 => array('metal' => 10000, 'crystal' => 20000, 'deuterium' => 6000, 'energy' => 0, 'factor' => 2),
-	120 => array('metal' => 200, 'crystal' => 100, 'deuterium' => 0, 'energy' => 0, 'factor' => 2),
-	121 => array('metal' => 1000, 'crystal' => 300, 'deuterium' => 100, 'energy' => 0, 'factor' => 2),
-	122 => array('metal' => 2000, 'crystal' => 4000, 'deuterium' => 1000, 'energy' => 0, 'factor' => 2),
-	123 => array('metal' => 240000, 'crystal' => 400000, 'deuterium' => 160000, 'energy' => 0, 'factor' => 2),
-	199 => array('metal' => 0, 'crystal' => 0, 'deuterium' => 0, 'energy_max' => 300000, 'factor' => 3),
+	106 => ['metal' => 200, 'crystal' => 1000, 'deuterium' => 200, 'energy' => 0, 'factor' => 2],
+	108 => ['metal' => 0, 'crystal' => 400, 'deuterium' => 600, 'energy' => 0, 'factor' => 2],
+	109 => ['metal' => 800, 'crystal' => 200, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	110 => ['metal' => 200, 'crystal' => 600, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	111 => ['metal' => 1000, 'crystal' => 0, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	113 => ['metal' => 0, 'crystal' => 800, 'deuterium' => 400, 'energy' => 0, 'factor' => 2],
+	114 => ['metal' => 0, 'crystal' => 4000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 2],
+	115 => ['metal' => 400, 'crystal' => 0, 'deuterium' => 600, 'energy' => 0, 'factor' => 2],
+	117 => ['metal' => 2000, 'crystal' => 4000, 'deuterium' => 6000, 'energy' => 0, 'factor' => 2],
+	118 => ['metal' => 10000, 'crystal' => 20000, 'deuterium' => 6000, 'energy' => 0, 'factor' => 2],
+	120 => ['metal' => 200, 'crystal' => 100, 'deuterium' => 0, 'energy' => 0, 'factor' => 2],
+	121 => ['metal' => 1000, 'crystal' => 300, 'deuterium' => 100, 'energy' => 0, 'factor' => 2],
+	122 => ['metal' => 2000, 'crystal' => 4000, 'deuterium' => 1000, 'energy' => 0, 'factor' => 2],
+	123 => ['metal' => 240000, 'crystal' => 400000, 'deuterium' => 160000, 'energy' => 0, 'factor' => 2],
+	199 => ['metal' => 0, 'crystal' => 0, 'deuterium' => 0, 'energy_max' => 300000, 'factor' => 3],
 
-	202 => array('metal' => 2000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 20, 'speed' => 5000, 'capacity' => 5000, 'shield' => 10, 'attack' => 5, 'sd' => array(210 => 5, 212 => 5)),
-	203 => array('metal' => 6000, 'crystal' => 6000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 50, 'speed' => 7500, 'capacity' => 25000, 'shield' => 25, 'attack' => 5, 'sd' => array(210 => 5, 212 => 5)),
-	204 => array('metal' => 3000, 'crystal' => 1000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 20, 'speed' => 12500, 'capacity' => 50, 'shield' => 10, 'attack' => 50, 'sd' => array(210 => 5, 212 => 5)),
-	205 => array('metal' => 6000, 'crystal' => 4000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 75, 'speed' => 10000, 'capacity' => 100, 'shield' => 25, 'attack' => 150, 'sd' => array(210 => 5, 212 => 5, 202 => 3)),
-	206 => array('metal' => 20000, 'crystal' => 7000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 1, 'consumption' => 300, 'speed' => 15000, 'capacity' => 800, 'shield' => 50, 'attack' => 400, 'sd' => array(210 => 5, 212 => 5, 204 => 6, 401 => 10)),
-	207 => array('metal' => 45000, 'crystal' => 15000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 500, 'speed' => 10000, 'capacity' => 1500, 'shield' => 200, 'attack' => 1000, 'sd' => array(210 => 5, 212 => 5)),
-	208 => array('metal' => 10000, 'crystal' => 20000, 'deuterium' => 10000, 'energy' => 0, 'factor' => 1, 'consumption' => 1000, 'speed' => 2500, 'capacity' => 7500, 'shield' => 100, 'attack' => 50, 'sd' => array(210 => 5, 212 => 5)),
-	209 => array('metal' => 10000, 'crystal' => 6000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 1, 'consumption' => 300, 'speed' => 2000, 'capacity' => 20000, 'shield' => 10, 'attack' => 1, 'sd' => array(210 => 5, 212 => 5)),
-	210 => array('metal' => 0, 'crystal' => 1000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 1, 'speed' => 100000000, 'capacity' => 5, 'shield' => 0, 'attack' => 0, 'sd' => array(210 => 0)),
-	211 => array('metal' => 50000, 'crystal' => 25000, 'deuterium' => 15000, 'energy' => 0, 'factor' => 1, 'consumption' => 1000, 'speed' => 4000, 'capacity' => 500, 'shield' => 500, 'attack' => 1000, 'sd' => array(210 => 5, 212 => 5, 401 => 20, 402 => 20, 403 => 10, 405 => 10)),
-	212 => array('metal' => 0, 'crystal' => 2000, 'deuterium' => 500, 'energy' => 0, 'factor' => 1, 'shield' => 10, 'attack' => 5, 'attack' => 1, 'sd' => array(212 => 0)),
-	213 => array('metal' => 60000, 'crystal' => 50000, 'deuterium' => 15000, 'energy' => 0, 'factor' => 1, 'consumption' => 1000, 'speed' => 5000, 'capacity' => 2000, 'shield' => 500, 'attack' => 2000, 'sd' => array(210 => 5, 212 => 5, 402 => 10, 215 => 2)),
-	214 => array('metal' => 5000000, 'crystal' => 4000000, 'deuterium' => 1000000, 'energy' => 0, 'factor' => 1, 'consumption' => 100, 'speed' => 100, 'capacity' => 1000000, 'shield' => 50000, 'attack' => 200000, 'sd' => array(210 => 1250, 212 => 1250, 202 => 250, 203 => 250, 204 => 200, 205 => 100, 206 => 33, 207 => 30, 208 => 250, 209 => 250, 211 => 25, 215 => 15, 401 => 200, 402 => 200, 403 => 100, 404 => 50, 405 => 100)),
-	215 => array('metal' => 30000, 'crystal' => 40000, 'deuterium' => 15000, 'energy' => 0, 'factor' => 1, 'consumption' => 250, 'speed' => 10000, 'capacity' => 750, 'shield' => 400, 'attack' => 700, 'sd' => array(210 => 5, 212 => 5, 202 => 3, 203 => 3, 205 => 4, 206 => 4, 207 => 7)),
+	202 => ['metal' => 2000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 20, 'speed' => 5000, 'capacity' => 5000, 'shield' => 10, 'attack' => 5, 'sd' => [210 => 5, 212 => 5]],
+	203 => ['metal' => 6000, 'crystal' => 6000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 50, 'speed' => 7500, 'capacity' => 25000, 'shield' => 25, 'attack' => 5, 'sd' => [210 => 5, 212 => 5]],
+	204 => ['metal' => 3000, 'crystal' => 1000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 20, 'speed' => 12500, 'capacity' => 50, 'shield' => 10, 'attack' => 50, 'sd' => [210 => 5, 212 => 5]],
+	205 => ['metal' => 6000, 'crystal' => 4000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 75, 'speed' => 10000, 'capacity' => 100, 'shield' => 25, 'attack' => 150, 'sd' => [210 => 5, 212 => 5, 202 => 3]],
+	206 => ['metal' => 20000, 'crystal' => 7000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 1, 'consumption' => 300, 'speed' => 15000, 'capacity' => 800, 'shield' => 50, 'attack' => 400, 'sd' => [210 => 5, 212 => 5, 204 => 6, 401 => 10]],
+	207 => ['metal' => 45000, 'crystal' => 15000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 500, 'speed' => 10000, 'capacity' => 1500, 'shield' => 200, 'attack' => 1000, 'sd' => [210 => 5, 212 => 5]],
+	208 => ['metal' => 10000, 'crystal' => 20000, 'deuterium' => 10000, 'energy' => 0, 'factor' => 1, 'consumption' => 1000, 'speed' => 2500, 'capacity' => 7500, 'shield' => 100, 'attack' => 50, 'sd' => [210 => 5, 212 => 5]],
+	209 => ['metal' => 10000, 'crystal' => 6000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 1, 'consumption' => 300, 'speed' => 2000, 'capacity' => 20000, 'shield' => 10, 'attack' => 1, 'sd' => [210 => 5, 212 => 5]],
+	210 => ['metal' => 0, 'crystal' => 1000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'consumption' => 1, 'speed' => 100000000, 'capacity' => 5, 'shield' => 0, 'attack' => 0, 'sd' => [210 => 0]],
+	211 => ['metal' => 50000, 'crystal' => 25000, 'deuterium' => 15000, 'energy' => 0, 'factor' => 1, 'consumption' => 1000, 'speed' => 4000, 'capacity' => 500, 'shield' => 500, 'attack' => 1000, 'sd' => [210 => 5, 212 => 5, 401 => 20, 402 => 20, 403 => 10, 405 => 10]],
+	212 => ['metal' => 0, 'crystal' => 2000, 'deuterium' => 500, 'energy' => 0, 'factor' => 1, 'shield' => 10, 'attack' => 5, 'attack' => 1, 'sd' => [212 => 0]],
+	213 => ['metal' => 60000, 'crystal' => 50000, 'deuterium' => 15000, 'energy' => 0, 'factor' => 1, 'consumption' => 1000, 'speed' => 5000, 'capacity' => 2000, 'shield' => 500, 'attack' => 2000, 'sd' => [210 => 5, 212 => 5, 402 => 10, 215 => 2]],
+	214 => ['metal' => 5000000, 'crystal' => 4000000, 'deuterium' => 1000000, 'energy' => 0, 'factor' => 1, 'consumption' => 100, 'speed' => 100, 'capacity' => 1000000, 'shield' => 50000, 'attack' => 200000, 'sd' => [210 => 1250, 212 => 1250, 202 => 250, 203 => 250, 204 => 200, 205 => 100, 206 => 33, 207 => 30, 208 => 250, 209 => 250, 211 => 25, 215 => 15, 401 => 200, 402 => 200, 403 => 100, 404 => 50, 405 => 100]],
+	215 => ['metal' => 30000, 'crystal' => 40000, 'deuterium' => 15000, 'energy' => 0, 'factor' => 1, 'consumption' => 250, 'speed' => 10000, 'capacity' => 750, 'shield' => 400, 'attack' => 700, 'sd' => [210 => 5, 212 => 5, 202 => 3, 203 => 3, 205 => 4, 206 => 4, 207 => 7]],
 
-	401 => array('metal' => 2000, 'crystal' => 0, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 20, 'attack' => 80, 'sd' => array(401 => 0)),
-	402 => array('metal' => 1500, 'crystal' => 500, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 25, 'attack' => 100, 'sd' => array(402 => 0)),
-	403 => array('metal' => 6000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 100, 'attack' => 250, 'sd' => array(403 => 0)),
-	404 => array('metal' => 20000, 'crystal' => 15000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 1, 'shield' => 200, 'attack' => 1100, 'sd' => array(404 => 0)),
-	405 => array('metal' => 2000, 'crystal' => 6000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 500, 'attack' => 150, 'sd' => array(405 => 0)),
-	406 => array('metal' => 50000, 'crystal' => 50000, 'deuterium' => 30000, 'energy' => 0, 'factor' => 1, 'shield' => 300, 'attack' => 3000, 'sd' => array(406 => 0)),
-	407 => array('metal' => 10000, 'crystal' => 10000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 2000, 'attack' => 1, 'sd' => array(407 => 0)),
-	408 => array('metal' => 50000, 'crystal' => 50000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 2000, 'attack' => 1, 'sd' => array(408 => 0)),
+	401 => ['metal' => 2000, 'crystal' => 0, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 20, 'attack' => 80, 'sd' => [401 => 0]],
+	402 => ['metal' => 1500, 'crystal' => 500, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 25, 'attack' => 100, 'sd' => [402 => 0]],
+	403 => ['metal' => 6000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 100, 'attack' => 250, 'sd' => [403 => 0]],
+	404 => ['metal' => 20000, 'crystal' => 15000, 'deuterium' => 2000, 'energy' => 0, 'factor' => 1, 'shield' => 200, 'attack' => 1100, 'sd' => [404 => 0]],
+	405 => ['metal' => 2000, 'crystal' => 6000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 500, 'attack' => 150, 'sd' => [405 => 0]],
+	406 => ['metal' => 50000, 'crystal' => 50000, 'deuterium' => 30000, 'energy' => 0, 'factor' => 1, 'shield' => 300, 'attack' => 3000, 'sd' => [406 => 0]],
+	407 => ['metal' => 10000, 'crystal' => 10000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 2000, 'attack' => 1, 'sd' => [407 => 0]],
+	408 => ['metal' => 50000, 'crystal' => 50000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 2000, 'attack' => 1, 'sd' => [408 => 0]],
 
-	502 => array('metal' => 8000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 1, 'attack' => 1),
-	503 => array('metal' => 12500, 'crystal' => 2500, 'deuterium' => 10000, 'energy' => 0, 'factor' => 1, 'shield' => 1, 'attack' => 12000),
+	502 => ['metal' => 8000, 'crystal' => 2000, 'deuterium' => 0, 'energy' => 0, 'factor' => 1, 'shield' => 1, 'attack' => 1],
+	503 => ['metal' => 12500, 'crystal' => 2500, 'deuterium' => 10000, 'energy' => 0, 'factor' => 1, 'shield' => 1, 'attack' => 12000],
 
-	41 => array('metal' => 20000, 'crystal' => 40000, 'deuterium' => 20000, 'energy' => 0, 'factor' => 1),
-	42 => array('metal' => 20000, 'crystal' => 40000, 'deuterium' => 20000, 'energy' => 0, 'factor' => 1),
-	43 => array('metal' => 2000000, 'crystal' => 4000000, 'deuterium' => 2000000, 'energy' => 0, 'factor' => 1)
+	41 => ['metal' => 20000, 'crystal' => 40000, 'deuterium' => 20000, 'energy' => 0, 'factor' => 1],
+	42 => ['metal' => 20000, 'crystal' => 40000, 'deuterium' => 20000, 'energy' => 0, 'factor' => 1],
+	43 => ['metal' => 2000000, 'crystal' => 4000000, 'deuterium' => 2000000, 'energy' => 0, 'factor' => 1]
 
-	);
+];
 
 $x = aks($angreifer_daten, $verteidiger_daten, $angreifer_schiffe, $verteidiger_schiffe, $angreifer_techniken, $verteidiger_techniken, $ressis, $pricelist);
 

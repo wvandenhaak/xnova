@@ -125,16 +125,16 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser): void
     }
 
     if (!empty($currentPlanet['b_hangar_id'])) { //@todo fix this
-        $data = array();
+        $data = [];
         foreach ($shipyard->getQueue() as $item) {
-            $data[] = array_merge($item, array(
+            $data[] = array_merge($item, [
                 'label' => $lang['tech'][$item['ship_id']],
                 'speed' => $shipyard->getBuildTime($item['ship_id'], 1)
-                ));
+            ]);
         }
-        $parse = array(
+        $parse = [
             'data' => json_encode($data)
-            );
+        ];
         $BuildQueue = $MustacheEngine->render(gettemplate('buildings_script'), $parse);
     }
 

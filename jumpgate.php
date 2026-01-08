@@ -53,7 +53,7 @@ function DoFleetJump ( $CurrentUser, $CurrentPlanet ) {
 				// Dit monsieur, chez toi aussi peut y avoir un saut ???
 				if ( $NextDestTime == 0 ) {
 					// Bon j'ai eu toutes les autorisations, donc je compte les radis !!!
-					$ShipArray   = array();
+					$ShipArray   = [];
 					$SubQueryOri = "";
 					$SubQueryDes = "";
 					for ( $Ship = 200; $Ship < 300; $Ship++ ) {

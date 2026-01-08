@@ -1,4 +1,4 @@
-<?php return array(
+<?php return [
 //
 // Buildings
 // {{{
@@ -98,4 +98,4 @@
     614 => "rpg_raideur",
     615 => "rpg_empereur"
 // }}}
-    );
+];

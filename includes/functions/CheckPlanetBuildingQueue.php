@@ -35,7 +35,7 @@ function CheckPlanetBuildingQueue ( &$CurrentPlanet, &$CurrentUser ): bool
 	global $lang, $resource;
 
 	// Table des batiments donnant droit de l'experience minier
-	$XPBuildings  = array(  1,  2,  3, 22, 23, 24);
+	$XPBuildings  = [1,  2,  3, 22, 23, 24];
 
 	$RetValue     = false;
 	if ($CurrentPlanet['b_building_id'] != 0) {

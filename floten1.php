@@ -33,7 +33,8 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	includeLang('fleet');
 	$user = MergeUserTechnology($user);
-	$speed = array(10 => 100,
+	$speed = [
+        10 => 100,
 		9 => 90,
 		8 => 80,
 		7 => 70,
@@ -43,7 +44,7 @@ require_once dirname(__FILE__) .'/common.php';
 		3 => 30,
 		2 => 20,
 		1 => 10,
-		);
+    ];
 
 	$g = $_POST['galaxy'];
 	$s = $_POST['system'];
@@ -66,12 +67,12 @@ require_once dirname(__FILE__) .'/common.php';
 	// Verifions si nous avons bien tout ce que nous voullons envoyer
 	$FleetHiddenBlock  = "";
 	//die(var_dump($_POST));
-	$fleet = array('fleetlist' => '', 'amount' => 0);
+	$fleet = ['fleetlist' => '', 'amount' => 0];
 	foreach ($reslist['fleet'] as $n => $i) {
 		if ($i > 200 && $i < 300 && $i != 212 && $_POST["ship$i"] > "0") {
 			if ($_POST["ship$i"] > $planetrow[$resource[$i]]) {
 				$page .= $lang['fl_noenought'];
-				$speedalls[$i]             = GetFleetMaxSpeed ( array(), $i, $user );
+				$speedalls[$i]             = GetFleetMaxSpeed ( [], $i, $user );
 			} else {
 				$fleet['fleetarray'][$i]   = $_POST["ship$i"];
 				// Tableau des vaisseaux avec leur nombre
@@ -80,10 +81,10 @@ require_once dirname(__FILE__) .'/common.php';
 				$fleet['amount']          += $_POST["ship$i"];
 				// Tableau des vitesses
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"consumption". $i ."\" value=\"". GetShipConsumption ( $i, $user ) ."\" />";
-				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"speed". $i ."\"       value=\"". GetFleetMaxSpeed ( array(), $i, $user ) ."\" />";
+				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"speed". $i ."\"       value=\"". GetFleetMaxSpeed ( [], $i, $user ) ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"capacity". $i ."\"    value=\"". $pricelist[$i]['capacity'] ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"ship". $i ."\"        value=\"". $_POST["ship$i"] ."\" />";
-				$speedalls[$i]             = GetFleetMaxSpeed ( array(), $i, $user );
+				$speedalls[$i]             = GetFleetMaxSpeed ( [], $i, $user );
 			}
 		}
 	}

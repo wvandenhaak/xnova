@@ -102,7 +102,7 @@ function display ($page, $title = '', $topnav = true, $AdminPage = false) {
 		}
 		$DisplayPage .= "<center>\n". $page ."\n</center>\n";
 		
-		$DisplayPage .= $MustacheEngine->render(gettemplate('overall_footer'), array());
+		$DisplayPage .= $MustacheEngine->render(gettemplate('overall_footer'), []);
 		if (isset($link)) {
 			
 			mysqli_close($link);

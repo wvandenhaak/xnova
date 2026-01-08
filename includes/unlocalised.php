@@ -81,7 +81,7 @@ function GetFleetMaxSpeed ($FleetArray, $Fleet, $Player) {
     if ($Fleet != 0) {
         $FleetArray[$Fleet] =  1;
     }
-    $speedalls = array();
+    $speedalls = [];
     foreach ($FleetArray as $Ship => $Count) {
         if ($Ship == 202) {
             if ($Player['impulse_motor_tech'] >= 5) {
@@ -136,7 +136,7 @@ function GetFleetConsumption ($FleetArray, $SpeedFactor, $MissionDuration, $Miss
     $basicConsumption = 0;
     foreach ($FleetArray as $Ship => $Count) {
         if ($Ship > 0) {
-            $ShipSpeed         = GetFleetMaxSpeed ( array(), $Ship, $Player );
+            $ShipSpeed         = GetFleetMaxSpeed ( [], $Ship, $Player );
             $ShipConsumption   = GetShipConsumption ( $Ship, $Player );
             $spd               = 35000 / ($MissionDuration * $SpeedFactor - 10) * sqrt( $MissionDistance * 10 / $ShipSpeed );
             $basicConsumption  = $ShipConsumption * $Count;

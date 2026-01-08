@@ -35,7 +35,7 @@ define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-	if (in_array($user['authlevel'], array(Constants::LEVEL_ADMIN))) {
+	if (in_array($user['authlevel'], [Constants::LEVEL_ADMIN])) {
 		$lang['PHP_SELF'] = 'options.php';
 		doquery("UPDATE game_users SET `banaday` =` banaday` - '1' WHERE `banaday` != '0';");
 		doquery("UPDATE game_users SET `bana` = '0' WHERE `banaday` < '1';");

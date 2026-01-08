@@ -48,7 +48,7 @@ function PlanetResourceUpdate ( $CurrentUser, &$CurrentPlanet, $UpdateTime, $Sim
 
     // Calcul de production lin�aire des divers types
     //$Caps is set to null to prevent NOTICE errors
-    $Caps             = array('metal_perhour' => 0, 'crystal_perhour' => 0, 'deuterium_perhour' => 0, 'energy_used' => 0, 'energy_max' => 0);
+    $Caps             = ['metal_perhour' => 0, 'crystal_perhour' => 0, 'deuterium_perhour' => 0, 'energy_used' => 0, 'energy_max' => 0];
     $BuildTemp        = $CurrentPlanet[ 'temp_max' ];
 
     for ( $ProdID = 0; $ProdID < 300; $ProdID++ ) {

@@ -28,7 +28,7 @@
  *
  */
 
-$QryMigrate = array(
+$QryMigrate = [
 "ALTER TABLE `game_fleets` ADD COLUMN `fleet_end_stay` int(11) NOT NULL default '0';",
 "ALTER TABLE `game_fleets` ADD COLUMN `fleet_target_owner` int(11) NOT NULL default '0';",
 "ALTER TABLE `game_fleets` ADD COLUMN `fleet_group` int (11) NOT NULL DEFAULT '0';",
@@ -141,4 +141,5 @@ KEY `TOTAL` (`total_points`)
 `sharer` bigint(11) unsigned NOT NULL default '0',
 `reason` text character set latin1 NOT NULL,
 PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;"
+];

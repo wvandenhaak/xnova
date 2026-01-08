@@ -50,9 +50,9 @@ if ($DeleteWhat != '') {
 
 $UsrMess       = doquery("SELECT `message_type` FROM game_messages WHERE `message_owner` = '".strval($user['id'])."' ORDER BY `message_time` DESC");
 
-$MessageType   = array (100, 0, 1, 2, 3, 4, 5, 15, 99, 97 );
-$TitleColor    = array (0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB', 97 => '#666666');
-$BackGndColor  = array (0 => '#663366', 1 => '#336666', 2 => '#000099', 3 => '#666666', 4 => '#999999', 5 => '#999999', 15 => '#999999', 99 => '#999999', 100 => '#999999', 97 => '#999999');
+$MessageType   = [100, 0, 1, 2, 3, 4, 5, 15, 99, 97];
+$TitleColor    = [0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB', 97 => '#666666'];
+$BackGndColor  = [0 => '#663366', 1 => '#336666', 2 => '#000099', 3 => '#666666', 4 => '#999999', 5 => '#999999', 15 => '#999999', 99 => '#999999', 100 => '#999999', 97 => '#999999'];
 
 foreach($MessageType as $MessType){
 	$WaitingMess[$MessType] = $user[$messfields[$MessType]];

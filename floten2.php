@@ -62,15 +62,15 @@ require_once dirname(__FILE__) .'/common.php';
 	// Determinons les type de missions possibles par rapport a la planete cible
 	if ($_POST['planettype'] == "2") {
 		if ($_POST['ship209'] >= 1) {
-			$missiontype = array(8 => $lang['type_mission'][8]);
+			$missiontype = [8 => $lang['type_mission'][8]];
 		} else {
-			$missiontype = array();
+			$missiontype = [];
 		}
 	} elseif ($_POST['planettype'] == "1" || $_POST['planettype'] == "3") {
 		if ($_POST['ship208'] >= 1 && !$UsedPlanet) {
-			$missiontype = array(7 => $lang['type_mission'][7]);
+			$missiontype = [7 => $lang['type_mission'][7]];
 		} elseif ($_POST['ship210'] >= 1 && !$YourPlanet) {
-			$missiontype = array(6 => $lang['type_mission'][6]);
+			$missiontype = [6 => $lang['type_mission'][6]];
 		}
 
 		if (isset($_POST['ship202']) && $_POST['ship202'] >= 1 ||
@@ -113,7 +113,7 @@ require_once dirname(__FILE__) .'/common.php';
        $missiontype[9] = $lang['type_mission'][9];
    }
 
-	$fleetarray    = isset($_POST["usedfleet"]) ? unserialize(base64_decode(str_rot13($_POST["usedfleet"]))) : array();
+	$fleetarray    = isset($_POST["usedfleet"]) ? unserialize(base64_decode(str_rot13($_POST["usedfleet"]))) : [];
 	$mission       = $_POST['target_mission'];
 	$SpeedFactor   = $_POST['speedfactor'];
 	$AllFleetSpeed = GetFleetMaxSpeed ($fleetarray, 0, $user);
@@ -191,7 +191,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$page .= "<input type=\"hidden\" name=\"ship". $Ship ."\"        value=\"". $Count ."\" />\n";
 		$page .= "<input type=\"hidden\" name=\"capacity". $Ship ."\"    value=\"". $pricelist[$Ship]['capacity'] ."\" />\n";
 		$page .= "<input type=\"hidden\" name=\"consumption". $Ship ."\" value=\"". GetShipConsumption ( $Ship, $user ) ."\" />\n";
-		$page .= "<input type=\"hidden\" name=\"speed". $Ship ."\"       value=\"". GetFleetMaxSpeed ( array(), $Ship, $user ) ."\" />\n";
+		$page .= "<input type=\"hidden\" name=\"speed". $Ship ."\"       value=\"". GetFleetMaxSpeed ( [], $Ship, $user ) ."\" />\n";
 
 	}
 	$page .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" width=\"519\">\n";

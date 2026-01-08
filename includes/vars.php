@@ -35,7 +35,7 @@ if (!defined('ROOT_PATH')) {
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire.php';
 
 // Liste de champs pour l'indication des messages en attante
-$messfields = array (
+$messfields = [
     0   => "mnl_spy",
     1   => "mnl_joueur",
     2   => "mnl_alliance",
@@ -46,7 +46,7 @@ $messfields = array (
     97  => "mnl_general",
     99  => "mnl_buildlist",
     100 => "new_message"
-    );
+];
 
 $resource = include ROOT_PATH . 'includes/data/fields-alias.php';
 

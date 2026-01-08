@@ -35,11 +35,11 @@ define('INSTALL' , false);
 define('DISABLE_IDENTITY_CHECK', true);
 require_once dirname(__FILE__) . '/common.php';
 
-$mailData = array(
+$mailData = [
     'recipient' => NULL,
     'sender' => 'no-reply',
     'subject' => 'XNova:Legacies - Changement de mot de passe'
-    );
+];
 
 includeLang('lostpassword');
 

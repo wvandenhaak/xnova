@@ -43,12 +43,12 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ): string
 		$parse['image']      = $CurrentPlanet['image'];
 
 		// Genearation de la combo des planetes du joueur
-		$PlanetList = array();
+		$PlanetList = [];
 		//$parse['planetlist'] = '';
 		$ThisUsersPlanets    = SortUserPlanets ( $CurrentUser );
 		while ($CurPlanet = mysqli_fetch_array($ThisUsersPlanets)) {
 			if ($CurPlanet["destruyed"] == 0) {
-				$PlanetList[] = array("currentSelectedPlanet" => $CurPlanet['id'] == $CurrentUser['current_planet'], "id" => $CurPlanet['id'], "name" => $CurPlanet['name'], "galaxy" => $CurPlanet['galaxy'], "system" => $CurPlanet['system'], "planet" => $CurPlanet['planet']);
+				$PlanetList[] = ["currentSelectedPlanet" => $CurPlanet['id'] == $CurrentUser['current_planet'], "id" => $CurPlanet['id'], "name" => $CurPlanet['name'], "galaxy" => $CurPlanet['galaxy'], "system" => $CurPlanet['system'], "planet" => $CurPlanet['planet']];
 			}
 		}
 		$parse['planetlist'] = $PlanetList;

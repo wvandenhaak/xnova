@@ -1,11 +1,11 @@
-<?php return array(
+<?php return [
 //
 // Ships combat capacities
 // {{{
-    Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => array(
+    Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 10,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 5,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -28,13 +28,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => array(
+    Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 25,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 5,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -57,13 +57,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_LIGHT_FIGHTER => array(
+    Legacies_Empire::ID_SHIP_LIGHT_FIGHTER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 10,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 50,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 2,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -86,13 +86,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_HEAVY_FIGHTER => array(
+    Legacies_Empire::ID_SHIP_HEAVY_FIGHTER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 25,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 150,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 3,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -115,13 +115,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_CRUISER => array(
+    Legacies_Empire::ID_SHIP_CRUISER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 50,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 400,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 6,
@@ -144,13 +144,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_BATTLESHIP => array(
+    Legacies_Empire::ID_SHIP_BATTLESHIP => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 200,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 1000,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -173,13 +173,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_COLONY_SHIP => array(
+    Legacies_Empire::ID_SHIP_COLONY_SHIP => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 100,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 50,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -202,13 +202,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_RECYCLER => array(
+    Legacies_Empire::ID_SHIP_RECYCLER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 10,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 1,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -231,13 +231,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_SPY_DRONE => array(
+    Legacies_Empire::ID_SHIP_SPY_DRONE => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 0,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 0,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 0,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 0,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 0,
@@ -260,13 +260,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 0,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 0,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 0
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_BOMBER => array(
+    Legacies_Empire::ID_SHIP_BOMBER => [
         Legacies_Empire::ID_COMBAT_SHIELDS => 500,
         Legacies_Empire::ID_COMBAT_FIREPOWER => 1000,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -289,13 +289,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_SOLAR_SATELLITE => array(
+    Legacies_Empire::ID_SHIP_SOLAR_SATELLITE => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 10,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 1,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -318,13 +318,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_DESTRUCTOR => array(
+    Legacies_Empire::ID_SHIP_DESTRUCTOR => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 500,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 2000,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -347,13 +347,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_DEATH_STAR => array(
+    Legacies_Empire::ID_SHIP_DEATH_STAR => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 50000,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 200000,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 250,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 250,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 200,
@@ -376,13 +376,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_BATTLECRUISER => array(
+    Legacies_Empire::ID_SHIP_BATTLECRUISER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 400,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 700,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 3,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 3,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1,
@@ -405,13 +405,13 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 1,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_SHIP_SUPERNOVA => array(
+    Legacies_Empire::ID_SHIP_SUPERNOVA => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 400,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 700,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT      => 1250,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT      => 1250,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER        => 1000,
@@ -434,17 +434,17 @@
             Legacies_Empire::ID_DEFENSE_PLASMA_TURRET     => 5,
             Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => 1,
             Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => 1
-            )
-        ),
+        ]
+    ],
 // }}}
 
 //
 // Defense combat capacities
 // {{{
-    Legacies_Empire::ID_DEFENSE_ROCKET_LAUNCHER => array (
+    Legacies_Empire::ID_DEFENSE_ROCKET_LAUNCHER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 20,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 80,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -459,13 +459,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_LIGHT_LASER => array (
+    Legacies_Empire::ID_DEFENSE_LIGHT_LASER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 25,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 100,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -480,13 +480,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_HEAVY_LASER => array (
+    Legacies_Empire::ID_DEFENSE_HEAVY_LASER => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 100,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 250,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -501,13 +501,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_ION_CANNON => array(
+    Legacies_Empire::ID_DEFENSE_ION_CANNON => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 200,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 1100,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -522,13 +522,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_GAUSS_CANNON => array (
+    Legacies_Empire::ID_DEFENSE_GAUSS_CANNON => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 500,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 150,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -543,13 +543,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_PLASMA_TURRET => array(
+    Legacies_Empire::ID_DEFENSE_PLASMA_TURRET => [
         Legacies_Empire::ID_COMBAT_SHIELDS     => 300,
          Legacies_Empire::ID_COMBAT_FIREPOWER  => 3000,
-         Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+         Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -564,13 +564,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+         ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => array(
+    Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 2000,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 1,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -585,13 +585,13 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
-    Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => array(
+    Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME => [
         Legacies_Empire::ID_COMBAT_SHIELDS    => 2000,
         Legacies_Empire::ID_COMBAT_FIREPOWER  => 1,
-        Legacies_Empire::ID_COMBAT_RAPID_FIRE => array(
+        Legacies_Empire::ID_COMBAT_RAPID_FIRE => [
             Legacies_Empire::ID_SHIP_LIGHT_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LARGE_TRANSPORT => 1,
             Legacies_Empire::ID_SHIP_LIGHT_FIGHTER   => 1,
@@ -606,18 +606,18 @@
             Legacies_Empire::ID_SHIP_DESTRUCTOR      => 1,
             Legacies_Empire::ID_SHIP_DEATH_STAR      => 1,
             Legacies_Empire::ID_SHIP_BATTLECRUISER   => 1
-            )
-        ),
+        ]
+    ],
 
 
-    Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE => array(
+    Legacies_Empire::ID_SPECIAL_ANTIBALLISTIC_MISSILE => [
         Legacies_Empire::ID_COMBAT_SHIELDS   => 1,
         Legacies_Empire::ID_COMBAT_FIREPOWER => 1
-        ),
+    ],
 
-    Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE => array(
+    Legacies_Empire::ID_SPECIAL_INTERPLANETARY_MISSILE => [
         Legacies_Empire::ID_COMBAT_SHIELDS   => 1,
         Legacies_Empire::ID_COMBAT_FIREPOWER => 12000
-        )
+    ]
 // }}}
-    );
+];
