@@ -224,12 +224,8 @@ function saveToFile($filename, $content) {
  */
 function parsetemplate($template, $array){
 	foreach($array as $a => $b) {
-        if(is_array($b)){
-        }
         if(!is_array($b)){
-            
             $template = str_replace("{{$a}}", $b, $template);
-
         }
 	}
 	return $template;

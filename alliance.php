@@ -778,8 +778,6 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			$lang['text'] = $ally['ally_description'];
 		}
 
-		if ($t == 3) {
-		}
 		$lang['t'] = $t;
 
 		$lang['ally_web'] = $ally['ally_web'];

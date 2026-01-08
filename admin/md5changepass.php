@@ -48,8 +48,6 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			//$QueryUpdatePass = "WHERE ";
 	        //$QueryUpdatePass .= "`username`=" . $_POST['user'] . "";
             //doquery($QueryUpdatePass);
-		} else {
-
 		}
 
 		$PageTpl = gettemplate("admin/changepass");
