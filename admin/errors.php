@@ -38,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 includeLang('admin/interface');
 $parse = $lang;
 
-	if (in_array($user['authlevel'], [Constants::LEVEL_ADMIN])) {
+	if ($user['authlevel'] == Constants::LEVEL_ADMIN) {
 
 		// Supprimer les erreurs
 		extract($_GET);

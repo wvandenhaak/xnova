@@ -40,7 +40,7 @@ includeLang('admin/interface');
 function XNovaResetUnivers ( $CurrentUser ) {
 	global $lang;
 
-	if (in_array($CurrentUser['authlevel'], [Constants::LEVEL_ADMIN])) {
+	if ($CurrentUser['authlevel'] == Constants::LEVEL_ADMIN) {
 
 		// Copier la table users et planets vers des tables de replis !
 		doquery( "RENAME TABLE game_planets TO game_planets_s");

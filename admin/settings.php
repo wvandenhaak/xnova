@@ -41,7 +41,7 @@ function DisplayGameSettingsPage ( $CurrentUser ) {
 
 	includeLang('admin/settings');
 
-	if (in_array((int) $CurrentUser['authlevel'], [Constants::LEVEL_ADMIN])) {
+	if ((int)$CurrentUser['authlevel'] == Constants::LEVEL_ADMIN) {
 		if ($_POST['opt_save'] == "1") {
 			// Jeu Ouvert ou Ferm� !
 			if (isset($_POST['closed']) && $_POST['closed'] == 'on') {
